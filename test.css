@@ -1,0 +1,43 @@
+#header {
+    /*bandeau*/
+  height: 170px;
+  background: url('Bandeau.jpg') ;
+
+  /*texte bandeau*/
+  color: rgb(255, 255, 255);
+  font: bold italic large serif;
+  font-size: xx-large;
+  text-align:center;
+  vertical-align: middle;
+  line-height: 170px;
+}
+
+body{
+    margin:0px;
+}
+
+#boutonmodif{
+    margin-left: 150px;
+    margin-top: 100px;
+}
+
+.renseignement{
+    margin-top: 80px ;
+    column-width: 270px;
+    text-align: left;
+  }
+  
+#titre{
+    /*titre de l'information*/
+    font: bold large serif;
+    font-size: large;
+    margin-left: 140px ;
+  }
+
+#menu{
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 50px;
+  height: 50px;
+  
+}
