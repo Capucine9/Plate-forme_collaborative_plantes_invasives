@@ -8,34 +8,43 @@
     <body>
         <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
 
-
         <!--menu déroulant-->
         <div class="deroulant">
-            <button id="menu" onclick="deroule()"> Menu </button>   <!--voir pour fonction onclick en js-->
-            <div id="partie" class="partie" >
-                <a href="">Accueil</a>
-                <a href="profil_utilisateur.php">Votre profil</a>
-                <a href="">Les plantes</a>
-                <a href="">Les utilisateurs</a>
-                <a href="">Les derniers signalements</a>
-                <a href="">Signaler une plante</a>
-                <a href="">Ajouter une plante</a>
-                <a href="">Vos amis</a>
-            </div>
+            <button class="menu"> Menu </button>  
+                <div class="partie" >
+                    <a href="accueil.php">Accueil</a>
+                    <a href="profil_utilisateur.php">Votre profil</a>
+                    <a href="repertoire_botannique.php">Le répertoire botannique</a>
+                    <a href="">Les utilisateurs</a>
+                    <a href="">Les derniers signalements</a>
+                    <a href="ajout_signalement.php">Signaler une plante</a>
+                    <a href="ajout_plante.php">Ajouter une plante</a>
+                    <a href="">Vos amis</a>
+                    <a href="connexion.php">Connexion</a>
+                    <a href="inscription.php">Inscription</a>
+                </div>
         </div>
-        <script>
-            function deroule(){
-                document.getElementById("partie").classList.toggle("show");
-            }
-
-        </script>
-        
-            
-            
-
 
         <form>
-            <h1 style="text-align:center"> Nom de la plante </h1> <!-- récupéré dans bdd-->
+
+         <?php
+            
+            try{
+                $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+            }
+            catch(Exception $e){
+                die('Erreur :' . $e->getMessage());
+            }
+            $requete = 'SELECT * FROM plantes WHERE Id_plante = 2 ';
+            $requete = $BDD->prepare($requete);
+            $requete->execute();
+            /* on récupère le résultt de la requête sous forme d'un tableau */
+            $plante = $requete->fetchAll();
+            foreach($plante as $p)
+                echo $p['Id_plante'];
+        ?>   
+            
+            <h1 style="text-align:center"> <?php echo $plante['Id_plante']; ?> </h1> <!-- récupéré dans bdd-->
             <img src  > <!--mettre photo de la bdd et voir avec js pour faire des flèches pour faire défiler les images s'il y en a plusieurs-->
             <br/>
             
@@ -43,25 +52,25 @@
                 <div id="titre">
                 Nom latin : 
                 </div>
-                <output name="nomlat">test</output> <!--mettre bdd-->
+                <output name="nomlat"><?php $plante['Nom_latin']; ?> </output> <!--mettre bdd-->
             </div>
             <div class="renseignement">
                 <div id="titre">
                 Nom français :
                 </div>
-                <output name="nomfr">test</output> <!--mettre bdd-->
+                <output name="nomfr"><?php $plante['Nom_fr']; ?> </output> <!--mettre bdd-->
             </div>
             <div class="renseignement">
                 <div id="titre">
                 Taille moyenne :
                 </div>
-                <output name="taille">5 cm</output> <!--mettre bdd-->
+                <output name="taille"><?php $plante['Taille']; ?> cm</output> <!--mettre bdd-->
             </div>
             <div class="renseignement">
                 <div id="titre">
                 Couleur principale :
                 </div>
-                <output name="taille">vert</output> <!--mettre bdd-->
+                <output name="taille"><?php $plante['Couleur']; ?> </output> <!--mettre bdd-->
             </div>
             <div class="renseignement">
                 <div id="titre">
@@ -96,5 +105,9 @@
                 Ajouter un signalement
             </button>
         </form>
+
+        <footer>
+        <div id="baspage"> Contact</div>
+        </footer> 
     </body>
 </html>
