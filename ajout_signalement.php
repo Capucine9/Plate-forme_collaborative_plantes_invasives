@@ -75,8 +75,8 @@
 
     <div class="renseignement">
       <div id="titre">Possède des fleurs : </div>
-      <input type="radio" value="oui"/><label for="oui">oui</label>
-      <input type="radio" id="radiodroite" value="non"/><label for="non">non</label>
+      <input type="radio" name="fleur" value="oui"/><label for="oui">oui</label>
+      <input type="radio" id="radiodroite" name="fleur" value="non" checked/><label for="non">non</label>
     </div>
     <div class="renseignement">
       <div id="titre">Couleur fleur : </div>
@@ -97,8 +97,8 @@
 
     <div class="renseignement">
       <div id="titre">Possède des fruits : </div>
-      <input type="radio" value="oui"/><label for="oui">oui</label>
-      <input type="radio" id="radiodroite" value="non"/><label for="non">non</label>
+      <input type="radio" name="fruit" value="oui"/><label for="oui">oui</label>
+      <input type="radio" id="radiodroite" name="fruit" value="non" checked/><label for="non">non</label>
     </div>
     <div class="renseignement">
       <div id="titre">Couleur fruit : </div>
@@ -133,9 +133,7 @@
 
     <footer>
         <div id="baspage"> Contact</div>
-     </footer> 
+    </footer> 
 
   </body>
 </html>
-
-<!--taille(en cm ?), couleur plante -->

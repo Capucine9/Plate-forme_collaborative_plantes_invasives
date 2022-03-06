@@ -3,7 +3,7 @@
     <head>
         <title>Profil Utilisateur</title>
         <meta charset="utf-8">
-        <link href="test.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     </head>
     <body>
         <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
@@ -17,8 +17,8 @@
                     <a href="accueil.php">Accueil</a>
                     <a href="profil_utilisateur.php">Votre profil</a>
                     <a href="repertoire_botannique.php">Le répertoire botannique</a>
-                    <a href="">Les utilisateurs</a>
-                    <a href="">Les derniers signalements</a>
+                    <a href="repertoire_utilisateur.php">Les utilisateurs</a>
+                    <a href="listeSignalement.php">Les derniers signalements</a>
                     <a href="ajout_signalement.php">Signaler une plante</a>
                     <a href="ajout_plante.php">Ajouter une plante</a>
                     <a href="">Vos amis</a>

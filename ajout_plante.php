@@ -82,10 +82,10 @@
 
     <div class="renseignement">
       <div id="titre">Possède des fleurs : </div>
-      <input type="radio" value="oui"/><label for="oui">oui</label>
-      <input type="radio" id="radiodroite" value="non"/><label for="non">non</label>
+      <input type="radio" name="fleur" value="oui"/><label for="oui">oui</label>
+      <input type="radio" id="radiodroite" name="fleur" value="non" checked/><label for="non">non</label>
     </div>
-    <div class="renseignement" class="oui msg"> ????????????
+    <div class="renseignement" class="oui msg">
       <div id="titre">Couleur fleur : </div>
       <select id="couleurfleur">
         <option value="rouge" selected>Rouge </option>
@@ -114,8 +114,8 @@
 
     <div class="renseignement">
       <div id="titre">Possède des fruits : </div>
-      <input type="radio" value="oui"/><label for="oui">oui</label>
-      <input type="radio" id="radiodroite" value="non"/><label for="non">non</label>
+      <input type="radio" name="fruit" value="oui"/><label for="oui">oui</label>
+      <input type="radio" id="radiodroite" name="fruit" value="non" checked/><label for="non">non</label>
     </div>
     <div class="renseignement">
       <div id="titre">Couleur fruit : </div>
@@ -178,6 +178,9 @@
     <button id="bouttongauche" onclick="localhost:81/Projet%20M1/inscription.php">Annuler</button>
     <button id="bouttondroite" onclick="">Valider</button>
 
+    <footer>
+        <div id="baspage"> Contact</div>
+    </footer> 
 
   </body>
 </html>
