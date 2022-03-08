@@ -37,7 +37,7 @@
     à tous de signaler et d'aider à recenser les plantes envahissantes du pays en quelques
     clics. 
     </p></p>
-    <p><font size="5pt"><b>Qu'est ce qu'une plante envahissante ?</b></font></br>
+    <p><font size="5pt"><b>Qu'est ce qu'une plante envahissante ?</b></font></br></br><IMG id=image src=photo_accueil/renouee.jpg align=left>
     <p style="text-indent:20px" align="justify">Une plante envahissante est une espèce végétale qui a une capacité
     de reproduction élevée et qui a également un impact négatif sur la biodiversité, la santé humaine
     ou encore sur les activités économiques. Elles peuvent être de deux types différents, indigène ou exotique. 
@@ -45,6 +45,7 @@
     plantes exotiques ont été importées et se sont adaptées à leur nouveau milieu aux dépens 
     des plantes indigènes. Elles sont également appelées plantes invasives.
     </p></p>
+    </br>
     <p><font size="5pt"><b>Pourquoi aider à les recenser ? Impacts des plantes envahissantes</b></font></br>
     <li align="justify"><b>Sur la biodiversité</b></br>
     <p style="text-indent:20px">Les plantes invasives, ou exotiques, peuvent causer une diminution
@@ -55,7 +56,7 @@
     la renouée du Japon, émettent des substances qui vont nuire à la reproduction et à la croissance
     des plantes indigènes. 
         Dans le milieu aquatique, des espèces envahissantes peuvent proliférer en surface empêchant
-    ainsi l'accès à la lumière aux autres espèces vivant en dessous de celles-ci.</br></br>
+    ainsi l'accès à la lumière aux autres espèces vivant en dessous de celles-ci.</br></br><IMG id=image src=photo_accueil/lentille.jpg align=right>
     </p>
     
     <li align="justify"><b>Sur la santé publique</b></br>
@@ -78,7 +79,7 @@
     <p align="justify"><font size="5pt"><b>Solutions existantes</b></font></br>
     <p style="text-indent:20px">Une fois ces plantes recensées avec l'aide de la plate-forme, il existe
     différentes solutions pour les supprimer. Pour cela il existe trois méthodes qui sont les suivantes :
-    <li align="justify"><b>Méthode manuelle et outillée</b></br>
+    <li align="justify"><b>Méthode manuelle et outillée</b></br></br><IMG id=image src=photo_accueil/arrachage.jpg align=left>
     <p style="text-indent:20px">La méthode manuelle est surtout utilisée sur de jeunes plantes qui sont
     plus simples à déraciner. Pour les plantes ayant des racines plus importantes, il est plus pratique
     d'utiliser des outils. Il existe différents outils qui sont utilisés pour arracher ou couper ces
@@ -89,6 +90,7 @@
     </br></br>
     </p>
 
+    <IMG id=image src=photo_accueil/tractopelle.jpg align=right>
     <li align="justify"><b>Méthode mécanisée</b></br>
     <p style="text-indent:20px">Cette méthode consiste à déraciner les plantes les plus coriaces à l'aide
     de différents véhicules motorisés. Le tractopelle et la pelle mécanique sont les plus couramment utilisés.
@@ -97,7 +99,7 @@
     </br></br>
     </p>
 
-    <li align="justify"><b>Méthode chimique</b></br>
+    <li align="justify"><b>Méthode chimique</b></br></br><IMG id=image src=photo_accueil/desherbant.jpg align=left>
     <p style="text-indent:20px">Cette méthode consiste à pulvériser des substances chimiques sur les
     plantes envahissantes. Elle peut être effectuée suite à la coupe ou l'écorçage de certaines espèces
     ou encore par l'injection de la substance dans le tronc. L'ONF, l'Office National des Forêts, publiait tous
@@ -106,7 +108,7 @@
     de bio-contrôle sont priorisées. Mais il existe encore des désherbants qui sont disponibles
     sur le marché. Ils sont cependant mauvais pour les sols, pour les autres espèces végétales et
     également pour les divers animaux qui se nourrissent de ces plantes.
-    </br>
+    </br></br>
     </p></p>
 </div>
 

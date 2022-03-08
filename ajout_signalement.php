@@ -73,12 +73,12 @@
       <input type="text" id="renseignement"/>
     </div>
 
-    <div class="renseignement">
+    <div class="renseignement" id="togg1">
       <div id="titre">Possède des fleurs : </div>
       <input type="radio" name="fleur" value="oui"/><label for="oui">oui</label>
       <input type="radio" id="radiodroite" name="fleur" value="non" checked/><label for="non">non</label>
     </div>
-    <div class="renseignement">
+    <div class="renseignement" id="resultbouton1">
       <div id="titre">Couleur fleur : </div>
       <select id="couleurfleur">
         <option value="rouge" selected>Rouge </option>
@@ -95,12 +95,12 @@
       </select>
     </div>
 
-    <div class="renseignement">
+    <div class="renseignement" id="togg2">
       <div id="titre">Possède des fruits : </div>
       <input type="radio" name="fruit" value="oui"/><label for="oui">oui</label>
       <input type="radio" id="radiodroite" name="fruit" value="non" checked/><label for="non">non</label>
     </div>
-    <div class="renseignement">
+    <div class="renseignement" id="resultbouton2">
       <div id="titre">Couleur fruit : </div>
       <select id="couleurfruit">
         <option value="rouge" selected>Rouge </option>

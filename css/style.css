@@ -162,7 +162,13 @@ footer{
   height:50px;
   background-color: rgb(200, 202, 204);
   bottom: 0px;
+}
 
+#image{
+  height: 120px;
+  width: auto;
+  margin-left:10px;
+  margin-right:10px;
 }
 
 #baspage{
@@ -188,12 +194,21 @@ footer{
   width: 120px;
 }
 
+/* Radio boutton */
 #radiodroite{
   margin-left: 120px;
 }
-
-#couleurfleur{
-  width: 80px;
+#resultbouton1{
+  display: none;
+}
+#resultbouton2{
+  display: none;
+}
+#resultbouton3{
+  display: none;
+}
+#resultbouton4{
+  display: none;
 }
 
 

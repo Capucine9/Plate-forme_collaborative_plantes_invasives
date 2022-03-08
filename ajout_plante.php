@@ -80,12 +80,12 @@
       <input type="text" id="renseignement"/>
     </div>
 
-    <div class="renseignement">
+    <div class="renseignement" id="togg1">
       <div id="titre">Possède des fleurs : </div>
       <input type="radio" name="fleur" value="oui"/><label for="oui">oui</label>
       <input type="radio" id="radiodroite" name="fleur" value="non" checked/><label for="non">non</label>
     </div>
-    <div class="renseignement" class="oui msg">
+    <div class="renseignement" id="resultbouton1">
       <div id="titre">Couleur fleur : </div>
       <select id="couleurfleur">
         <option value="rouge" selected>Rouge </option>
@@ -101,7 +101,7 @@
         <option value="noir">Noir </option>
       </select>
     </div>
-    <div class="renseignement">
+    <div class="renseignement" id="resultbouton2">
       <div id="titre">Période de floraison : </div>
       <select id="periodefleur">
         <option value="printemps" selected>Printemps </option>
@@ -112,12 +112,12 @@
     </div>
 
 
-    <div class="renseignement">
+    <div class="renseignement" id="togg2">
       <div id="titre">Possède des fruits : </div>
       <input type="radio" name="fruit" value="oui"/><label for="oui">oui</label>
       <input type="radio" id="radiodroite" name="fruit" value="non" checked/><label for="non">non</label>
     </div>
-    <div class="renseignement">
+    <div class="renseignement" id="resultbouton3">
       <div id="titre">Couleur fruit : </div>
       <select id="couleurfruit">
         <option value="rouge" selected>Rouge </option>
@@ -150,7 +150,7 @@
         <option value="dehiscent">Déhiscent </option>
       </select>
     </div>-->
-    <div class="renseignement">
+    <div class="renseignement" id="resultbouton4">
       <div id="titre">Période de fructification : </div>
       <select id="periodefruit">
         <option value="printemps" selected>Printemps </option>
@@ -181,6 +181,44 @@
     <footer>
         <div id="baspage"> Contact</div>
     </footer> 
+
+
+    <script type="text/javascript">
+      let togg1 = document.getElementById("togg1");
+      let result1 = document.getElementById("resultbouton1");
+      let result2 = document.getElementById("resultbouton2");
+
+      togg1.addEventListener("change", () => {
+        if(getComputedStyle(result1).display == "none"){
+          result1.style.display = "block";
+        } else {
+          result1.style.display = "none";
+        }
+        if(getComputedStyle(result2).display == "none"){
+          result2.style.display = "block";
+        } else {
+          result2.style.display = "none";
+        }
+      })
+
+      let togg2 = document.getElementById("togg2");
+      let result3 = document.getElementById("resultbouton3");
+      let result4 = document.getElementById("resultbouton4");
+
+      togg2.addEventListener("change", () => {
+        if(getComputedStyle(result3).display == "none"){
+          result3.style.display = "block";
+        } else {
+          result3.style.display = "none";
+        }
+        if(getComputedStyle(result4).display == "none"){
+          result4.style.display = "block";
+        } else {
+          result4.style.display = "none";
+        }
+      })
+
+    </script>
 
   </body>
 </html>

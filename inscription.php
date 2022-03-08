@@ -53,12 +53,14 @@
         <div id="titre">Confirmation du mot de passe : </div>
         <input type="password" id="renseignement" name="mdpconf" value="<?php if(isset($mdpconf)) { echo $mdpconf; } ?>" required/>
       </div>
-      <div class="renseignement">
+
+
+      <div class="renseignement" id="togg1">
         <div id="titre">Entreprise : </div>
         <input type="radio" name="entreprise" value="oui"/><label for="oui">oui</label>
         <input type="radio" id="radiodroite" name="entreprise" value="non" checked/><label for="non">non</label>
       </div>
-      <div class="renseignement">
+      <div class="renseignement" id="resultbouton1">
         <div id="titre">URL de l'entreprise : </div>
         <input type="text" id="renseignement" name="url" value="<?php if(isset($url)) { echo $url; }?> "/>
       </div>
@@ -135,5 +137,21 @@
     <footer>
         <div id="baspage"> Contact</div>
     </footer> 
+
+
+    <script type="text/javascript">
+      let togg1 = document.getElementById("togg1");
+      let result1 = document.getElementById("resultbouton1");
+
+      togg1.addEventListener("change", () => {
+        if(getComputedStyle(result1).display == "none"){
+          result1.style.display = "block";
+        } else {
+          result1.style.display = "none";
+        }
+      })
+
+    </script>
+
   </body>
 </html>
