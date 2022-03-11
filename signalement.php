@@ -71,6 +71,10 @@
                 </div>
                 <output name="floraison"><?php echo $signalement['Ville']; ?></output> 
             </div>
+            <div id=map>
+                <iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>
+            </div>
+
             <div class="renseignement">
                 <div id="titre">
                 Commentaire :

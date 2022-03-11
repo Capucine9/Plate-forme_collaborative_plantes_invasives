@@ -10,11 +10,7 @@
   </head>
 
   <body>
-    <script type="text/javascript" src="js/projet.js"></script>
-
-
     <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
-    
 
     <!--menu déroulant-->
     <div class="deroulant">
@@ -138,20 +134,7 @@
         <div id="baspage"> Contact</div>
     </footer> 
 
-
-    <script type="text/javascript">
-      let togg1 = document.getElementById("togg1");
-      let result1 = document.getElementById("resultbouton1");
-
-      togg1.addEventListener("change", () => {
-        if(getComputedStyle(result1).display == "none"){
-          result1.style.display = "block";
-        } else {
-          result1.style.display = "none";
-        }
-      })
-
-    </script>
+    <script type="text/javascript" src="js/java.js"></script>
 
   </body>
 </html>

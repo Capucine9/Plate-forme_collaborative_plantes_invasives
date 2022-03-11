@@ -7,12 +7,10 @@
           Signalement
       </title>
       <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-  </head>
+  
+    </head>
 
   <body>
-    <script type="text/javascript" src="js/projet.js"></script>
-
-
     <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
 
     <!--menu déroulant-->
@@ -100,7 +98,7 @@
       <input type="radio" name="fruit" value="oui"/><label for="oui">oui</label>
       <input type="radio" id="radiodroite" name="fruit" value="non" checked/><label for="non">non</label>
     </div>
-    <div class="renseignement" id="resultbouton2">
+    <div class="renseignement" id="resultbouton3">
       <div id="titre">Couleur fruit : </div>
       <select id="couleurfruit">
         <option value="rouge" selected>Rouge </option>
@@ -128,12 +126,21 @@
     </div>
 
 
+    <div id=map>
+            <iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>
+    </div>
+
+
     <button id="bouttongauche" onclick="localhost:81/Projet%20M1/inscription.php">Annuler</button>
     <button id="bouttondroite" onclick="">Valider</button>
 
     <footer>
         <div id="baspage"> Contact</div>
     </footer> 
+
+
+    <script type="text/javascript" src="js/java.js"></script>
+    
 
   </body>
 </html>

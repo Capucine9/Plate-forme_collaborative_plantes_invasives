@@ -97,7 +97,9 @@
                 </div>
                 <output name="taille"><?php echo $plante['Id_utilisateur']; ?></output> 
             </div>
-            <!-- mettre une carte -->
+            <div id=map>
+                <iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>
+            </div>
             <button id="boutonmodif" type=button onclick="">
                 Modifier
             </button>

@@ -225,3 +225,14 @@ input[type="radio"].connexion + label {
 input[type="radio"].connexion:checked + label {
   display: inline-block;
 }
+
+/* Carte */ 
+#map{
+  height: 720px;
+  width: auto;
+  position:relative; 
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  top: 20px; 
+}
