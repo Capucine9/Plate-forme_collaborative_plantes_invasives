@@ -124,7 +124,7 @@
               echo "erreur".$e->getMessage();
           }
 
-          $_SESSION['flash']['success'] = 'Votre compte a été créé, veuillez vous connecter';
+          
           header('Location: connexion.php');
           exit();
         }
