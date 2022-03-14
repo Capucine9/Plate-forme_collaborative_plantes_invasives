@@ -236,3 +236,17 @@ input[type="radio"].connexion:checked + label {
   bottom: 0px;
   top: 20px; 
 }
+
+/* Page inscription, affichage erreur */
+.erreur{
+  background-color: rgb(231, 60, 60);
+  color: rgb(255, 255, 255);
+  margin-left: auto;
+  margin-right: auto;
+  border: solid;
+  border-color: rgb(161, 0, 0);
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+
+}
