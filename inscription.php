@@ -10,7 +10,11 @@
   </head>
 
   <body>
+    <script type="text/javascript" src="js/projet.js"></script>
+
+
     <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
+    
 
     <!--menu déroulant-->
     <div class="deroulant">
@@ -29,9 +33,124 @@
                 </div>
     </div>
 
-   
+  
 
-    <h1 style="text-align:center"> Inscription </h1>
+    <?php
+
+      /*function debug($variable){
+        echo '<pre>'.print_r($variable, true). '</pre>';
+      }*/
+
+      //vérification de si le formulaire est bien rempli
+      if(isset($_POST['valider'])){
+        if(!empty($_POST)){
+
+          $errors = array();
+
+          if(empty($_POST['pseudo']) || !preg_match('/^[A-Za-z0-9_]+$/', $_POST['pseudo'])){
+            $errors['pseudo']="Pseudo non valide";
+          }
+
+          if(empty($_POST['email']) ){
+            $errors['email']="Email non valide";
+          }
+          
+          if(empty($_POST['mdp']) ){
+            $errors['mdp']="Mot de passe non valide";
+          }
+
+          if($_POST['mdp'] != $_POST['mdpconf']){
+            $errors['mdpconf']="Mots de passe différents";
+          }
+
+          //connexion bdd           
+          try{
+            $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+            $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+          }
+          catch(Exception $e){
+            echo 'Erreur :' . $e->getMessage();
+          }
+
+          #on vérifie si l'adresse mail est déjà dans la bdd  
+          $requetemail = $BDD->prepare('SELECT * FROM utilisateurs WHERE Email ="'.$_POST['email'].'"');
+          $requetemail->execute(array($email));
+          $nb = $requetemail->rowCount();
+          
+
+          if($nb != 0)
+          {
+            $errors['email_existe']="L'email est déjà utilisée";
+          }
+
+          //debug($errors);
+        }  
+
+        if(empty($errors)){
+          
+          //récupération de toutes les valeurs
+          $email = $_POST['email'];
+          $pseudo = $_POST['pseudo'];
+          $mdp = password_hash($_POST['mdp'], PASSWORD_BCRYPT);
+          $mdpconf = $_POST['mdpconf'];
+          $entreprise = $_POST['entreprise'];
+          
+          if($entreprise=='oui')
+          {
+            $entreprise=1;
+            $url=$_POST['url'];
+          }
+          else
+          {
+            $entreprise=0;
+            $url=NULL;
+          }
+
+          //insertion
+          try{
+            $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+            $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+          }
+          catch(Exception $e){
+            echo 'Erreur :' . $e->getMessage();
+          }
+          try{
+            $req = $BDD->prepare("INSERT INTO utilisateurs (Pseudo, Email, Mdp, Entreprise, URL_entreprise)  VALUES (:pseudo, :email, :mdp, :ent, :url_ent) ");
+            $exec = $req->execute(array(':pseudo'=>$pseudo,':email'=>$email,':mdp'=>$mdp,':ent'=>$entreprise, ':url_ent'=>$url));
+          }
+          catch(Exception $e){
+              echo "erreur".$e->getMessage();
+          }
+
+          $_SESSION['flash']['success'] = 'Votre compte a été créé, veuillez vous connecter';
+          header('Location: connexion.php');
+          exit();
+        }
+      }
+          
+
+    ?>
+
+<h1 style="text-align:center"> Inscription </h1>
+
+<?php
+  if(!empty($errors)){
+?>
+
+<div class ="erreur">
+  <p> Le formulaire est incorrect : </p>
+  <?php
+    foreach($errors as $error){
+      echo '<li>'.$error.'</li>';
+    }
+  ?>
+  </br>
+</div>
+
+<?php } ?>
+
     <form method="post" action="">
       <div class="renseignement">
         <div id="titre">Adresse mail : </div>
@@ -43,20 +162,18 @@
       </div>
       <div class="renseignement">
         <div id="titre">Mot de passe : </div>
-        <input type="password" id="renseignement" name="mdp" value="<?php if(isset($mdp)) { echo $mdp; } ?>" required/>
+        <input type="password" id="renseignement" name="mdp" value="<?php if(isset($mdp)) { echo $mdpconf; } ?>" required/>
       </div>
       <div class="renseignement">
         <div id="titre">Confirmation du mot de passe : </div>
         <input type="password" id="renseignement" name="mdpconf" value="<?php if(isset($mdpconf)) { echo $mdpconf; } ?>" required/>
       </div>
-
-
       <div class="renseignement" id="togg1">
         <div id="titre">Entreprise : </div>
-        <input type="radio" name="entreprise" value="oui"/><label for="oui">oui</label>
-        <input type="radio" id="radiodroite" name="entreprise" value="non" checked/><label for="non">non</label>
+        <input type="radio" value="oui" name="entreprise"/><label for="oui">oui</label>
+        <input type="radio" id="radiodroite" value="non" name="entreprise" checked/><label for="non">non</label>
       </div>
-      <div class="renseignement" id="resultbouton1">
+      <div class="renseignement"  id="resultbouton1">
         <div id="titre">URL de l'entreprise : </div>
         <input type="text" id="renseignement" name="url" value="<?php if(isset($url)) { echo $url; }?> "/>
       </div>
@@ -65,76 +182,13 @@
     </br>
     </br>
       <a href="accueil.php" id="bouttongauche"><input type="button" value="Annuler"></a>
-      <a href="accueil.php" id="bouttondroite"><input type="submit" name="valider" value="Valider"></a>
+      <button id="bouttondroite" type="submit" name="valider">Valider</button>
     </form>
 
-    <?php
-     if(isset($_POST['valider'])){
-
-        $email=$_POST['email'];
-        $pseudo=$_POST['pseudo'];
-        $mdp=$_POST['mdp'];
-        $mdpconf=$_POST['mdpconf'];
-        $entreprise=$_POST['entreprise'];
-
-                    
-        try{
-          $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
-        }
-        catch(Exception $e){
-          die('Erreur :' . $e->getMessage());
-        }
-
-        if($entreprise=='oui')
-        {
-          $entreprise=True;
-          $url=$_POST['url'];
-        }
-        else
-        {
-          $entreprise=False;
-          $url=NULL;
-        }
-
-        if($mdp==$mdpconf and isset($mdp))
-        {
-          #on vérifie si l'adresse mail est déjà dans la bdd
-
-          $requetemail = $BDD->prepare('SELECT * FROM utilisateurs WHERE Email ="'.$email.'"');
-          $requetemail->execute(array($email));
-          $nb = $requetemail->rowCount();
-
-          if($nb == 0)
-          {
-            $requete = $BDD->prepare('INSERT INTO utilisateurs ( Email, Mdp, Pseudo, Entreprise, URL_entreprise ) VALUES ("'.$email.'","'.$mdp.'","'.$pseudo.'","'.$entreprise.'","'.$url.'")');
-            $requete = $requete -> execute(/*array($email, $mdp, $pseudo, $entreprise, $url)*/);
-            if($requete){
-              echo 'Données insérées';
-            }
-            else
-            {
-              echo "Échec de l'opération d'insertion";
-            }
-          }
-          else
-            echo "Adresse mail déjà utilisée";
-
-
-        }
-        
-        else
-        {
-          echo "Les mots de passe sont différents";
-        }
-
-      }
-
-    ?>
+    
     <footer>
         <div id="baspage"> Contact</div>
     </footer> 
-
     <script type="text/javascript" src="js/java.js"></script>
-
   </body>
 </html>
