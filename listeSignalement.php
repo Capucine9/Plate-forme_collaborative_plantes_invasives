@@ -29,7 +29,12 @@
         
         <form action="profil_plante.php" method="POST">
             <h1 style="text-align:center"> Liste des signalements </h1>
-            
+                 <!-- affichage ajout signalement réussi -->
+                <?php
+                    if($_GET["ajout"]=="true"){
+                        echo "<div class=inscription> Ajout du signalement réussi </div></br>";
+                    }
+                ?>
             <br/>
             <input id="searchbar" onkeyup="recherche_plante()" type="text" placeholder="Rechercher une plante...">
 
