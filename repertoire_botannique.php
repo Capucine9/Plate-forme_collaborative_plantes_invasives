@@ -29,10 +29,10 @@
         
         <form action="profil_plante.php" method="POST">
             <h1 style="text-align:center"> Répertoire botanique </h1>
-            <!-- affichage ajout plante réussie -->
+            <!-- affichage ajout plante réussi -->
             <?php
                 if($_GET["ajout"]=="true"){
-                    echo "<div class=inscription> Ajout de la plante réussie </div></br>";
+                    echo "<div class=inscription> Ajout de la plante réussi </div></br>";
                 }
             ?>
             <br/>
