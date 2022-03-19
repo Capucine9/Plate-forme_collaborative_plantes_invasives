@@ -7,8 +7,7 @@
           Signalement
       </title>
       <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-  
-    </head>
+  </head>
 
   <body>
     <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
@@ -20,8 +19,8 @@
                     <a href="accueil.php">Accueil</a>
                     <a href="profil_utilisateur.php">Votre profil</a>
                     <a href="repertoire_botannique.php">Le répertoire botannique</a>
-                    <a href="">Les utilisateurs</a>
-                    <a href="">Les derniers signalements</a>
+                    <a href="repertoire_utilisateur.php">Les utilisateurs</a>
+                    <a href="listeSignalement.php">Les derniers signalements</a>
                     <a href="ajout_signalement.php">Signaler une plante</a>
                     <a href="ajout_plante.php">Ajouter une plante</a>
                     <a href="">Vos amis</a>
@@ -29,118 +28,157 @@
                     <a href="inscription.php">Inscription</a>
                 </div>
     </div>
+
+
+
+    <?php
+      if(isset($_POST['valider'])){
+        
+        if(!empty($_POST)){
+
+          $errors = array();
+
+          if(empty($_POST['nomfr']) || !preg_match('/^[A-Za-z ]+$/', $_POST['nomfr'])){
+            $errors['nomfr']="Le nom de la plante n'est pas valide";
+          }
+         else{
+            //connexion bdd           
+            try{
+              $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+              $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            }
+            catch(Exception $e){
+              echo 'Erreur :' . $e->getMessage();
+            }
+
+           #on vérifie si la plante est dans la bdd  
+            $requetenom = $BDD->prepare('SELECT * FROM plantes WHERE Nom_fr =:nomfr');
+            $requetenom->execute(['nomfr'=>ucfirst(strtolower($_POST['nomfr']))]);
+            $plante = $requetenom->fetch();
+
+            if($plante == "")
+            {
+              $errors['plante']="La plante n'est pas dans la base de données";
+            }
+
+            else{
+              $id_plante = $plante['Id_plante'];
+            }
+          }
+
+          if(empty($_POST['ville']) || !preg_match('/^[A-Za-z ]+$/', $_POST['ville'])){
+            $errors['region']="Ville non valide";
+          }
+          
+          /*if(empty($_POST['lat']))
+          {
+            $errors['coordonnees']="Veuillez cliquer sur la carte pour avoir les coordonnées GPS";
+          }
+          */
+          
+
+        }
+
+        if(empty($errors)){
+          
+          //récupération de toutes les valeurs
+          
+          $nomfr = ucfirst(strtolower($_POST['nomfr']));
+          $ville = ucfirst(strtolower($_POST['ville']));
+          $description = $_POST['description'];
+          $gps = $_POST['lat']."-". $_POST['lon'];
+          $date = $_POST['date'];
+
+         
+
+          //insertion
+          try{
+            $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+            $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+          }
+          catch(Exception $e){
+            echo 'Erreur :' . $e->getMessage();
+          }
+          try{
+            $req = $BDD->prepare("INSERT INTO signalements (Id_plante, Ville, /*Coordonnees_GPS,*/ Date_signalement, Commentaire )  VALUES (:id_plante, :ville, /*:gps,*/ :dat, :commentaire) ");
+            $exec = $req->execute(array(':id_plante'=> $id_plante, ':ville'=> $ville, /*':gps'=> $gps,*/':dat'=>$date, ':commentaire'=>$description));
+          }
+          catch(Exception $e){
+              echo "erreur".$e->getMessage();
+          }
+          if($exec){
+            header('Location: listeSignalement.php?ajout=true');
+            exit();
+          }
+          else{
+            echo "<p> erreur </p>";
+          }
+
+        }
+      }
+    ?>
     <h1 style="text-align:center"> Signaler </h1>
+
+    <?php
+      if(!empty($errors)){
+    ?>
+
+    <div class ="erreur">
+      <p> Le formulaire est incorrect : </p>
+      <?php
+        foreach($errors as $error){
+          echo '<li>'.$error.'</li>';
+        }
+      ?>
+      </br>
+    </div>
+
+    <?php } ?>
+
+  <form method="post" action="">
     <div class="renseignement">
       <div id="titre">Nom français : </div>
-      <input type="text" id="renseignement"/>
+      <input type="text" id="renseignement" name="nomfr" required/>
     </div>
+
 
     <div class="renseignement">
-      <div id="titre">Famille botanique : </div>
-      <select id="type">
-        <option value="arbre" selected>Arbre </option>
-        <option value="arbuste">Arbuste </option>
-        <option value="plante">Plante </option>
-      </select>
-    </div>
-
-    <div class="renseignement">
-      <div id="titre">Régions : </div>
-      <input type="text" id="renseignement"/>
-    </div>
-
-    <div class="renseignement">
-      <div id="titre">Couleur : </div>
-      <select id="couleur">
-        <option value="rouge">Rouge </option>
-        <option value="orange">Orange </option>
-        <option value="jaune">Jaune </option>
-        <option value="blanc">Blanc </option>
-        <option value="rose">Rose </option>
-        <option value="violet">Violet </option>
-        <option value="bleu">Bleu </option>
-        <option value="vert" selected>Vert </option>
-        <option value="marron">Marron </option>
-        <option value="gris">Gris </option>
-        <option value="noir">Noir </option>
-      </select>
-    </div>
-
-    <div class="renseignement">
-      <div id="titre">Taille (en cm) : </div>
-      <input type="text" id="renseignement"/>
-    </div>
-
-    <div class="renseignement" id="togg1">
-      <div id="titre">Possède des fleurs : </div>
-      <input type="radio" name="fleur" value="oui"/><label for="oui">oui</label>
-      <input type="radio" id="radiodroite" name="fleur" value="non" checked/><label for="non">non</label>
-    </div>
-    <div class="renseignement" id="resultbouton1">
-      <div id="titre">Couleur fleur : </div>
-      <select id="couleurfleur">
-        <option value="rouge" selected>Rouge </option>
-        <option value="orange">Orange </option>
-        <option value="jaune">Jaune </option>
-        <option value="blanc">Blanc </option>
-        <option value="rose">Rose </option>
-        <option value="violet">Violet </option>
-        <option value="bleu">Bleu </option>
-        <option value="vert">Vert </option>
-        <option value="marron">Marron </option>
-        <option value="gris">Gris </option>
-        <option value="noir">Noir </option>
-      </select>
-    </div>
-
-    <div class="renseignement" id="togg2">
-      <div id="titre">Possède des fruits : </div>
-      <input type="radio" name="fruit" value="oui"/><label for="oui">oui</label>
-      <input type="radio" id="radiodroite" name="fruit" value="non" checked/><label for="non">non</label>
-    </div>
-    <div class="renseignement" id="resultbouton3">
-      <div id="titre">Couleur fruit : </div>
-      <select id="couleurfruit">
-        <option value="rouge" selected>Rouge </option>
-        <option value="orange">Orange </option>
-        <option value="jaune">Jaune </option>
-        <option value="blanc">Blanc </option>
-        <option value="rose">Rose </option>
-        <option value="violet">Violet </option>
-        <option value="bleu">Bleu </option>
-        <option value="vert">Vert </option>
-        <option value="marron">Marron </option>
-        <option value="gris">Gris </option>
-        <option value="noir">Noir </option>
-      </select>
+      <div id="titre">Ville : </div>
+      <input type="text" id="renseignement" name="ville" required/>
     </div>
     
+    <div class="renseignement">
+      <div id="titre"> Date : </div>
+      <input type="date" name="date"
+        value="<?php echo date('Y-m-d');?>"
+        min="2020-01-01" max="<?php echo date('Y-m-d');?>" >
+
+    </div>
 
     <div class="renseignement">
       <div id="titre">Description supplémentaire: </div>
-      <input type="text" id="renseignement"/>
+      <input type="text" id="renseignement" name="description"/>
     </div>
 
     <div class="renseignement">
         <button id="bouttoncentre" onclick="">Ajouter photos</button>
     </div>
 
-
     <div id=map>
             <iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>
     </div>
 
-
     <button id="bouttongauche" onclick="localhost:81/Projet%20M1/inscription.php">Annuler</button>
-    <button id="bouttondroite" onclick="">Valider</button>
+    <button id="bouttondroite" type="submit" name="valider">Valider</button>
 
     <footer>
         <div id="baspage"> Contact</div>
-    </footer> 
+     </footer> 
 
-
+     
     <script type="text/javascript" src="js/java.js"></script>
-    
-
+  </form>
   </body>
 </html>
