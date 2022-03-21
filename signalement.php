@@ -27,7 +27,7 @@
 
         <form>
 
-         <?php
+        <?php
             
             try{
                 $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
@@ -35,13 +35,15 @@
             catch(Exception $e){
                 die('Erreur :' . $e->getMessage());
             }
-            $requete = 'SELECT * FROM signalements WHERE Id_signalement="'.$_GET["id"].'"';
-            $requete = $BDD->prepare($requete);
-            $requete->execute();
-            /* on récupère le résultt de la requête sous forme d'un tableau */
-            $signalement = $requete->fetch();
+            $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement 
+                                                    FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
+                                                                      INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
+                                                                      WHERE Id_signalement="'.$_GET["id"].'"');
+                    
+            $requeteJointure->execute();
+            $signalement = $requeteJointure->fetch(); 
             
-        ?>   
+        ?>    
             
             <h1 style="text-align:center"> Signalement </h1> <!-- récupéré dans bdd-->
             <img src  > <!--mettre photo de la bdd et voir avec js pour faire des flèches pour faire défiler les images s'il y en a plusieurs-->
@@ -51,19 +53,19 @@
                 <div id="titre">
                 La plante :
                 </div>
-                <output name="plante"><?php echo $signalement['Id_plante']; ?> </output> 
+                <output name="plante"><?php echo $signalement['Nom_fr']; ?> </output> 
             </div>
             <div class="renseignement">
                 <div id="titre">
                 L'utilisateur qui a signalé :
                 </div>
-                <output name="utilisateur"><?php echo $signalement['Id_utilisateur']; ?> </output> 
+                <output name="utilisateur"><?php echo $signalement['Pseudo']; ?> </output> 
             </div>
             <div class="renseignement">
                 <div id="titre">
                 Date : 
                 </div>
-                <output name="date"><?php echo $signalement['Date']; ?></output> 
+                <output name="date"><?php echo $signalement['Date_signalement']; ?></output> 
             </div>
             <div class="renseignement">
                 <div id="titre">
