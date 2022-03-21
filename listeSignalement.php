@@ -36,8 +36,10 @@
                     }
                 ?>
             <br/>
-            <input id="searchbar" onkeyup="recherche_plante()" type="text" placeholder="Rechercher une plante...">
-
+            
+            <input id="searchbar" type="text" placeholder="Rechercher une plante..." name="plante">
+            <button type="submit" name="searchbar">Rechercher</button>
+            
            Depuis :
            <select name="liste"> 
                 <option>---</option> 
@@ -52,45 +54,101 @@
                 
                     
                 <?php
-                    
-                    try{
-                        $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+                ini_set( 'display_errors', 'on' );
+                error_reporting( E_ALL );
+                    if(!empty($_POST)){
+                        if(isset($_POST['searchbar'])){
+                         
+                            try{
+                                $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+                                $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                            }
+                            catch(Exception $e){
+                                die('Erreur :' . $e->getMessage());
+                            }
+    
+                            
+                                $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement 
+                                                                FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
+                                                                                INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
+                                                                                WHERE plantes.Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR plantes.Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'"
+                                                                                ORDER BY signalements.Date_signalement DESC');
+                                
+                                $requeteJointure->execute();
+                                $donnees = $requeteJointure->fetchAll(); 
+                            
+
+                        }
                     }
-                    catch(Exception $e){
-                        die('Erreur :' . $e->getMessage());
+                    else{
+                        try{
+                            $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+                            $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                        }
+                        catch(Exception $e){
+                            die('Erreur :' . $e->getMessage());
+                        }
+
+
+                            $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement 
+                                                            FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
+                                                                            INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
+                                                                            ORDER BY signalements.Date_signalement DESC');
+                            
+                            $requeteJointure->execute();
+                            $donnees = $requeteJointure->fetchAll(); 
+                    }       
+                    if (count($donnees)==0)   
+                    {
+                        echo "<p align=\"center\"> Aucun résultat disponible </p>";
+                    } 
+                    else{     
+                        
+                        if(isset($_POST['liste'])){
+                            $date=$_POST['liste'];
+                            $aujourdhui=date('Y-m-d');
+                            $resultat=array();
+                            if($date == "un jour"){
+                               
+                                $aujourdhui=strtotime($aujourdhui);
+                                foreach ($donnees as $signalement){
+                                    $dateSignal=strtotime($signalement['Date_signalement']);
+                                    if((($aujourdhui - $dateSignal)/86400) <=1){
+                                        $resultat[]=$signalement;
+                                    }
+                                }
+                                
+                            }
+                            elseif($date == "une semaine"){
+
+                            }
+                            elseif($date == "un mois"){
+
+                            }
+                            elseif($date == "un an"){
+
+                            }
+
+                            unset($donnees);
+                            $donnees=$resultat;
+                        }
                     }
+                        foreach ($donnees as $signalement){
 
-                    $requete = $BDD->prepare('SELECT * FROM signalements ORDER BY Date_signalement');
-                    $requete->execute();
-                    /* on récupère le résultt de la requête sous forme d'un tableau */
-                    $donnees = $requete->fetchAll();
-                    $requete->closeCursor();
-                    foreach ($donnees as $signalement){
-
-                        $requeteUtilisateur = $BDD->prepare('SELECT * FROM utilisateurs WHERE Id_utilisateur ="'.$signalement['Id_utilisateur'].'"');
-                        $requeteUtilisateur->execute();
-                        /* on récupère le résultt de la requête sous forme d'un tableau */
-                        $utilisateur = $requete->fetch();
-                        $requeteUtilisateur->closeCursor();
-                        echo $utilisateur['Id_utilisateur'];
-
-
-                        $requetePlante = $BDD->prepare('SELECT * FROM plantes WHERE Id_plante ="'. $signalement['Id_plante'].'"');
-                        $requetePlante->execute();
-                        /* on récupère le résultt de la requête sous forme d'un tableau */
-                        $plante = $requete->fetch();
-                        $requetePlante->closeCursor();
                         
                 ?>
+                
                 <a href="signalement.php?id=<?php echo $signalement['Id_signalement']?> " id="lien_plante">
                     <div class = "carre_plante">
                             <div class="Plante">
                                 <img src="ailante.jpg" id="image_plante" > 
-                                <output name=nom_plante id=planteinfos> Nom de la plante : <?php echo $plante['Nom_fr'];?></output></br>
-                                <output name=pseudo id=planteinfos>  Personne qui l'a signalée : <?php echo $utilisateur['Pseudo'];?></output></br>
+                                <output name=nom_plante id=planteinfos> Nom de la plante : <?php echo $signalement['Nom_fr'];?></output></br>
+                                <output name=pseudo id=planteinfos>  Personne qui l'a signalée : <?php echo $signalement['Pseudo'];?></output></br>
                                 <output name=ville id=planteinfos>  Ville : <?php echo $signalement['Ville'];?></output> </br> 
                                 <output name=gps id=planteinfos>  Coordonnées GPS : <?php echo $signalement['Coordonnees_GPS'];?></output></br>  
-                                <output name=date id=planteinfos>  Date : <?php echo $signalement['Date'];?></output>  
+                                <output name=date id=planteinfos>  Date : <?php echo $signalement['Date_signalement'];?></output>  
                             </div>
                     </div>
                 </a>
