@@ -3,7 +3,7 @@
     <head>
         <title>Profil Plante</title>
         <meta charset="utf-8">
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="test.css" rel="stylesheet" type="text/css" media="all" />
     </head>
     <body>
         <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
@@ -26,20 +26,24 @@
         </div>
 
         <form>
-
-         <?php
             
+         <?php
+            ini_set( 'display_errors', 'on' );
+            error_reporting( E_ALL );
             try{
                 $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+                $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             }
             catch(Exception $e){
                 die('Erreur :' . $e->getMessage());
             }
-            $requete = 'SELECT * FROM plantes WHERE Id_plante="'.$_GET["id"].'"';
-            $requete = $BDD->prepare($requete);
-            $requete->execute();
-            /* on récupère le résultt de la requête sous forme d'un tableau */
-            $plante = $requete->fetch();
+            $requeteJointure = 'SELECT * FROM plantes INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=plantes.Id_utilisateur WHERE Id_plante="'.$_GET["id"].'"';
+            
+                                                
+            $requeteJointure = $BDD->prepare($requeteJointure);
+            $requeteJointure->execute();
+            $plante = $requeteJointure->fetch();
             
         ?>   
             
@@ -50,6 +54,12 @@
             <div class="renseignement">
                 <div id="titre">
                 Nom latin : 
+                </div>
+                <output name="nomlat"><?php echo $plante['Nom_latin']; ?> </output> 
+            </div>
+            <div class="renseignement">
+                <div id="titre">
+                Type : 
                 </div>
                 <output name="nomlat"><?php echo $plante['Nom_latin']; ?> </output> 
             </div>
@@ -82,7 +92,7 @@
                 <div id="titre">
                 Description détaillée :
                 </div>
-                <output name="descrip"><?php echo $plante['Description']; ?></output> 
+                <output name="descrip"><?php echo $plante['Details']; ?></output> 
             </div>
 
             <div class="renseignement">
@@ -95,7 +105,7 @@
                 <div id="titre">
                 Personne qui l'a ajouté au site :
                 </div>
-                <output name="taille"><?php echo $plante['Id_utilisateur']; ?></output> 
+                <output name="taille"><?php echo $plante['Pseudo']; ?></output> 
             </div>
             <div id=map>
                 <iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>
