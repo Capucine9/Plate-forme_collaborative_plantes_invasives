@@ -29,6 +29,7 @@
         
         <form action="profil_plante.php" method="POST">
             <h1 style="text-align:center"> Liste des signalements </h1>
+            
                  <!-- affichage ajout signalement réussi -->
                 <?php
                     if($_GET["ajout"]=="true"){
@@ -50,15 +51,162 @@
                 <option>le début du site </option>
             </select>
             
+            Trier par :
+            <select name="tri" onchange="this.form.submit()"> 
+                <option value="dateRec" <?php if($_POST['tri']=="dateRec"){echo "selected";}?>> Date du plus récent </option>
+                <option value="dateAnc" <?php if($_POST['tri']=="dateAnc"){echo "selected";}?>> Date du plus ancien </option>
+                <option value="plante" <?php if($_POST['tri']=="plante"){echo "selected";}?>> Ordre alphabétique plante</option> 
+            </select>
+            
             <div class= "carre">
                 
                     
                 <?php
-                ini_set( 'display_errors', 'on' );
-                error_reporting( E_ALL );
-                    if(!empty($_POST)){
-                        if(isset($_POST['searchbar'])){
-                         
+                    ini_set( 'display_errors', 'on' );
+                    error_reporting( E_ALL );
+
+                    try{
+                        $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+                        $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                    }
+                    catch(Exception $e){
+                        die('Erreur :' . $e->getMessage());
+                    }
+
+                    
+
+                        if(isset($_POST['plante']) and $_POST['plante']!="" )
+                        {
+                            if(isset($_POST['tri']) and ($_POST['tri']=="" or $_POST['tri']=="dateRec")){
+                                $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement 
+                                                                    FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
+                                                                    INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
+                                                                    WHERE plantes.Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR plantes.Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'"
+                                                                    ORDER BY signalements.Date_signalement DESC');
+                                                
+                                $requeteJointure->execute();
+                                $donnees = $requeteJointure->fetchAll();
+                            }
+                            
+                            else{
+                                if($_POST['tri']=="dateAnc"){
+                                    $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement 
+                                                                        FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
+                                                                        INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
+                                                                        WHERE plantes.Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR plantes.Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'"
+                                                                        ORDER BY signalements.Date_signalement ASC');
+                                        
+                                    $requeteJointure->execute();
+                                    $donnees = $requeteJointure->fetchAll();
+                                }
+
+                                else{
+                                    $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement 
+                                                                        FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
+                                                                        INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
+                                                                        WHERE plantes.Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR plantes.Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'"
+                                                                        ORDER BY plantes.Nom_fr ');
+                
+                                    $requeteJointure->execute();
+                                    $donnees = $requeteJointure->fetchAll();
+                                }
+                            }
+                        }
+                        
+                        else{
+
+                            if(isset($_POST['tri']) and ($_POST['tri']=="" or $_POST['tri']=="dateRec")){
+                                $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement 
+                                                                    FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
+                                                                    INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
+                                                                    ORDER BY signalements.Date_signalement DESC');
+                                                
+                                $requeteJointure->execute();
+                                $donnees = $requeteJointure->fetchAll();
+                            }
+                            
+                            else{
+                                if(isset($_POST['tri']) and $_POST['tri']=="dateAnc"){
+                                    $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement 
+                                                                        FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
+                                                                        INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
+                                                                        ORDER BY signalements.Date_signalement ASC');
+                                        
+                                    $requeteJointure->execute();
+                                    $donnees = $requeteJointure->fetchAll();
+                                }
+
+                                else{
+                                    $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement 
+                                                                        FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
+                                                                        INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
+                                                                        ORDER BY plantes.Nom_fr ');
+                
+                                    $requeteJointure->execute();
+                                    $donnees = $requeteJointure->fetchAll();
+                                }
+                            }
+
+
+                        }
+
+                        if(isset($_POST['liste'])){
+                        
+                            $rechercheDate= TRUE;
+                            $date=$_POST['liste'];
+                            $aujourdhui=strtotime(date('Y-m-d'));
+                            $resultat=array();
+                            
+                            if($date == "jour"){
+                                
+                               foreach ($donnees as $signalement){
+                                    $dateSignal=strtotime($signalement['Date_signalement']);
+                                    if((($aujourdhui - $dateSignal)/86400) <=1){ 
+                                            $resultat[]=$signalement;
+                                        }
+                                }
+                                
+                                    
+                            }
+                            elseif($date == "semaine"){
+
+                                foreach ($donnees as $signalement){
+                                    $dateSignal=strtotime($signalement['Date_signalement']);
+                                    if((($aujourdhui - $dateSignal)/86400) <=7){ 
+                                            $resultat[]=$signalement;
+                                        }
+                                }
+                            }
+                            elseif($date == "mois"){
+
+                                foreach ($donnees as $signalement){
+                                    $dateSignal=strtotime($signalement['Date_signalement']);
+                                    if((($aujourdhui - $dateSignal)/86400) <=31){ 
+                                            $resultat[]=$signalement;
+                                        }
+                                }
+
+                            }
+                            elseif($date == "an"){
+
+                                foreach ($donnees as $signalement){
+                                    $dateSignal=strtotime($signalement['Date_signalement']);
+                                    if((($aujourdhui - $dateSignal)/86400) <=365){ 
+                                            $resultat[]=$signalement;
+                                        }
+                                }
+                            }
+                            else
+                            {
+                                $resultat=$donnees;
+                            }
+
+                        }
+                        else{
+                           
+                            $rechercheDate=FALSE;
+                        
                             try{
                                 $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
                                 $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -67,75 +215,34 @@
                             catch(Exception $e){
                                 die('Erreur :' . $e->getMessage());
                             }
-    
-                            
+
+
                                 $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement 
                                                                 FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
                                                                                 INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
-                                                                                WHERE plantes.Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR plantes.Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'"
                                                                                 ORDER BY signalements.Date_signalement DESC');
                                 
                                 $requeteJointure->execute();
                                 $donnees = $requeteJointure->fetchAll(); 
-                            
+                       }
+                    
+                
+                    if($rechercheDate==FALSE){
 
-                        }
+                        $tableau =  $donnees;
                     }
                     else{
-                        try{
-                            $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
-                            $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                            $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                        }
-                        catch(Exception $e){
-                            die('Erreur :' . $e->getMessage());
-                        }
 
+                        $tableau = $resultat;
+                    }
 
-                            $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement 
-                                                            FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
-                                                                            INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
-                                                                            ORDER BY signalements.Date_signalement DESC');
-                            
-                            $requeteJointure->execute();
-                            $donnees = $requeteJointure->fetchAll(); 
-                    }       
-                    if (count($donnees)==0)   
+                    if (count($tableau)==0)   
                     {
                         echo "<p align=\"center\"> Aucun résultat disponible </p>";
                     } 
-                    else{     
-                        
-                        if(isset($_POST['liste'])){
-                            $date=$_POST['liste'];
-                            $aujourdhui=date('Y-m-d');
-                            $resultat=array();
-                            if($date == "un jour"){
-                               
-                                $aujourdhui=strtotime($aujourdhui);
-                                foreach ($donnees as $signalement){
-                                    $dateSignal=strtotime($signalement['Date_signalement']);
-                                    if((($aujourdhui - $dateSignal)/86400) <=1){
-                                        $resultat[]=$signalement;
-                                    }
-                                }
-                                
-                            }
-                            elseif($date == "une semaine"){
+                    else{
 
-                            }
-                            elseif($date == "un mois"){
-
-                            }
-                            elseif($date == "un an"){
-
-                            }
-
-                            unset($donnees);
-                            $donnees=$resultat;
-                        }
-                    }
-                        foreach ($donnees as $signalement){
+                        foreach ($tableau as $signalement){
 
                         
                 ?>
