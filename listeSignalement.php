@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,21 +16,35 @@
         <div class="deroulant">
             <button class="menu"> Menu </button>  
                 <div class="partie" >
-                    <a href="accueil.php">Accueil</a>
-                    <a href="profil_utilisateur.php">Votre profil</a>
+                    <a href="accueil.php">Accueil</a><?php
+                        if(isset($_SESSION['id']) and empty($_GET['deco'])){
+                            echo ("<a href=\"profil_utilisateur.php\">Votre profil</a>");
+                        }
+                    ?>
                     <a href="repertoire_botannique.php">Le répertoire botannique</a>
                     <a href="repertoire_utilisateur.php">Les utilisateurs</a>
                     <a href="listeSignalement.php">Les derniers signalements</a>
                     <a href="ajout_signalement.php">Signaler une plante</a>
-                    <a href="ajout_plante.php">Ajouter une plante</a>
+                    <?php 
+                        if($_SESSION['rang']==3){
+                            echo("<a href=\"ajout_plante.php\">Ajouter une plante</a>");
+                        }
+                    ?>
                     <a href="">Vos amis</a>
                     <a href="connexion.php">Connexion</a>
                     <a href="inscription.php">Inscription</a>
                 </div>
-        </div>
+    </div>
+    <?php
+   if($_GET['deco']==1){
+        session_destroy();
+        echo ("<p align=\"center\"> Vous avez été déconnecté </p>");
+    }
+
+  ?>
 
         
-        <form action="profil_plante.php" method="POST">
+        <form action="" method="POST">
             <h1 style="text-align:center"> Liste des signalements </h1>
             
                  <!-- affichage ajout signalement réussi -->
@@ -41,25 +58,25 @@
             <input id="searchbar" type="text" placeholder="Rechercher une plante..." name="plante">
             <button type="submit" name="searchbar">Rechercher</button>
             
-           Depuis :
-           <select name="liste"> 
-                <option>---</option> 
-                <option>24h </option>
-                <option>une semaine </option>
-                <option>un mois  </option>
-                <option>un an </option>
-                <option>le début du site </option>
+            Depuis :
+           <select name="liste" onchange="this.form.submit()"> 
+                <option value="tout" <?php if($_POST['liste']=="tout"){echo "selected";}?>> le début du site</option> 
+                <option value="jour" <?php if($_POST['liste']=="jour"){echo "selected";}?>>un jour </option>
+                <option value="semaine" <?php if($_POST['liste']=="semaine"){echo "selected";}?>>une semaine </option>
+                <option value="mois" <?php if($_POST['liste']=="mois"){echo "selected";}?>>un mois  </option>
+                <option value="an" <?php if($_POST['liste']=="an"){echo "selected";}?>>un an </option>
             </select>
-            
+
             Trier par :
             <select name="tri" onchange="this.form.submit()"> 
                 <option value="dateRec" <?php if($_POST['tri']=="dateRec"){echo "selected";}?>> Date du plus récent </option>
                 <option value="dateAnc" <?php if($_POST['tri']=="dateAnc"){echo "selected";}?>> Date du plus ancien </option>
                 <option value="plante" <?php if($_POST['tri']=="plante"){echo "selected";}?>> Ordre alphabétique plante</option> 
             </select>
+
             
-            <div class= "carre">
-                
+            
+            <div class= "carre">  
                     
                 <?php
                     ini_set( 'display_errors', 'on' );
@@ -260,7 +277,12 @@
                     </div>
                 </a>
                 <?php
+                        }
                     }
+
+                
+                
+                
                 
                 ?>
 
