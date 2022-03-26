@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -44,6 +47,60 @@
         echo "<div class=inscription> Inscription réussie, veuillez vous connecter </div></br>";
       }
     ?>
+    
+    <?php 
+      
+      ini_set( 'display_errors', 'on' );
+      error_reporting( E_ALL );
+      $errors = array();
+      if(isset($_POST['email']) and isset($_POST['mdp'])){
+        try{
+          $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+          $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+          die('Erreur :' . $e->getMessage());
+        }
+
+        $requete=$BDD->prepare('SELECT * FROM utilisateurs WHERE Email ="'.$_POST['email'].'"');
+        $requete->execute();
+        $utilisateur=$requete->fetch();
+
+        if($utilisateur == null)
+          $errors['email']="Email incorrecte";
+        else{
+          if(password_verify($_POST['mdp'], $utilisateur['Mdp'])){
+              
+              $_SESSION['id']=$utilisateur['Id_utilisateur'];
+              $_SESSION['pseudo']=$utilisateur['Pseudo'];
+              $_SESSION['rang']=$utilisateur['Rang'];
+
+              header('Location: accueil.php');
+              exit();
+          }
+          else{
+            $errors['mdp']="Mot de passe incorrect";
+          }
+        }
+
+      }
+
+      if(!empty($errors)){
+    ?>
+
+    <div class ="erreur">
+      <p> Le formulaire est incorrect : </p>
+      <?php
+        foreach($errors as $error){
+          echo '<li>'.$error.'</li>';
+        }
+      ?>
+      </br>
+    </div>
+    <?php } ?>
+
+
     <form method = "post">
     <div class="renseignement">
       <div id="titre">Adresse mail : </div>
@@ -58,35 +115,6 @@
     <a href="accueil.php" id="bouttongauche"><input type="button" value="Annuler"></a>
     <button id="bouttondroite" type="submit" onclick="">Connexion</button>
 
-    <?php 
-      if(!empty($_POST['email']) && !empty($_POST['mdp']))
-      {
-        try{
-          $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
-        }
-        catch(Exception $e){
-          die('Erreur :' . $e->getMessage());
-        }
-
-        $requete = $BDD->prepare('SELECT * FROM utilisateurs WHERE Email = :email');
-       
-        $requete->execute(['Email' => $_POST['email']]);
-        $utilisateur = $requete->fetch();
-        echo $utilisateur['Rang'];
-        if($utilisateur==null)
-          $_SESSION['flash']['danger'] = 'Identifiant ou mot de passe incorrecte';
-        elseif(password_verify($_POST['mdp'], $utilisateur['Mdp'])){
-          $_SESSION['auth'] = $utilisateur;
-          $_SESSION['flash']['success'] = 'Vous êtes maintenant connecté';
-          header('Location: account.php');
-          exit();
-        }
-          else{
-            $_SESSION['flash']['danger'] = 'Identifiant ou mot de passe incorrecte';
-          }
-      }
-      
-    ?>
 
     </form>
     <footer>
