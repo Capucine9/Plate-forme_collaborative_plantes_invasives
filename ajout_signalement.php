@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -17,17 +20,41 @@
             <button class="menu"> Menu </button>  
                 <div class="partie" >
                     <a href="accueil.php">Accueil</a>
-                    <a href="profil_utilisateur.php">Votre profil</a>
+                    <?php
+                        if(isset($_SESSION['id']) and empty($_GET['deco'])){
+                            echo ("<a href=\"profil_utilisateur.php\">Votre profil</a>");
+                        }
+                    ?>
                     <a href="repertoire_botannique.php">Le répertoire botannique</a>
                     <a href="repertoire_utilisateur.php">Les utilisateurs</a>
                     <a href="listeSignalement.php">Les derniers signalements</a>
                     <a href="ajout_signalement.php">Signaler une plante</a>
-                    <a href="ajout_plante.php">Ajouter une plante</a>
+                    <?php 
+                        if($_SESSION['rang']==3){
+                            echo("<a href=\"ajout_plante.php\">Ajouter une plante</a>");
+                        }
+                    ?>
+                    
                     <a href="">Vos amis</a>
-                    <a href="connexion.php">Connexion</a>
-                    <a href="inscription.php">Inscription</a>
+                    <?php
+                        if(isset($_SESSION['id']) and empty($_GET['deco'])){
+                            echo ("<a href=\"accueil.php?deco=1\">Déconnexion</a>");
+                        }
+                        else{
+                            echo("<a href=\"connexion.php\">Connexion</a> <a href=\"inscription.php\">Inscription</a>");
+                        }
+                    ?>
+                    
+                    
                 </div>
-    </div>
+</div>
+<?php
+   if($_GET['deco']==1){
+        session_destroy();
+        echo ("<p align=\"center\"> Vous avez été déconnecté </p>");
+    }
+
+?>
 
 
 
@@ -102,8 +129,8 @@
             echo 'Erreur :' . $e->getMessage();
           }
           try{
-            $req = $BDD->prepare("INSERT INTO signalements (Id_plante, Ville, /*Coordonnees_GPS,*/ Date_signalement, Commentaire )  VALUES (:id_plante, :ville, /*:gps,*/ :dat, :commentaire) ");
-            $exec = $req->execute(array(':id_plante'=> $id_plante, ':ville'=> $ville, /*':gps'=> $gps,*/':dat'=>$date, ':commentaire'=>$description));
+            $req = $BDD->prepare("INSERT INTO signalements (Id_utilisateur, Id_plante, Ville, /*Coordonnees_GPS,*/ Date_signalement, Commentaire )  VALUES (:id_utilisateur, :id_plante, :ville, /*:gps,*/ :dat, :commentaire) ");
+            $exec = $req->execute(array(':id_utilisateur'=> $_SESSION['id'], ':id_plante'=> $id_plante, ':ville'=> $ville, /*':gps'=> $gps,*/':dat'=>$date, ':commentaire'=>$description));
           }
           catch(Exception $e){
               echo "erreur".$e->getMessage();
