@@ -25,20 +25,32 @@
                     <a href="repertoire_utilisateur.php">Les utilisateurs</a>
                     <a href="listeSignalement.php">Les derniers signalements</a>
                     <a href="ajout_signalement.php">Signaler une plante</a>
-                    <a href="ajout_plante.php">Ajouter une plante</a>
-                    <a href="">Vos amis</a>
-                    <?php
-                        if(isset($_SESSION['id'])){
-                            echo ("<a href=\"accueil.php?deco=1\">Déconnexion</a>");
-                        }
-                        else{
-                            echo("<a href=\"connexion.php\">Connexion</a>");
+                    <?php 
+                        if($_SESSION['rang']==3){
+                            echo("<a href=\"ajout_plante.php\">Ajouter une plante</a>");
                         }
                     ?>
                     
-                    <a href="inscription.php">Inscription</a>
+                    <a href="">Vos amis</a>
+                    <?php
+                        if(isset($_SESSION['id']) and empty($_GET['deco'])){
+                            echo ("<a href=\"accueil.php?deco=1\">Déconnexion</a>");
+                        }
+                        else{
+                            echo("<a href=\"connexion.php\">Connexion</a> <a href=\"inscription.php\">Inscription</a>");
+                        }
+                    ?>
+                    
+                    
                 </div>
 </div>
+<?php
+   if($_GET['deco']==1){
+        session_destroy();
+        echo ("<p align=\"center\"> Vous avez été déconnecté </p>");
+    }
+
+?>
 
     <?php
       if(isset($_POST['valider'])){
@@ -168,8 +180,8 @@
             echo 'Erreur :' . $e->getMessage();
           }
           try{
-            $req = $BDD->prepare("INSERT INTO plantes (Nom_latin, Nom_fr, Taille, Couleur, Fleur, Fruit, Couleur_fleur, Couleur_fruit, Régions, Details, Famille, Période_floraison, Période_fructification )  VALUES (:nomlat, :nomfr, :taille, :couleur, :fleur, :fruit, :couleur_fleur, :couleur_fruit, :region, :details, :famille, :periode_floraison, :periode_fructification) ");
-            $exec = $req->execute(array(':nomlat'=> $nomlat, ':nomfr'=> $nomfr, ':taille'=> $taille, ':couleur'=> $couleur, ':fleur'=> $fleur, ':fruit'=> $fruit, ':couleur_fleur'=> $couleurfleur, ':couleur_fruit'=> $couleurfruit, ':region'=>$region, ':details'=> $description, ':famille'=> $famille, ':periode_floraison'=> $periodefleur, ':periode_fructification'=> $periodefruit));
+            $req = $BDD->prepare("INSERT INTO plantes (Id_utilisateur, Nom_latin, Nom_fr, Taille, Couleur, Fleur, Fruit, Couleur_fleur, Couleur_fruit, Régions, Details, Famille, Période_floraison, Période_fructification )  VALUES (:utilisateur, :nomlat, :nomfr, :taille, :couleur, :fleur, :fruit, :couleur_fleur, :couleur_fruit, :region, :details, :famille, :periode_floraison, :periode_fructification) ");
+            $exec = $req->execute(array(':utilisateur'=>$_SESSION['id'], ':nomlat'=> $nomlat, ':nomfr'=> $nomfr, ':taille'=> $taille, ':couleur'=> $couleur, ':fleur'=> $fleur, ':fruit'=> $fruit, ':couleur_fleur'=> $couleurfleur, ':couleur_fruit'=> $couleurfruit, ':region'=>$region, ':details'=> $description, ':famille'=> $famille, ':periode_floraison'=> $periodefleur, ':periode_fructification'=> $periodefruit));
           }
           catch(Exception $e){
               echo "erreur".$e->getMessage();
