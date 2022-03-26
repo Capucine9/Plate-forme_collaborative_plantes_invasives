@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -13,7 +16,7 @@
     <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
     
     <!--menu déroulant-->
-    <div class="deroulant">
+   <div class="deroulant">
             <button class="menu"> Menu </button>  
                 <div class="partie" >
                     <a href="accueil.php">Accueil</a>
@@ -24,10 +27,18 @@
                     <a href="ajout_signalement.php">Signaler une plante</a>
                     <a href="ajout_plante.php">Ajouter une plante</a>
                     <a href="">Vos amis</a>
-                    <a href="connexion.php">Connexion</a>
+                    <?php
+                        if(isset($_SESSION['id'])){
+                            echo ("<a href=\"accueil.php?deco=1\">Déconnexion</a>");
+                        }
+                        else{
+                            echo("<a href=\"connexion.php\">Connexion</a>");
+                        }
+                    ?>
+                    
                     <a href="inscription.php">Inscription</a>
                 </div>
-    </div>
+</div>
 
     <?php
       if(isset($_POST['valider'])){
