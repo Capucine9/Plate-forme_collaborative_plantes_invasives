@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,7 +15,6 @@
 <body>
 <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
 
-
 <!--menu déroulant-->
 <div class="deroulant">
             <button class="menu"> Menu </button>  
@@ -20,15 +22,30 @@
                     <a href="accueil.php">Accueil</a>
                     <a href="profil_utilisateur.php">Votre profil</a>
                     <a href="repertoire_botannique.php">Le répertoire botannique</a>
-                    <a href="">Les utilisateurs</a>
-                    <a href="">Les derniers signalements</a>
+                    <a href="repertoire_utilisateur.php">Les utilisateurs</a>
+                    <a href="listeSignalement.php">Les derniers signalements</a>
                     <a href="ajout_signalement.php">Signaler une plante</a>
                     <a href="ajout_plante.php">Ajouter une plante</a>
                     <a href="">Vos amis</a>
-                    <a href="connexion.php">Connexion</a>
+                    <?php
+                        if(isset($_SESSION['id'])){
+                            echo ("<a href=\"accueil.php?deco=1\">Déconnexion</a>");
+                        }
+                        else{
+                            echo("<a href=\"connexion.php\">Connexion</a>");
+                        }
+                    ?>
+                    
                     <a href="inscription.php">Inscription</a>
                 </div>
 </div>
+<?php
+   if($_GET['deco']==1){
+        session_destroy();
+        echo ("<p align=\"center\"> Vous avez été déconnecté </p>");
+    }
+
+?>
 
 <div class= "carre">
     <p><font size="5pt"><b>Pourquoi cette plate-forme ?</b></font></br>
