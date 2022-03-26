@@ -30,7 +30,11 @@
                     <a href="repertoire_utilisateur.php">Les utilisateurs</a>
                     <a href="listeSignalement.php">Les derniers signalements</a>
                     <a href="ajout_signalement.php">Signaler une plante</a>
-                    <a href="ajout_plante.php">Ajouter une plante</a>
+                    <?php 
+                        if($_SESSION['rang']==3){
+                            echo("<a href=\"ajout_plante.php\">Ajouter une plante</a>");
+                        }
+                    ?>
                     <a href="">Vos amis</a>
                     <a href="connexion.php">Connexion</a>
                     <a href="inscription.php">Inscription</a>
