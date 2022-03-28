@@ -1,0 +1,139 @@
+
+/* Pour le menu */
+
+.menu{
+  background-color: rgb(50, 243, 179);
+  color: black;
+  border: none;
+  cursor: pointer;
+  padding: 30px;
+  font-size: large;
+  position: relative;
+}
+
+/*si le bouton est survolé*/
+.menu:hover {
+  background-color: rgb(4, 124, 84);
+  color: white;
+}
+.partie a:hover{
+  background-color: rgb(4, 124, 84);
+  color: white;
+}
+
+.deroulant{
+  position: absolute;
+  display: inline-block;
+}
+
+.partie{
+  display: none;
+  background-color: aquamarine;
+  min-width: 50px;
+}
+
+.deroulant:hover .partie {
+  display: block;
+}
+
+.partie a{
+  color: black;
+  padding: 20px;
+  display:block;
+  text-decoration: none;
+
+}
+
+
+/* Page profil utilisateur et plante */
+
+#boutonmodif{
+    margin-left: 300px;
+    margin-top: 100px;
+}
+
+.renseignement{
+    margin-top: 80px ;
+    column-width: 300px;
+    text-align: left;
+    margin-left: 300px;
+  }
+  
+#titre{
+    /*titre de l'information*/
+    font: bold large serif;
+    font-size: large;
+  }
+
+
+
+
+/* Page repertoire botannique */
+
+#searchbar{
+  margin-left: 200px;
+}
+
+
+
+.carre_plante{
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  
+  height: 100px;
+  background-color: transparent;
+  border: solid 0.1mm;
+  border-color: black;
+  border-radius: 30px;
+
+ 
+}
+
+#planteinfos{
+  margin-top: 50px;
+  margin-left : 200px;
+  text-decoration: none;
+  color: black;
+}
+
+#lien_plante{
+  display:block;
+  text-decoration: none;
+}
+
+#image_plante{
+  margin-top: 10px;
+  margin-left: 10px;
+  height:80px;
+  position: absolute;
+  
+}
+
+
+.lettre{
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+#tri{
+  margin-left:20px
+  
+}
+
+/*Page Accueil*/
+
+footer{
+  position:fixed;
+  justify-content: center;
+  width:100%;
+  height:50px;
+  background-color: rgb(200, 202, 204);
+  bottom: 0px;
+
+}
+
+#baspage{
+  margin-left: 500px;
+}

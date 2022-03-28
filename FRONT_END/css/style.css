@@ -1,0 +1,267 @@
+#header {
+    /*bandeau*/
+  height: 170px;
+  background: url('Bandeau.jpg') ;
+
+  /*texte bandeau*/
+  color: rgb(255, 255, 255);
+  font: bold italic large serif;
+  font-size: xx-large;
+  text-align:center;
+  vertical-align: middle;
+  line-height: 170px;
+}
+
+body{
+    margin:0px;
+    margin-bottom:100px
+}
+
+/* Pour le menu */
+
+.menu{
+  background-color: rgb(50, 243, 179);
+  color: black;
+  border: none;
+  cursor: pointer;
+  padding: 30px;
+  font-size: large;
+  position: relative;
+}
+
+/*si le bouton est survolé*/
+.menu:hover {
+  background-color: rgb(4, 124, 84);
+  color: white;
+}
+.partie a:hover{
+  background-color: rgb(4, 124, 84);
+  color: white;
+}
+
+.deroulant{
+  position: absolute;
+  display: inline-block;
+}
+
+.partie{
+  display: none;
+  background-color: aquamarine;
+  min-width: 50px;
+}
+
+.deroulant:hover .partie {
+  display: block;
+}
+
+.partie a{
+  color: black;
+  padding: 20px;
+  display:block;
+  text-decoration: none;
+
+}
+
+
+/* Page profil utilisateur et plante */
+
+#boutonmodif{
+    margin-left: 300px;
+    margin-top: 100px;
+}
+
+
+.renseignement{
+    /*mise en colonne des informations*/
+    margin-top: 80px ;
+    column-width: 300px;
+    text-align: left;
+    margin-left: 300px;
+  }
+  
+#titre{
+    /*titre de l'information*/
+    font: bold large serif;
+    font-size: large;
+    /*margin-left: 20px ;*/
+  }
+
+
+
+
+/* Page repertoire botannique */
+
+#searchbar{
+  margin-left: 200px;
+}
+
+.carre{
+  margin-left: 200px;
+  margin-top: 20px;
+  width : 75%;
+  height: 100%;
+  background-color: transparent;
+  border: solid 0.1mm;
+  border-color: black;
+  border-radius: 30px;
+  text-indent: 20px;
+}
+
+.carre_plante{
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  
+  height: 100px;
+  background-color: transparent;
+  border: solid 0.1mm;
+  border-color: black;
+  border-radius: 30px;
+
+ 
+}
+
+#planteinfos{
+  margin-top: 50px;
+  margin-left : 200px;
+  text-decoration: none;
+  color: black;
+}
+
+#lien_plante{
+  display:block;
+  text-decoration: none;
+}
+
+#image_plante{
+  margin-top: 10px;
+  margin-left: 10px;
+  height:80px;
+  position: absolute;
+  
+}
+
+
+.lettre{
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+#tri{
+  margin-left:20px
+  
+}
+
+/*Page Accueil*/
+
+footer{
+  position:fixed;
+  justify-content: center;
+  width:100%;
+  height:50px;
+  background-color: rgb(200, 202, 204);
+  bottom: 0px;
+}
+
+#image{
+  height: 120px;
+  width: auto;
+  margin-left:10px;
+  margin-right:10px;
+}
+
+#baspage{
+  margin-left: 500px;
+}
+
+#renseignement{
+  /*endroit de renseignement*/
+  width: 200px;
+}
+
+#bouttongauche{
+  margin-left: 300px;
+  margin-top: 100px;
+}
+
+#bouttondroite{
+  margin-left: 500px;
+}
+
+#bouttoncentre{
+  margin-left: 250px;
+  width: 120px;
+}
+
+/* Radio boutton */
+#radiodroite{
+  margin-left: 120px;
+}
+#resultbouton1{
+  display: none;
+}
+#resultbouton2{
+  display: none;
+}
+#resultbouton3{
+  display: none;
+}
+#resultbouton4{
+  display: none;
+}
+
+
+input[type="radio"].connexion {
+  display: none;
+}
+input[type="radio"].connexion + label {
+  display:none;
+  border: 1px solid #000;
+  padding: 0.5rem 1rem;
+  min-width:50px;
+  text-align:center;
+}
+input[type="radio"].connexion:checked + label {
+  display: inline-block;
+}
+
+/* Carte */ 
+#map{
+  height: 720px;
+  width: auto;
+  position:relative; 
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  top: 20px; 
+}
+
+/* Page inscription et ajout plante, affichage erreur */
+.erreur{
+  background-color: rgb(231, 60, 60);
+  color: rgb(255, 255, 255);
+  margin-left: auto;
+  margin-right: auto;
+  border: solid;
+  border-color: rgb(161, 0, 0);
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+
+}
+
+/*Page reperrtoire botanique et connexion */
+
+.inscription{
+  background-color: rgb(136, 223, 250);
+  color: rgb(0, 39, 99);
+  margin-left: auto;
+  margin-right: auto;
+  border: solid;
+  border-color: rgb(0, 39, 99);
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+
+}
