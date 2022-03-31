@@ -21,6 +21,12 @@
 
 
     <?php
+      if($_SESSION['rang']==1){
+        $validation = 0;
+      }
+      else{
+        $validation = 1;
+      }
       if(isset($_POST['valider'])){
         
         if(!empty($_POST)){
@@ -91,8 +97,8 @@
             echo 'Erreur :' . $e->getMessage();
           }
           try{
-            $req = $BDD->prepare("INSERT INTO signalements (Id_utilisateur, Id_plante, Ville, /*Coordonnees_GPS,*/ Date_signalement, Commentaire )  VALUES (:id_utilisateur, :id_plante, :ville, /*:gps,*/ :dat, :commentaire) ");
-            $exec = $req->execute(array(':id_utilisateur'=> $_SESSION['id'], ':id_plante'=> $id_plante, ':ville'=> $ville, /*':gps'=> $gps,*/':dat'=>$date, ':commentaire'=>$description));
+            $req = $BDD->prepare("INSERT INTO signalements (Id_utilisateur, Id_plante, Ville, /*Coordonnees_GPS,*/ Date_signalement, Commentaire, Verifier )  VALUES (:id_utilisateur, :id_plante, :ville, /*:gps,*/ :dat, :commentaire, :verifier) ");
+            $exec = $req->execute(array(':id_utilisateur'=> $_SESSION['id'], ':id_plante'=> $id_plante, ':ville'=> $ville, /*':gps'=> $gps,*/':dat'=>$date, ':commentaire'=>$description, ':verifier'=>$validation));
           }
           catch(Exception $e){
               echo "erreur".$e->getMessage();
