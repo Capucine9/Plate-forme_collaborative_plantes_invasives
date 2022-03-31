@@ -13,10 +13,11 @@
     <?php
     include("menu.php");
     ?>
-        <form>
+        <form method="post" action="">
 
-        <?php
-            
+         <?php
+            ini_set( 'display_errors', 'on' );
+            error_reporting( E_ALL );
             try{
                 $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
             }
@@ -30,6 +31,42 @@
                     
             $requeteJointure->execute();
             $signalement = $requeteJointure->fetch(); 
+
+            if(isset($_POST['modif'])){
+                echo("...........................................");
+                try{
+                    $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+                    $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                }
+                catch(Exception $e){
+                    die('Erreur :' . $e->getMessage());
+                }
+
+                $requeteModif = $BDD->prepare('UPDATE signalements SET Verifier=:verif WHERE Id_signalement="'.$_GET["id"].'"');
+                $exec=$requeteModif->execute(array(':verif'=> 1));
+            }
+            
+
+            if(isset($_POST['supprimer'])){
+
+                try{
+                    $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+                    $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                }
+                catch(Exception $e){
+                    die('Erreur :' . $e->getMessage());
+                }
+
+                $requeteSupprime = $BDD->prepare('DELETE FROM signalements WHERE Id_signalement="'.$_GET["id"].'"');
+                $exec=$requeteSupprime->execute();
+            }
+
+            if($exec){
+                header('Location: listeSignalement.php?');
+                exit();
+            } 
             
         ?>    
             
@@ -75,12 +112,18 @@
             
             <!-- mettre une carte -->
             
-            <button id="boutonmodif" type=button onclick="">
-                Valider le signalement
-            </button>
-            <button id="boutonmodif" type=button onclick="">
-                Supprimer le signalement
-            </button>
+            <?php
+           
+                if($_SESSION['rang']==2 or $_SESSION['rang']==3){
+                    echo("<button id=\"boutonmodif\" type=\"submit\" name=\"modif\">
+                    Valider le signalement
+                </button>
+                <button id=\"boutonmodif\" type=\"submit\" name=\"supprimer\">
+                    Supprimer le signalement
+                </button>");
+                }
+              
+            ?>
         </form>
 
         <footer>
