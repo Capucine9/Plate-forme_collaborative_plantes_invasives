@@ -57,6 +57,7 @@
               $_SESSION['id']=$utilisateur['Id_utilisateur'];
               $_SESSION['pseudo']=$utilisateur['Pseudo'];
               $_SESSION['rang']=$utilisateur['Rang'];
+              $_SESSION['score']=$utilisateur['Nb_bon_signalement'];
 
               header('Location: accueil.php');
               exit();
