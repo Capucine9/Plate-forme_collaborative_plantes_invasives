@@ -45,6 +45,26 @@
 
                 $requeteModif = $BDD->prepare('UPDATE signalements SET Verifier=:verif WHERE Id_signalement="'.$_GET["id"].'"');
                 $exec=$requeteModif->execute(array(':verif'=> 1));
+                
+                 $score=$signalement['Nb_bon_signalement']+1;
+                if ($score==5){
+                    $requeteModifScore = $BDD->prepare('UPDATE utilisateurs SET Nb_bon_signalement=:score, Rang=:rang WHERE Id_utilisateur="'.$signalement['Id_utilisateur'].'"');
+                    $exec=$requeteModifScore->execute(array(':score'=> $score, ':rang'=> 2));
+                }
+                else{
+                    $requeteModifScore = $BDD->prepare('UPDATE utilisateurs SET Nb_bon_signalement=:score WHERE Id_utilisateur="'.$signalement['Id_utilisateur'].'"');
+                    $exec=$requeteModifScore->execute(array(':score'=> $score));
+                }
+
+                $score2=$_SESSION['score']+1;
+                if ($score2==10){
+                    $requeteModifScore = $BDD->prepare('UPDATE utilisateurs SET Nb_bon_signalement=:score, Rang=:rang WHERE Id_utilisateur="'.$_SESSION['id'].'"');
+                    $exec=$requeteModifScore->execute(array(':score'=> $score2, ':rang'=> 3));
+                }
+                else{
+                    $requeteModifScore = $BDD->prepare('UPDATE utilisateurs SET Nb_bon_signalement=:score WHERE Id_utilisateur="'.$_SESSION['id'].'"');
+                    $exec=$requeteModifScore->execute(array(':score'=> $score2));
+                }
             }
             
 
