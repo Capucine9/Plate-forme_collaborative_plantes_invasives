@@ -170,3 +170,46 @@
     </body>
 </html>
 
+<!--
+window.cb = function cb(json) {
+    //do what you want with the json
+    if (json.address.city != undefined) {
+    	document.getElementById('output').innerHTML = json.address.road + ' à ' + json.address.city;
+    }
+    else {
+        document.getElementById('output').innerHTML = json.address.road + ' à ';
+    	document.getElementById('output').innerHTML = 'la ville n a pas été trouvé par OpenStreetMap'
+        //recherche des coordonnees sur le cercle autour des coordonnées (latitude, longitude donnees par l'utilisateur)
+        <!--while (json.address.city == undefined) {
+            var n = 1;  //nombre de points equidistants sur le cercle
+            for (r=1/10000000; r<2; r+=1/1000000){//rayon du cercle
+                n += 0.00005;
+                for (i=2*pi/n; i<2*pi; i+=pi/n){
+                    latitude += r * cos(i);
+                    longitude += r * sin(i);
+            
+                    var s = document.createElement('script');       
+    		        s.src = 'http://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat='+latitude+'&lon='+longitude+'&zoom=27&addressdetails=1';
+    		        document.getElementsByTagName('head')[0].appendChild(s);
+                }
+            }
+        }
+        document.getElementById('output').innerHTML += json.address.city;
+    }
+}
+
+latitude = 44.80859801435007;
+longitude = -0.5881290459365119;
+
+window.search = function search() {
+    var s = document.createElement('script');       
+    s.src = 'http://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat='+latitude+'&lon='+longitude+'&zoom=27&addressdetails=1';
+    document.getElementsByTagName('head')[0].appendChild(s);
+};
+
+HTML
+<button onclick="search();" name="search">search</button>
+<p id="output"></p>
+
+http://jsfiddle.net/h6kp432L/18/
+-->
