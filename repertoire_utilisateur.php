@@ -16,11 +16,28 @@
     ?>
 
         
-        <form action="profil_plante.php" method="POST">
+        <form action="" method="POST">
             <h1 style="text-align:center"> Répertoire des utilisateurs </h1>
             
             <br/>
-            <input id="searchbar" onkeyup="recherche_utilisateur()" type="text" placeholder="Rechercher un utilisateur...">
+            <input id="searchbar" type="text" placeholder="Rechercher un utilisateur..." name="utilisateur" >
+            <button type="submit" name="searchbar">Rechercher</button>
+
+
+            Type d'utilisateur :
+            <select name="type" onchange="this.form.submit()"> 
+                <option value="vide" <?php if($_POST['type']=="vide"){echo "selected";}?>> Tous </option> 
+                <option value="Particulier" <?php if($_POST['type']=="Particulier"){echo "selected";}?>> Particulier </option>
+                <option value="Entreprise" <?php if($_POST['type']=="Entreprise"){echo "selected";}?>> Entreprise </option>
+            </select>
+
+            Rang : 
+            <select name="rang" onchange="this.form.submit()"> 
+                <option value="vide" <?php if($_POST['rang']=="vide"){echo "selected";}?>> Tous </option> 
+                <option value="Debutant" <?php if($_POST['rang']=="Debutant"){echo "selected";}?>> Débutant </option> 
+                <option value="Moyen" <?php if($_POST['rang']=="Moyen"){echo "selected";}?>> Moyen</option> 
+                <option value="Expert" <?php if($_POST['rang']=="Expert"){echo "selected";}?>> Expert </option>
+            </select>
             
             <div class= "carre">
                 
@@ -34,23 +51,101 @@
                         die('Erreur :' . $e->getMessage());
                     }
 
-                    $requete = $BDD->prepare('SELECT * FROM utilisateurs ORDER BY Rang, Pseudo');
+                    
+                    $requete = $BDD->prepare('SELECT * FROM utilisateurs ORDER BY Pseudo, Rang');
                     $requete->execute();
-                    /* on récupère le résultt de la requête sous forme d'un tableau */
                     $donnees = $requete->fetchAll();
                     
-                    foreach ($donnees as $utilisateur){
-                        if ($utilisateur['Rang'] == 1 )
-                            $rang="débutant";
-                            else if ( $utilisateur['Rang'] == 2 )
-                                $rang = "moyen";
-                                else
-                                    $rang = "expert";
 
-                        if ($utilisateur['Entreprise'] == 0)
-                            $type = "particulier";
-                        else
-                            $type = "entreprise";
+
+                    if(isset($_POST['utilisateur']) and $_POST['utilisateur']!="" )
+                    {
+                        foreach ($donnees as $utilisateur){
+                            if(strstr (strtolower($utilisateur['Pseudo']), strtolower($_POST['utilisateur'])) ){
+                                $result[]=$utilisateur;
+                            }
+                        }
+                        $donnees=$result;
+
+
+                    }
+
+                    if(isset($_POST['type']) and $_POST['type']!="vide")
+                    {
+                        if($_POST['type']=="Particulier" ){
+
+                            foreach ($donnees as $utilisateur){
+
+                                if($utilisateur['Entreprise'] == 0 ){ 
+                                        $resultatType[]=$utilisateur;
+                                }
+                            }
+                            $donnees=$resultatType; 
+                        } 
+
+                        else{
+                            foreach ($donnees as $utilisateur){
+
+                                if($utilisateur['Entreprise']==1 ){ 
+                                        $resultatType[]=$utilisateur;
+                                }
+                            }
+                            $donnees=$resultatType; 
+                        }
+                    }
+
+                    if(isset($_POST['rang']) and $_POST['rang']!="vide"){
+                        if($_POST['rang']=="Debutant" ){
+                            foreach ($donnees as $utilisateur){
+
+                                if($utilisateur['Rang']==1 ){ 
+                                        $resultatRang[]=$utilisateur;
+                                }
+                            }
+                            
+                        } 
+
+                        elseif($_POST['rang']=="Moyen" ){
+                            foreach ($donnees as $utilisateur){
+
+                                if($utilisateur['Rang']==2 ){ 
+                                        $resultatRang[]=$utilisateur;
+                                }
+                            }
+                             
+                        } 
+
+                        elseif($_POST['rang']=="Expert" ){
+                            foreach ($donnees as $utilisateur){
+
+                                if($utilisateur['Rang']==3 ){ 
+                                        $resultatRang[]=$utilisateur;
+                                }
+                            }
+                            
+                        } 
+                        $donnees=$resultatRang; 
+                    }
+
+
+                    if (count($donnees)==0)   
+                    {
+                        echo "<p align=\"center\"> Aucun résultat disponible </p>";
+                    } 
+                    else{
+                
+                        foreach ($donnees as $utilisateur){
+                            if ($utilisateur['Rang'] == 1 )
+                                $rang="Débutant";
+                                else if ( $utilisateur['Rang'] == 2 )
+                                    $rang = "Moyen";
+                                    else
+                                        $rang = "Expert";
+
+                            if ($utilisateur['Entreprise'] == 0)
+                                $type = "Particulier";
+                            else
+                                $type = "entreprise";
                 ?>
                 <a href="profil_utilisateur_autre.php?id=<?php echo $utilisateur['Id_utilisateur']?> " id="lien_plante">
                     <div class = "carre_plante">
@@ -71,6 +166,7 @@
                     </div>
                 </a>
                 <?php
+                        }
                     }
                 ?>
 
