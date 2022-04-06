@@ -199,7 +199,20 @@
     <div class="card fat">     
       <div class="card-body">
 
+      <?php
+      	if(!empty($errors)){
+      ?>
 
+      <div class ="erreur">
+        <p> Le formulaire est incorrect : </p>
+        <?php
+          foreach($errors as $error){
+            echo '<li>'.$error.'</li>';
+          }
+        ?>
+        </br>
+      </div>
+      <?php } ?>
 
 <form method="post">
  <!-- Nom Français -->  
@@ -208,7 +221,7 @@
 		<label for="email">Nom français : </label>
 		<input id="nom_fr" type="text" class="form-control" name="nomfr" required>
 		<div class="invalid-feedback">
-        Votre e-mail n'est pas valide
+        		Le nom français n'est pas valide
 		</div>
 		</div>
 <!-- Nom Latin -->    
@@ -217,7 +230,7 @@
          <label for="email">Nom Latin: </label>
          <input id="nom_lt" type="text" class="form-control" name="nomlat" required>
          <div class="invalid-feedback">
-         Votre e-mail n'est pas valide
+         	Le nom latin n'est pas valide
          </div>  
      </div>
     
