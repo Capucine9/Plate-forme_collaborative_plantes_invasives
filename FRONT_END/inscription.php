@@ -138,6 +138,24 @@ if(isset($_POST['valider'])){
 <div class="card fat">
 <div class="card-body">
 <h4 class="card-title">Inscription</h4>
+	
+<?php
+  if(!empty($errors)){
+?>
+
+<div class ="erreur">
+  <p> Le formulaire est incorrect : </p>
+  <?php
+    foreach($errors as $error){
+      echo '<li>'.$error.'</li>';
+    }
+  ?>
+  </br>
+</div>
+
+<?php } ?>
+	
+	
 <form method="post" action="" >  
 <!--Pseudo -->
 <div class="form-group">
