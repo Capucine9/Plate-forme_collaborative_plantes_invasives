@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Signalement</title>
+        <title>Signalements</title>
         <meta charset="utf-8">
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     </head>
@@ -128,9 +128,15 @@
                 </div>
                 <output name="floraison"><?php echo $signalement['Ville']; ?></output> 
             </div>
-            <div id=map>
-                <iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>
+
+
+            <div id=Map>
+                <!--<iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>-->
+                <?php
+                    include 'Map.php';
+                ?>
             </div>
+
 
             <div class="renseignement">
                 <div id="titre">
@@ -138,9 +144,6 @@
                 </div>
                 <output name="fleur"><?php echo $signalement['Commentaire']; ?></output> 
             </div>
-            
-            
-            <!-- mettre une carte -->
             
             <?php
            

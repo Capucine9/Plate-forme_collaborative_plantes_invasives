@@ -42,6 +42,7 @@ body{
 .deroulant{
   position: absolute;
   display: inline-block;
+  z-index: 10;
 }
 
 .partie{
@@ -173,6 +174,7 @@ footer{
 
 #baspage{
   margin-left: 500px;
+  z-index: 5;
 }
 
 #renseignement{
@@ -227,10 +229,11 @@ input[type="radio"].connexion:checked + label {
 }
 
 /* Carte */ 
-#map{
-  height: 720px;
+#Map{
+  height: 650px;
   width: auto;
   position:relative; 
+  z-index: 0;
   left: 0px;
   right: 0px;
   bottom: 0px;
@@ -251,7 +254,7 @@ input[type="radio"].connexion:checked + label {
 
 }
 
-/*Page reperrtoire botanique et connexion */
+/*Page repertoire botanique et connexion */
 
 .inscription{
   background-color: rgb(136, 223, 250);

@@ -17,13 +17,13 @@
     </head>
     <body>
         <div id="map">
-	</div>
+	    </div>
 
     <!-- Recherche d'une ville et affichage de la latitude et la longitude de la position -->
-    <p>
+    <div>
         <label for="input_ville">Ville : </label>
         <input type="text" id="input_ville">
-    </p>
+    </div>
     <div>
         <label for="lat">Latitude</label>
         <input type="text" name="lat" id="lat" readonly>

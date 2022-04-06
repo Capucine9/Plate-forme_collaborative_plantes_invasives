@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
       <title>
-          Signalement
+          Ajout signalement
       </title>
       <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
   </head>
@@ -161,8 +161,11 @@
         <button id="bouttoncentre" onclick="">Ajouter photos</button>
     </div>
 
-    <div id=map>
-            <iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>
+    <div id=Map>
+      <!--<iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>-->
+      <?php
+        include 'Map.php';
+      ?>
     </div>
 
     <button id="bouttongauche" onclick="localhost:81/Projet%20M1/inscription.php">Annuler</button>
