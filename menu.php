@@ -28,7 +28,7 @@
                         ?>
                         
                         <?php 
-                            if($_SESSION['rang']==3 and isset($_GET['deco'])){
+                            if($_SESSION['rang']==3 and empty($_GET['deco'])){
                                 echo("<a href=\"ajout_plante.php\">Ajouter une plante</a>");
                             }
                         ?>
