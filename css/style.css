@@ -268,3 +268,9 @@ input[type="radio"].connexion:checked + label {
   width: 500px;
 
 }
+
+/*Pour les images */
+
+.image{
+  text-align: center;
+}
