@@ -123,7 +123,7 @@
 
                     if(isset($_POST['plante']) and $_POST['plante']!="" )
                     {
-                        $requete = $BDD->prepare('SELECT * FROM plantes WHERE Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'" ORDER BY Nom_fr');
+                        $requete = $BDD->prepare('SELECT * FROM plantes INNER JOIN photoplantes ON plantes.Id_plante = photoplantes.Id_plante  WHERE Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'" ORDER BY Nom_fr');
                         $requete->execute();
                         /* on récupère le résultt de la requête sous forme d'un tableau */
                         $donnees = $requete->fetchAll();
@@ -281,7 +281,7 @@
                 <a href="profil_plante.php?id=<?php echo $plante['Id_plante']?> " id="lien_plante">
                     <div class = "carre_plante">
                             <div class="Plante">
-                                <img src="ailante.jpg" id="image_plante" > 
+                                <img src=" data:image/jpg;base64,<?php echo base64_encode($plante['Photo']);?> " id="image_plante" >
                                 <output name=nom_lat id=planteinfos> Nom français : <?php echo $plante['Nom_fr'];?></output></br>
                                 <output name=nom_fr id=planteinfos>  Nom latin : <?php echo $plante['Nom_latin'];?></output></br>
                                 <output name=region id=planteinfos>  Régions : <?php echo $plante['Régions'];?></output>    
