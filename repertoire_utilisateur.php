@@ -150,7 +150,12 @@
                 <a href="profil_utilisateur_autre.php?id=<?php echo $utilisateur['Id_utilisateur']?> " id="lien_plante">
                     <div class = "carre_plante">
                             <div class="Plante">
-                                <img src="ailante.jpg" id="image_plante" > 
+                                <?php if($utilisateur['Photo']==NULL){?>
+                                        <img src="images\profil.jpg" id="image_plante"> 
+                                    <?php }
+                                    else{ ?>
+                                    <img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> " id="image_plante" > 
+                                    <?php } ?>
                                 
                                 <output name=pseudo id=planteinfos> Pseudo : <?php echo $utilisateur['Pseudo'];?></output></br>
                                 <output name=email id=planteinfos>  Email : <?php echo $utilisateur['Email'];?></output></br>
