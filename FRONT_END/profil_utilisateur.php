@@ -66,17 +66,17 @@
 								<!-- Last name -->
 								<div class="col-md-6">
 									<label class="form-label">Rang*</label>
-									<input type="text" class="form-control" placeholder="" aria-label="Last name" value="1">
+									<input type="text" class="form-control" placeholder="" aria-label="Last name" value= <?php echo($rang);?> >
 								</div>
 								<!-- Mobile number -->
 								<div class="col-md-6">
 									<label class="form-label">Nombre de bons signalements *</label>
-									<input type="text" class="form-control" placeholder="" aria-label="Phone number" value="1">
+									<input type="text" class="form-control" placeholder="" aria-label="Phone number" value= <?php echo($utilisateur['Nb_bon_signalement']);?>     >
 								</div>
 								<!-- Email -->
 								<div class="col-md-6">
 									<label for="inputEmail4" class="form-label">Email *</label>
-									<input type="email" class="form-control" id="inputEmail4" value="example@homerealty.com">
+									<input type="email" class="form-control" id="inputEmail4" value= <?php echo($utilisateur['Email']);?> >
 								</div>  
 								
 							</div> <!-- Row END --> 
