@@ -27,8 +27,9 @@
             catch(Exception $e){
                 die('Erreur :' . $e->getMessage());
             }
-            $requeteJointure = 'SELECT * FROM plantes INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=plantes.Id_utilisateur WHERE Id_plante="'.$_GET["id"].'"';
-            
+            $requeteJointure = 'SELECT * FROM plantes INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=plantes.Id_utilisateur
+                                                    INNER JOIN photoplantes ON plantes.Id_plante = photoplantes.Id_plante WHERE plantes.Id_plante="'.$_GET["id"].'"';
+                        
                                                 
             $requeteJointure = $BDD->prepare($requeteJointure);
             $requeteJointure->execute();
@@ -37,7 +38,9 @@
         ?>   
             
             <h1 style="text-align:center"> <?php echo $plante['Nom_fr']; ?> </h1> <!-- récupéré dans bdd-->
-            <img src  > <!--mettre photo de la bdd et voir avec js pour faire des flèches pour faire défiler les images s'il y en a plusieurs-->
+            <div class="image">
+                <img src="data:image/jpg;base64,<?php echo base64_encode($plante['Photo']);?> " width = 300  > <!--mettre photo de la bdd et voir avec js pour faire des flèches pour faire défiler les images s'il y en a plusieurs-->
+            </div>                
             <br/>
             
             <div class="renseignement">
