@@ -45,7 +45,14 @@
         
         <form>
             <h1 style="text-align:center"> Mes informations </h1>
-            <img src  > <!--mettre photo de la bdd-->
+            <div class="image">
+                <?php if($utilisateur['Photo']==NULL){?>
+                    <img src="images\profil.jpg" width = 300 > 
+                <?php }
+                else{ ?>
+                <img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> " width = 300 > 
+                <?php } ?>
+            </div>
             <br/>
             
             <div class="renseignement">
