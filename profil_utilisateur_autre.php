@@ -47,7 +47,14 @@
         ?>   
 
             <h1 style="text-align:center"> <output name="pseudo"><?php echo $utilisateur['Pseudo']; ?></output>  </h1>
-            <img src  >
+            <div class="image">
+                <?php if($utilisateur['Photo']==NULL){?>
+                    <img src="images\profil.jpg" width = 300 > 
+                <?php }
+                else{ ?>
+                <img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> " width = 300 > 
+                <?php } ?>
+            </div>
             <br/>
             
             <div class="renseignement">
