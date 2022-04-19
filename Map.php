@@ -33,6 +33,13 @@
         <input type="text" name="lon" id="lon" readonly>
     </div>
 
+
+    <div>
+        <button onclick="search();" name="search">search</button>
+        <p id="output"></p>
+    </div>
+
+
     <!-- Fichiers Javascript ////////////////////////////////////////////// -->
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
 	<script type="text/javascript">
@@ -42,6 +49,10 @@
             var macarte = null;
             var marqueur = null;
             let ville = ""
+
+            // Permet de stocker les variables latitude et longitude retournées
+            var latitudes
+            var longitudes
 
             //// Initialisation de la carte
             function initMap() {
@@ -71,7 +82,9 @@
 
                     // Affichage des coordonnées dans le formulaire
                     document.querySelector("#lat").value=userlat
+                    latitudes = userlat
                     document.querySelector("#lon").value=userlon
+                    longitudes = userlon
                 };
                 var geoFail = function(){ // Si l'utilisateur refuse la géolocalisation
                     console.log("refus");
@@ -133,7 +146,9 @@
 
                 // Affichage des coordonnées dans le formulaire
                 document.querySelector("#lat").value=pos.lat
+                latitudes = pos.lat
                 document.querySelector("#lon").value=pos.lng
+                longitudes = pos.lng
             }
 
             ////Gérer le déplacement du marqueur
@@ -166,50 +181,50 @@
                 geoloc();
                 macarte.on('click', mapClickListen)
             };
+
+            
+            window.cb = function cb(json) {
+                //do what you want with the json
+                if (json.address.city != undefined) {
+    	            document.getElementById('output').innerHTML = json.address.road + ' à ' + json.address.city;
+                }
+                else {
+                    document.getElementById('output').innerHTML = json.address.road + ' à ';
+    	            document.getElementById('output').innerHTML = 'la ville n a pas été trouvé par OpenStreetMap'
+                    //recherche des coordonnees sur le cercle autour des coordonnées (latitude, longitude donnees par l'utilisateur)
+                    /*while (json.address.city == undefined) {
+                        var n = 1;  //nombre de points equidistants sur le cercle
+                        for (r=1/10000000; r<2; r+=1/1000000){//rayon du cercle
+                            n += 0.00005;
+                            for (i=2*pi/n; i<2*pi; i+=pi/n){
+                                latitude += r * cos(i);
+                                longitude += r * sin(i);
+            
+                                var s = document.createElement('script');       
+    		                    s.src = 'http://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat='+latitude+'&lon='+longitude+'&zoom=27&addressdetails=1';
+    		                    document.getElementsByTagName('head')[0].appendChild(s);
+                            }
+                        }
+                        document.getElementById('output').innerHTML += json.address.city;
+                    }*/
+                }
+            }
+            
+
+            window.search = function search() {
+                //alert(latitudes);
+                //alert(longitudes);
+                var recherche = document.createElement('script');       
+                recherche.src = 'http://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat='+latitudes+'&lon='+longitudes+'&zoom=27&addressdetails=1';
+                document.getElementsByTagName('head')[0].appendChild(recherche);
+            };
+            
+
         </script>
     </body>
 </html>
 
+
 <!--
-window.cb = function cb(json) {
-    //do what you want with the json
-    if (json.address.city != undefined) {
-    	document.getElementById('output').innerHTML = json.address.road + ' à ' + json.address.city;
-    }
-    else {
-        document.getElementById('output').innerHTML = json.address.road + ' à ';
-    	document.getElementById('output').innerHTML = 'la ville n a pas été trouvé par OpenStreetMap'
-        //recherche des coordonnees sur le cercle autour des coordonnées (latitude, longitude donnees par l'utilisateur)
-        <!--while (json.address.city == undefined) {
-            var n = 1;  //nombre de points equidistants sur le cercle
-            for (r=1/10000000; r<2; r+=1/1000000){//rayon du cercle
-                n += 0.00005;
-                for (i=2*pi/n; i<2*pi; i+=pi/n){
-                    latitude += r * cos(i);
-                    longitude += r * sin(i);
-            
-                    var s = document.createElement('script');       
-    		        s.src = 'http://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat='+latitude+'&lon='+longitude+'&zoom=27&addressdetails=1';
-    		        document.getElementsByTagName('head')[0].appendChild(s);
-                }
-            }
-        }
-        document.getElementById('output').innerHTML += json.address.city;
-    }
-}
-
-latitude = 44.80859801435007;
-longitude = -0.5881290459365119;
-
-window.search = function search() {
-    var s = document.createElement('script');       
-    s.src = 'http://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat='+latitude+'&lon='+longitude+'&zoom=27&addressdetails=1';
-    document.getElementsByTagName('head')[0].appendChild(s);
-};
-
-HTML
-<button onclick="search();" name="search">search</button>
-<p id="output"></p>
-
 http://jsfiddle.net/h6kp432L/18/
 -->
