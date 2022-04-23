@@ -102,7 +102,7 @@
             <div id=Map>
                 <!--<iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>-->
                 <?php
-                    include 'Map.php';
+                    include 'map.php';
                 ?>
             </div>
             <button id="boutonmodif" type=button onclick="">

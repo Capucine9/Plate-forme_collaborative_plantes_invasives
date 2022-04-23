@@ -183,48 +183,52 @@
             };
 
             
+            var rue;
             window.cb = function cb(json) {
-                //do what you want with the json
-                if (json.address.city != undefined) {
+                // La route et la ville ont été trouvées par GoogleStreetMap
+                if (json.address.road != undefined && json.address.city != undefined) {
     	            document.getElementById('output').innerHTML = json.address.road + ' à ' + json.address.city;
                 }
+                // La route n'a pas été trouvée par GoogleStreetMap
+                else if (json.address.road == undefined && json.address.city != undefined){
+                    document.getElementById('output').innerHTML = json.address.city;
+                }
+                // La ville n'a pas été trouvée par GoogleStreetMap
                 else {
-                    document.getElementById('output').innerHTML = json.address.road + ' à ';
-    	            document.getElementById('output').innerHTML = 'la ville n a pas été trouvé par OpenStreetMap'
-                    //recherche des coordonnees sur le cercle autour des coordonnées (latitude, longitude donnees par l'utilisateur)
-                    /*while (json.address.city == undefined) {
-                        var n = 1;  //nombre de points equidistants sur le cercle
-                        for (r=1/10000000; r<2; r+=1/1000000){//rayon du cercle
-                            n += 0.00005;
-                            for (i=2*pi/n; i<2*pi; i+=pi/n){
-                                latitude += r * cos(i);
-                                longitude += r * sin(i);
+                    rue = json.address.road;
+                  
+                    // Recherche des coordonnees sur le cercle autour des coordonnées (latitude, longitude données par l'utilisateur)
+                    var n = 1;  // nombre de points equidistants sur le cercle
+                    for (r=0; r<1/10; r+=1/1000){ // rayon du cercle
+                        n += 1;
+                        console.log(n)
+                        var i = 0;
+                        while (json.address.city == undefined && i<2*Math.PI){
+
+                            latitudes += r * Math.cos(i);
+                            longitudes += r * Math.sin(i);
             
-                                var s = document.createElement('script');       
-    		                    s.src = 'http://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat='+latitude+'&lon='+longitude+'&zoom=27&addressdetails=1';
-    		                    document.getElementsByTagName('head')[0].appendChild(s);
-                            }
+                            search();
+                            i+=Math.PI/n;
+
                         }
-                        document.getElementById('output').innerHTML += json.address.city;
-                    }*/
+                        if ( json.address.city != undefined) {break}
+                    }
+                    document.getElementById('output').innerHTML = rue + json.address.city;
                 }
             }
             
-
+            // Récupération de la route et de la ville par GoogleStreetMap à l'aide de la latitude et de la longitude
             window.search = function search() {
-                //alert(latitudes);
-                //alert(longitudes);
                 var recherche = document.createElement('script');       
                 recherche.src = 'http://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat='+latitudes+'&lon='+longitudes+'&zoom=27&addressdetails=1';
                 document.getElementsByTagName('head')[0].appendChild(recherche);
             };
-            
 
         </script>
     </body>
 </html>
 
-
 <!--
-http://jsfiddle.net/h6kp432L/18/
--->
+    bonnes latitudes et longitudes -> latitudes / longitudes
+    et rue et ville dans le 'output'-->
