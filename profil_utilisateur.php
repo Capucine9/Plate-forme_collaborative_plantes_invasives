@@ -43,14 +43,15 @@
                 
 ?>
         
-        <form>
+         <form action="" method="POST" enctype="multipart/form-data">
             <h1 style="text-align:center"> Mes informations </h1>
             <div class="image">
                 <?php if($utilisateur['Photo']==NULL){?>
                     <img src="images\profil.jpg" width = 300 > 
                 <?php }
                 else{ ?>
-                <img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> " width = 300 > 
+                
+                <img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> "  width = 300 > 
                 <?php } ?>
             </div>
             <br/>
