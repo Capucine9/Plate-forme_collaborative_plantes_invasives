@@ -83,7 +83,6 @@
                     </li>   
 
  <!-- si l'utilisateur est connecté on va afficher dans le nav bar un champs "signaler une plante" !> 
-
                         <?php
                            if(isset($_SESSION['id']) and empty($_GET['deco']))
                            {
@@ -91,10 +90,6 @@
                                 echo (" <li class=\"navbar-item\">
                                 <a href=\"ajout_signalement.php\" class=\"nav-link active\">Signaler une plante </a>
                             </li>  ");
-
-
-
-
                             }
                         ?>
  < !-- si l'utilisateur est connecté on va afficher dans le nav bar un champs "Ajouter une plante" !> 
@@ -105,7 +100,6 @@
                                 echo (" <li class=\"navbar-item\">
                                 <a href=\"ajout_plante.php\" class=\"nav-link active\">Ajouter une plante</a>
                             </li>  ");
-
                             }
                         ?>
  <! -- nous avons pas besoin de ce champs -->     
@@ -137,7 +131,6 @@
                                 echo (" <li class=\"navbar-item\">
                                 <a href=\"connexion.php\" class=\"nav-link active\">Connexion</a>
                             </li>  
-
                             <li class=\"navbar-item\">
                             <a href=\"inscription.php\" class=\"nav-link active\">Inscription</a>
                         </li>  
@@ -188,7 +181,7 @@
                 <div class="jumbotron   bg-image  text-Light    " >  
                 
                 
-                    <h1 class="font-dark-light text-center text-muted text-Light">
+                    <h1 style="color:white;text-align:center" >
                         Plate-forme collaborative de lutte contre les plantes invasives
                     </h1>    
                     
