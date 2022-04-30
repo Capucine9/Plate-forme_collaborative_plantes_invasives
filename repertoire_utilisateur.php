@@ -1,27 +1,71 @@
-
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Répertoire utilisateurs</title>
-        <meta charset="utf-8">
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-    </head>
-    <body>
-        <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/6b6c1dbe0e.js" crossorigin="anonymous"></script>    
 
-       
-    <?php
-    include("menu.php");
-    ?>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"   
 
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">  
+
+    <link rel="stylesheet" href="pageaccueil.css">
+    <title>Répertoire des utilisateurs</title>
+</head>
+
+<body>
         
-        <form action="" method="POST">
-            <h1 style="text-align:center"> Répertoire des utilisateurs </h1>
+
+
+
+    <header >
+   
+        
+        
+          
+           
             
-            <br/>
-            <input id="searchbar" type="text" placeholder="Rechercher un utilisateur..." name="utilisateur" >
-            <button type="submit" name="searchbar">Rechercher</button>
+                <div class="jumbotron   bg-image  text-Light    " >  
+                
+                
+                    <h1 style="color:white;text-align:center" >
+                        Plate-forme collaborative de lutte contre les plantes invasives
+                    </h1>    
+                    
+                </div>
+                   
+                
+            
+        
+    </header>
+ 
+    <main>  
+    <hr>    
+
+   
+<h2 class="card-title" style="text-align:center" >      Répertoire des utilisateurs      </h2>
+<?php
+    include("menu.php");
+?> 
+        <div class="container">
+ 
+            <div class="row ">  
+
+
+                <div class="col">  
+                    <hr>
+ 
+<div class="card mb-8">
+
+
+                       
+  <div class="card-body">
+                            
+                         
+         <form action="" method="POST">                
+         <input id="searchbar" type="text" placeholder="Rechercher un utilisateur..." name="utilisateur" >
+         <button type="submit" name="searchbar">Rechercher</button>
 
 
             Type d'utilisateur :
@@ -38,10 +82,18 @@
                 <option value="Moyen" <?php if($_POST['rang']=="Moyen"){echo "selected";}?>> Moyen</option> 
                 <option value="Expert" <?php if($_POST['rang']=="Expert"){echo "selected";}?>> Expert </option>
             </select>
-            
-            <div class= "carre">
-                
-                    
+                            
+                            
+</div>
+                  
+  </div>
+
+
+
+<hr>
+<div class="card mb-4">
+     <div class="card-body">
+        
                 <?php
                     
                     try{
@@ -147,7 +199,9 @@
                             else
                                 $type = "entreprise";
                 ?>
-                <a href="profil_utilisateur_autre.php?id=<?php echo $utilisateur['Id_utilisateur']?> " id="lien_plante">
+    
+    
+    <a href="profil_utilisateur_autre.php?id=<?php echo $utilisateur['Id_utilisateur']?> " id="lien_plante">
                     <div class = "carre_plante">
                             <div class="Plante">
                                 <?php if($utilisateur['Photo']==NULL){?>
@@ -170,17 +224,18 @@
                             </div>
                     </div>
                 </a>
+
                 <?php
                         }
                     }
                 ?>
+ </form>
 
-            </div>
+</div>
+</div>
+  
+</main>
 
-        </form>
+</body>
 
-        <footer>
-        <div id="baspage"> Contact</div>
-        </footer> 
-    </body>
 </html>
