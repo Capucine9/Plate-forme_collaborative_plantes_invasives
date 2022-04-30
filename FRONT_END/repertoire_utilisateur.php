@@ -16,151 +16,7 @@
 
 <body>
         
-<style>
 
-
-
-
-
-</style>
-    <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-sm">
-        <div class="container">
-            <a href="#" class="navbar-brand">
-           
-                 
-            </a>
-            <button type="button" data-toggle="collapse" data-target="#navbarCollapse" class="navbar-toggler">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div id="navbarCollapse" class="collapse navbar-collapse">
-
-<!--  Début Menu Bar -->
-<!-- c'set le meme code que vous avez ecrit dans menu.php .juste j'ai coper ici et dans echo j'ai garde le méme code php mais echo va afficher un autre desgin -->
-                <ul class="navbar-nav ml-auto">      
-                     
-
-
-
-                  
-            <!--par défaut il existe  Accueil-->        
-                    <li class="navbar-item">
-                        <a href="accueil.php" class="nav-link active">Accueil</a>     
-                    </li>   
-            
-
-             <!-- si l'utilisateur est connecté on va voir un champ Votre profil --> 
-                     <?php
-                           if(isset($_SESSION['id']) and empty($_GET['deco'])){
-                                echo ("<a href=\"profil_utilisateur.php\">Votre profil</a>");
-                                
-                                echo (" <li class=\"navbar-item\">
-                                <a href=\"profil_utilisateur.php\" class=\"nav-link active\">Votre profil </a>
-                            </li>  ");
-
-                            }
-                        ?>   
-                     <!-- par défaut il existe Le répertoire botanique-->
-                       <li class="navbar-item">
-                           <a href="repertoire_botannique.php" class="nav-link active">Le répertoire botanique</a>
-                       </li>  
-                     <!-- par défaut il existe  Les utlisateurs-->
-                    <li class="navbar-item">
-                        <a href="repertoire_utilisateur.php" class="nav-link active">Les utlisateurs </a>
-                    </li>   
-                     <!-- par défaut il existe  Les derniers signalement-->
-                     <li class="navbar-item">
-                        <a href="listeSignalement.php" class="nav-link active">Les derniers signalement </a>
-                    </li>   
-
- <!-- si l'utilisateur est connecté on va afficher dans le nav bar un champs "signaler une plante" !> 
-
-                        <?php
-                           if(isset($_SESSION['id']) and empty($_GET['deco']))
-                           {
-    
-                                echo (" <li class=\"navbar-item\">
-                                <a href=\"ajout_signalement.php\" class=\"nav-link active\">Signaler une plante </a>
-                            </li>  ");
-
-
-
-
-                            }
-                        ?>
- < !-- si l'utilisateur est connecté on va afficher dans le nav bar un champs "Ajouter une plante" !> 
-       
-                        <?php 
-                            if($_SESSION['rang']==3 and empty($_GET['deco']))
-                            {
-                                echo (" <li class=\"navbar-item\">
-                                <a href=\"ajout_plante.php\" class=\"nav-link active\">Ajouter une plante</a>
-                            </li>  ");
-
-                            }
-                        ?>
- <! -- nous avons pas besoin de ce champs -->     
-                        <?php
-                            if(isset($_SESSION['id']) and empty($_GET['deco'])){
-                                echo ("<a href=\"\">Vos amis</a>");
-                            }
-                        ?>
-                        
-
-
-
-   <!--Si l'utilisateur est connecté on va afficher Déconnexion si non on va afficher deux Champs Connexion et Inscription                         -->        
-                        <?php
-                            if(isset($_SESSION['id']) and empty($_GET['deco'])){
-
-                                echo (" <li class=\"navbar-item\">
-                                <a href=\"accueil.php?deco=1\" class=\"nav-link active\">Déconnexion</a>
-                            </li>  ");
-
-
-
-
-                            }
-                            else{
-                                  
-
-
-                                echo (" <li class=\"navbar-item\">
-                                <a href=\"connexion.php\" class=\"nav-link active\">Connexion</a>
-                            </li>  
-
-                            <li class=\"navbar-item\">
-                            <a href=\"inscription.php\" class=\"nav-link active\">Inscription</a>
-                        </li>  
-                        
-                            
-                            
-                            
-                            ");
-
-
-                            }
-                        ?>
-                        
-                        
-                    
-
-                    <?php
-                      if($_GET['deco']==1){
-                      session_destroy();
-                      echo ("<p align=\"center\"> Vous avez été déconnecté </p>");
-                               }
-
-                      ?>    
-
-
-
-<!-- Fin Menu Bar -->
-                    
-                </ul>
-            </div>
-        </div>
-    </nav>   
 
 
     <header >
@@ -184,14 +40,25 @@
         
     </header>
  
-    <main>   
+    <main>  
+    <hr>    
+
    
-    <h2 class="card-title" style="text-align:center" >      Répertoire des utilisateurs      </h2>
+<h2 class="card-title" style="text-align:center" >      Répertoire des utilisateurs      </h2>
+<?php
+    include("menu.php");
+?> 
         <div class="container">
-            <div class="row ">
+ 
+            <div class="row ">  
+
+
                 <div class="col">  
                     <hr>
+ 
 <div class="card mb-8">
+
+
                        
   <div class="card-body">
                             
