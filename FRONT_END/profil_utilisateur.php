@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php session_start();?>
 <html> 
 <head>  
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +15,7 @@
       
     ini_set( 'display_errors', 'on' );
     error_reporting( E_ALL );
-    $errors = array();
+    
       try{
         $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
         $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -37,6 +38,55 @@
       else{
           $rang="professionnel";
       }
+
+
+	  /*if(isset($_POST['supprimer'])){
+		$requete=$BDD->prepare('DELETE FROM utilisateurs WHERE Id_utilisateur="'.$_SESSION['id'].'"');
+		$requete->execute();
+		session_destroy();
+		header('Location: accueil.php');
+        exit();
+	  }*/
+
+	  if(isset($_POST['maj'])){
+		$errors = array();
+
+		if(empty($_POST['pseudo']) || !preg_match('/^[A-Za-z0-9_]+$/', $_POST['pseudo'])){
+		  $errors['pseudo']="Pseudo non valide";
+		}
+
+		if(empty($_POST['email']) ){
+		  $errors['email']="Email non valide";
+		}
+
+		if(!empty($_POST['mdp']) && !password_verify($_POST['mdp'], $utilisateur['Mdp']) ){
+            $errors['mdp']="Mot de passe non valide";
+        }
+
+        if(!empty($_POST['mdp']) &&  $_POST['mdpnew'] != $_POST['mdpconf']){
+            $errors['mdpconf']="Mots de passe différents";
+        }
+
+
+		if(empty($errors)){
+			$requete=$BDD->prepare('UPDATE utilisateurs SET Pseudo =?, Email=? WHERE Id_utilisateur="'.$_SESSION['id'].'"');
+			$requete->execute([$_POST['pseudo'], $_POST['email'] ]);
+
+			if(!empty($_POST['mdp'])){
+				$requete=$BDD->prepare('UPDATE utilisateurs SET Mdp=? WHERE Id_utilisateur="'.$_SESSION['id'].'"');
+				$requete->execute([password_hash($_POST['mdpnew'], PASSWORD_BCRYPT) ]);
+			}
+
+			if($_FILES['image']['error']!=4){
+				$img = $_FILES['image'];
+				$requete=$BDD->prepare('UPDATE utilisateurs SET Photo=? WHERE Id_utilisateur="'.$_SESSION['id'].'"');
+				$requete->execute([file_get_contents($img['tmp_name'])]);
+				
+			}
+		}
+		header('Location: profil_utilisateur.php');
+        exit();
+	  }
               
 ?>
 
@@ -50,7 +100,7 @@
 				<hr>
 		</div>
 			<!-- Form START -->
-		<form class="file-upload">
+		<form class="file-upload" method="post" action="" enctype="multipart/form-data">
 			<div class="row mb-5 gx-5">
 					<!-- Contact detail -->
 					<div class="col-xxl-8 mb-5 mb-xxl-0">
@@ -59,24 +109,24 @@
 								<h4 class="mb-4 mt-0">Coordonnées</h4>
 								<!-- First Name -->
 								<div class="col-md-6">
-									<label class="form-label">Pseudo *</label>
-									<input type="text" class="form-control" placeholder="" aria-label="First name" value=<?php echo($utilisateur['Pseudo']);?> >
+									<label class="form-label">Pseudo </label>
+									<input type="text" class="form-control" name="pseudo" placeholder="" aria-label="First name" value=<?php echo($utilisateur['Pseudo']);?> >
                                     
 								</div>
 								<!-- Last name -->
 								<div class="col-md-6">
-									<label class="form-label">Rang*</label>
-									<input type="text" class="form-control" placeholder="" aria-label="Last name" value= <?php echo($rang);?> >
+									<label class="form-label">Rang</label>
+									<input type="text" class="form-control"  placeholder="" aria-label="Last name" value= <?php echo($rang);?> >
 								</div>
 								<!-- Mobile number -->
 								<div class="col-md-6">
-									<label class="form-label">Nombre de bons signalements *</label>
+									<label class="form-label">Nombre de bons signalements </label>
 									<input type="text" class="form-control" placeholder="" aria-label="Phone number" value= <?php echo($utilisateur['Nb_bon_signalement']);?>     >
 								</div>
 								<!-- Email -->
 								<div class="col-md-6">
-									<label for="inputEmail4" class="form-label">Email *</label>
-									<input type="email" class="form-control" id="inputEmail4" value= <?php echo($utilisateur['Email']);?> >
+									<label for="inputEmail4" class="form-label">Email </label>
+									<input type="email" class="form-control" name="email" id="inputEmail4" value= <?php echo($utilisateur['Email']);?> >
 								</div>  
 								
 							</div> <!-- Row END --> 
@@ -92,17 +142,17 @@
                                     <!-- Old password -->
                                     <div class="col-md-6">
                                         <label for="exampleInputPassword1" class="form-label">Ancien mot de passe *</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        <input type="password" class="form-control" id="exampleInputPassword1" name="mdp">
                                     </div>
                                     <!-- New password -->
                                     <div class="col-md-6">
                                         <label for="exampleInputPassword2" class="form-label">Nouveau mot de passe *</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword2">
+                                        <input type="password" class="form-control" id="exampleInputPassword2" name="mdpnew">
                                     </div>
                                     <!-- Confirm password -->
                                     <div class="col-md-12">
                                         <label for="exampleInputPassword3" class="form-label">Confirmer le mot de passe *</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword3">
+                                        <input type="password" class="form-control" id="exampleInputPassword3" name="mdpconf">
                                     </div>
                                 </div>
                             </div>
@@ -119,12 +169,17 @@
 								<div class="text-center">
 									<!-- Modifier image -->
 									<div class="square position-relative display-2 mb-3">
-										<i class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary"></i>
+									<?php if($utilisateur['Photo']==NULL){?>
+										<img src="img\profil.jpg" width = 200 > 
+									<?php }
+									else{ ?>
+									
+									<img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> "  width = 300 > 
+									<?php }?>									
 									</div>
 									<!--  Modifier & Supprimer -->
-									<input type="file" id="customFile" name="file" hidden="">
-									<label class="btn btn-success-soft btn-block" for="customFile">Modifier</label>
-									<button type="button" class="btn btn-danger-soft">Supprimer</button>
+									<input type="file" id="renseignement" name="image"/>
+									<!--<button type="button" class="btn btn-danger-soft">Supprimer</button>-->
 									<!-- Image -->
 									<p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Taille minimale 300px x 300px</p>
 								</div>
@@ -137,8 +192,8 @@
 				</div> <!-- Row END -->
 				<!-- button -->
 				<div class="gap-3 d-md-flex justify-content-md-end text-center">
-					<button type="button" class="btn btn-danger btn-lg">supprimer le profil</button>
-					<button type="button" class="btn btn-primary btn-lg">Mettre à jour le profil</button>
+					<!--<button type="submit" class="btn btn-danger btn-lg" name = "supprimer" >supprimer le profil</button>--> 
+					<button type="submit" class="btn btn-primary btn-lg" name = "maj" >Mettre à jour le profil</button>
 				</div>
 			</form> <!-- Form END -->
 		</div>
