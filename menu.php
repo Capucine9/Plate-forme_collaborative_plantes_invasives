@@ -18,7 +18,7 @@
                                 echo ("<a href=\"profil_utilisateur.php\">Votre profil</a>");
                             }
                         ?>
-                        <a href="repertoire_botannique.php">Le répertoire botannique</a>
+                        <a href="repertoire_botanique.php">Le répertoire botanique</a>
                         <a href="repertoire_utilisateur.php">Les utilisateurs</a>
                         <a href="listeSignalement.php">Les derniers signalements</a>
                         <?php

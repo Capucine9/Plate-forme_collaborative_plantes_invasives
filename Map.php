@@ -48,11 +48,11 @@
             var lon = 2.349903;
             var macarte = null;
             var marqueur = null;
-            let ville = ""
+            let ville = "";
 
             // Permet de stocker les variables latitude et longitude retournées
-            var latitudes
-            var longitudes
+            var latitudes;
+            var longitudes;
 
             //// Initialisation de la carte
             function initMap() {
@@ -75,16 +75,16 @@
                     console.log("lat: "+userlat+" - lon: "+userlon);
                     // Ajout d'un marqueur
                     var marqueur = L.marker([userlat, userlon]).addTo(macarte);
-                    ville = [userlat, userlon]
+                    ville = [userlat, userlon];
 
                     // Centralisation de la carte sur la position
-                    macarte.panTo(ville)
+                    macarte.panTo(ville);
 
                     // Affichage des coordonnées dans le formulaire
-                    document.querySelector("#lat").value=userlat
-                    latitudes = userlat
-                    document.querySelector("#lon").value=userlon
-                    longitudes = userlon
+                    document.querySelector("#lat").value=userlat;
+                    latitudes = userlat;
+                    document.querySelector("#lon").value=userlon;
+                    longitudes = userlon;
                 };
                 var geoFail = function(){ // Si l'utilisateur refuse la géolocalisation
                     console.log("refus");
@@ -93,7 +93,7 @@
                 navigator.geolocation.getCurrentPosition(geoSuccess,geoFail);
             }
 
-            let champVille = document.getElementById('input_ville')
+            let champVille = document.getElementById('input_ville');
             champVille.addEventListener("change", function(){
             })
 
@@ -129,11 +129,11 @@
                 // Envoie de la requête ajax vers nominatim
                 ajaxGet(`https://nominatim.openstreetmap.org/search?q=${this.value}&format=json&addressdetails=1&limit=1&polygon_svg=1`).then(reponse => {
                     // Conversion en objet Javascript
-                    let data = JSON.parse(reponse)
-                    ville = [data[0].lat, data[0].lon]
+                    let data = JSON.parse(reponse);
+                    ville = [data[0].lat, data[0].lon];
 
                     // Centralisation de la carte sur la ville
-                    macarte.panTo(ville)
+                    macarte.panTo(ville);
                 })
             })
 
@@ -141,14 +141,14 @@
             //// Placer un marqueur "au clic"
             function mapClickListen(e) {
                 // Récupèration des coordonnées du clic et ajout d'un marqueur
-                pos = e.latlng
-                addMarker(pos)
+                pos = e.latlng;
+                addMarker(pos);
 
                 // Affichage des coordonnées dans le formulaire
-                document.querySelector("#lat").value=pos.lat
-                latitudes = pos.lat
-                document.querySelector("#lon").value=pos.lng
-                longitudes = pos.lng
+                document.querySelector("#lat").value=pos.lat;
+                latitudes = pos.lat;
+                document.querySelector("#lon").value=pos.lng;
+                longitudes = pos.lng;
             }
 
             ////Gérer le déplacement du marqueur
@@ -171,7 +171,7 @@
                     document.querySelector("#lat").value=pos.lat;
                     document.querySelector("#lon").value=pos.lng;
                 });
-                marqueur.addTo(macarte)
+                marqueur.addTo(macarte);
             }
 
 
@@ -179,7 +179,7 @@
 		        // Fonction d'initialisation
 		        initMap(); 
                 geoloc();
-                macarte.on('click', mapClickListen)
+                macarte.on('click', mapClickListen);
             };
 
             
@@ -197,11 +197,11 @@
                 else {
                     rue = json.address.road;
                   
-                    // Recherche des coordonnees sur le cercle autour des coordonnées (latitude, longitude données par l'utilisateur)
+                    /*// Recherche des coordonnees sur le cercle autour des coordonnées (latitude, longitude données par l'utilisateur)
                     var n = 1;  // nombre de points equidistants sur le cercle
-                    for (r=0; r<1/10; r+=1/1000){ // rayon du cercle
+                    for (r=0; r<1/100; r+=1/1000){ // rayon du cercle
                         n += 1;
-                        console.log(n)
+                        //console.log("-" + json.address.city )
                         var i = 0;
                         while (json.address.city == undefined && i<2*Math.PI){
 
@@ -209,12 +209,14 @@
                             longitudes += r * Math.sin(i);
             
                             search();
+
                             i+=Math.PI/n;
 
                         }
                         if ( json.address.city != undefined) {break}
                     }
-                    document.getElementById('output').innerHTML = rue + json.address.city;
+                    document.getElementById('output').innerHTML = rue + json.address.city;*/
+                    document.getElementById('output').innerHTML = rue + ", la ville n'a pas été trouvé par OpenStreetMap.";
                 }
             }
             

@@ -96,7 +96,7 @@
     sur le marché. Ils sont cependant mauvais pour les sols, pour les autres espèces végétales et
     également pour les divers animaux qui se nourrissent de ces plantes.
     </br></br>
-    </p></p>
+    </p>
 </div>
 
 

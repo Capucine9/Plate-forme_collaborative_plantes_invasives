@@ -279,23 +279,7 @@
         <option value="noir">Noir </option>
       </select>
     </div>
-    <!--<div class="renseignement">
-      <div id="titre">Type de fruit : </div>
-      <select id="typefruit">
-        <option value="simple" selected>Simple </option>
-        <option value="multiple">Multiple </option>
-        <option value="complexe">Complexe </option>
-        <option value="compose">Composé </option>
-      </select>
-      <select id="fruitsimple">
-        <option value="sec" selected>Sec </option>
-        <option value="charnu">Charnu </option>
-      </select>
-      <select id="fruitsec">
-        <option value="indehiscent" selected>Indéhiscent </option>
-        <option value="dehiscent">Déhiscent </option>
-      </select>
-    </div>-->
+
     <div class="renseignement" id="resultbouton4">
       <div id="titre">Période de fructification : </div>
       <select id="periodefruit" name="periodefruit">
@@ -305,11 +289,6 @@
         <option value="hiver">Hiver </option>
       </select>
     </div>
-
-    <!--<div class="renseignement">
-      <div id="titre">Mode de reproduction : </div>
-      <input type="text" id="renseignement"/>
-    </div>-->
 
     <div class="renseignement">
       <div id="titre">Description : </div>
@@ -333,5 +312,3 @@
 
   </body>
 </html>
-
-<!--taille(en cm ?), couleur plante -->
