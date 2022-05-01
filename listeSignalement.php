@@ -10,7 +10,7 @@
 
 
         <!--menu déroulant-->
-        <?php include(menu.php); ?>
+        <?php include("menu.php"); ?>
         
         <form action="" method="POST">
             <h1 style="text-align:center"> Liste des signalements </h1>
