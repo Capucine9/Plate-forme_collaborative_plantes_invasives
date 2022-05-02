@@ -4,7 +4,6 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
         <style type="text/css">
-            /*///////////////////////////////////////////////////////////*/
             /* Map */
             #map{
                 height : 600px;
@@ -72,7 +71,6 @@
                     startPos = position;
                     userlat = startPos.coords.latitude;
                     userlon = startPos.coords.longitude;
-                    console.log("lat: "+userlat+" - lon: "+userlon);
                     // Ajout d'un marqueur
                     var marqueur = L.marker([userlat, userlon]).addTo(macarte);
                     ville = [userlat, userlon];
@@ -87,7 +85,7 @@
                     longitudes = userlon;
                 };
                 var geoFail = function(){ // Si l'utilisateur refuse la géolocalisation
-                    console.log("refus");
+                    window.alert("Vous avez refusé la géolocalisation.");
                 };
                 // Demande d'accord 
                 navigator.geolocation.getCurrentPosition(geoSuccess,geoFail);
@@ -169,7 +167,9 @@
                 marqueur.on('dragend', function(e) {
                     pos = e.target.getLatLng();
                     document.querySelector("#lat").value=pos.lat;
+                    latitudes = pos.lat;
                     document.querySelector("#lon").value=pos.lng;
+                    longitudes = pos.lng;
                 });
                 marqueur.addTo(macarte);
             }
@@ -183,6 +183,7 @@
             };
 
             
+            //Récupération d'une ville à partir de coordonnées
             var rue;
             window.cb = function cb(json) {
                 // La route et la ville ont été trouvées par GoogleStreetMap

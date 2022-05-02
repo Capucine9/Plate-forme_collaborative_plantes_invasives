@@ -193,13 +193,13 @@ if(isset($_POST['valider'])){
 <!--Entreprise-->
 <div class="form-group">
        <span class="label label-default" >Entreprise ? </span>  
-       <div class="form-check">
+       <div class="form-check" id="togg1">
            <div class="form-check form-check-inline"> 
-              <input class="form-check-input" type="radio" name="entreprise" id="radiox" value="oui" checked>
+              <input class="form-check-input" type="radio" name="entreprise" id="radiox" value="oui">
               <label class="form-check-label" for="inlineCheckbox1"> oui </label>
            </div>
             <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="entreprise" id="radiox" value="non">
+            <input class="form-check-input" type="radio" name="entreprise" id="radiox" value="non" checked>
             <label class="form-check-label" for="inlineCheckbox2"> non</label>
             </div>  
 		</div>
