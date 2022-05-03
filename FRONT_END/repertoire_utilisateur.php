@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -15,83 +15,83 @@
 </head>
 
 <body>
-        
-
-
-
+     
     <header >
-   
-        
-        
-          
-           
-            
-                <div class="jumbotron   bg-image  text-Light    " >  
-                
-                
+    <div class="jumbotron   bg-image  text-Light    " >  
                     <h1 style="color:white;text-align:center" >
                         Plate-forme collaborative de lutte contre les plantes invasives
                     </h1>    
                     
                 </div>
-                   
-                
-            
-        
     </header>
  
     <main>  
     <hr>    
 
-   
 <h2 class="card-title" style="text-align:center" >      Répertoire des utilisateurs      </h2>
 <?php
     include("menu.php");
 ?> 
-        <div class="container">
- 
-            <div class="row ">  
 
+ <div class="container">
+ <div class="row ">  
+ <div class="col-sm">    
+            
+        <form action="" method="POST">   
+     <div class="card mb-3">
+     <div class="card-body">   
 
-                <div class="col">  
-                    <hr>
- 
-<div class="card mb-8">
+     <div class="input-group">
+    <input type="search" class="form-control rounded" id="searchbar" name="plante" placeholder="Rechercher une plante..." aria-label="Search" aria-describedby="search-addon" />
+     <button type="submit" class="btn btn-outline-primary" name="searchbar">Rechercher</button>
+    </div>
+          
+    </div> 
+    </div> 
 
+      <div class="card mb-3">                    
+      <div class="card-body">    
+         <div class="row">
+<!-- Type d'utilisateur -->             
+<div class="col">  
+                    
+         <label for="Type d'utilisateur" class="control-label"> Type d'utilisateur:</label>    
 
+        <select class="form-control"  onchange="this.form.submit()" name="type">
+               <option value="vide" <?php if($_POST['type']=="vide"){echo "selected";}?>> Tous </option> 
+               <option value="Particulier" <?php if($_POST['type']=="Particulier"){echo "selected";}?>> Particulier </option>
+               <option value="Entreprise" <?php if($_POST['type']=="Entreprise"){echo "selected";}?>> Entreprise </option>
+
+        </select>              
+                             
+</div>
+                   
+<!-- Rang -->                   
+ <div class="col">
+                   
                        
-  <div class="card-body">
-                            
-                         
-         <form action="" method="POST">                
-         <input id="searchbar" type="text" placeholder="Rechercher un utilisateur..." name="utilisateur" >
-         <button type="submit" name="searchbar">Rechercher</button>
-
-
-            Type d'utilisateur :
-            <select name="type" onchange="this.form.submit()"> 
-                <option value="vide" <?php if($_POST['type']=="vide"){echo "selected";}?>> Tous </option> 
-                <option value="Particulier" <?php if($_POST['type']=="Particulier"){echo "selected";}?>> Particulier </option>
-                <option value="Entreprise" <?php if($_POST['type']=="Entreprise"){echo "selected";}?>> Entreprise </option>
-            </select>
-
-            Rang : 
-            <select name="rang" onchange="this.form.submit()"> 
+        <label for="Rang" class="control-label">Rang :</label>  
+        <select class="form-control"  onchange="this.form.submit()" name="rang">
                 <option value="vide" <?php if($_POST['rang']=="vide"){echo "selected";}?>> Tous </option> 
                 <option value="Debutant" <?php if($_POST['rang']=="Debutant"){echo "selected";}?>> Débutant </option> 
                 <option value="Moyen" <?php if($_POST['rang']=="Moyen"){echo "selected";}?>> Moyen</option> 
-                <option value="Expert" <?php if($_POST['rang']=="Expert"){echo "selected";}?>> Expert </option>
-            </select>
-                            
-                            
-</div>
+               <option value="Expert" <?php if($_POST['rang']=="Expert"){echo "selected";}?>> Expert </option>
+        </select>        
+ </div>  
                   
-  </div>
-
-
-
+                    
+                    
 <hr>
-<div class="card mb-4">
+                                       
+</div>
+</div>      
+
+
+
+
+
+
+<div class="card mb-3">
      <div class="card-body">
         
                 <?php
@@ -232,9 +232,17 @@
  </form>
 
 </div>
-</div>
+</div>   
+
+<div class="footer">
+    Copyright &copy; 2022 &mdash; Université de Limoges
+  </div>
+               
   
-</main>
+</main>  
+</div>
+</div>
+ </div>
 
 </body>
 
