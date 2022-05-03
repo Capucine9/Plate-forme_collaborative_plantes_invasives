@@ -60,8 +60,11 @@ include("menu.php");
     <div class="card-body">
     
                 
-            <input id="searchbar" type="text" placeholder="Rechercher une plante..." name="plante" >
-            <button type="submit" name="searchbar">Rechercher</button>  
+             <div class="input-group">
+    <input type="search" class="form-control rounded" id="searchbar" name="plante" placeholder="Rechercher une plante..." aria-label="Search" aria-describedby="search-addon" />
+     <button type="submit" class="btn btn-outline-primary" name="searchbar">Rechercher</button>
+    </div>
+        
      </div> 
  </div> 
          
