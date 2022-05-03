@@ -205,7 +205,7 @@
                     <div class = "carre_plante">
                             <div class="Plante">
                                 <?php if($utilisateur['Photo']==NULL){?>
-                                        <img src="images\profil.jpg" id="image_plante"> 
+                                        <img src="img\profil.jpg" id="image_plante"> 
                                     <?php }
                                     else{ ?>
                                     <img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> " id="image_plante" > 
