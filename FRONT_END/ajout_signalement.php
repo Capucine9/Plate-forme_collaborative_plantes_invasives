@@ -77,11 +77,19 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
             $errors['region']="Ville non valide";
           }
           
-          /*if(empty($_POST['lat']))
+          if(empty($_POST['lat']))
           {
             $errors['coordonnees']="Veuillez cliquer sur la carte pour avoir les coordonnées GPS";
           }
-          */
+          
+          
+          if($_FILES['image']['error']==4){
+            $errors['image']="Vous n'avez pas choisi d'images";
+          }
+          else{
+            $img = $_FILES['image'];
+          }
+
           
 
         }
@@ -93,7 +101,9 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
           $nomfr = ucfirst(strtolower($_POST['nomfr']));
           $ville = ucfirst(strtolower($_POST['ville']));
           $description = $_POST['description'];
-          $gps = $_POST['lat']."-". $_POST['lon'];
+          $lat= strval($_POST['lat']);
+          $long=strval($_POST['lon']);
+          $gps = $lat."-".$long;
           $date = $_POST['date'];
 
          
@@ -107,9 +117,23 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
           catch(Exception $e){
             echo 'Erreur :' . $e->getMessage();
           }
+
+          $req = $BDD->query("SHOW TABLE STATUS FROM bdd LIKE 'signalements' ");
+          $donnees = $req->fetch();
+          $id = $donnees['Auto_increment'];
+
           try{
-            $req = $BDD->prepare("INSERT INTO signalements (Id_utilisateur, Id_plante, Ville, /*Coordonnees_GPS,*/ Date_signalement, Commentaire, Verifier )  VALUES (:id_utilisateur, :id_plante, :ville, /*:gps,*/ :dat, :commentaire, :verifier) ");
-            $exec = $req->execute(array(':id_utilisateur'=> $_SESSION['id'], ':id_plante'=> $id_plante, ':ville'=> $ville, /*':gps'=> $gps,*/':dat'=>$date, ':commentaire'=>$description, ':verifier'=>$validation));
+            $req = $BDD->prepare("INSERT INTO signalements (Id_utilisateur, Id_plante, Ville, Coordonnees_GPS, Date_signalement, Commentaire, Verifier )  VALUES (:id_utilisateur, :id_plante, :ville, :gps, :dat, :commentaire, :verifier) ");
+            $exec = $req->execute(array(':id_utilisateur'=> $_SESSION['id'], ':id_plante'=> $id_plante, ':ville'=> $ville, ':gps'=> $gps,':dat'=>$date, ':commentaire'=>$description, ':verifier'=>$validation));
+          }
+          catch(Exception $e){
+              echo "erreur".$e->getMessage();
+          }
+
+
+          try{
+            $req = $BDD->prepare("INSERT INTO photosignalements (Id_signalement, Photo)  VALUES (:id, :fichier) ");
+            $exec = $req->execute(array(':id'=>$id, ':fichier'=>file_get_contents($img['tmp_name'])));
           }
           catch(Exception $e){
               echo "erreur".$e->getMessage();
@@ -179,7 +203,7 @@ include("menu.php");
 
 
 <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->   
-<form method="post">
+<form method="post" enctype="multipart/form-data">
  <!-- Nom Français -->  
  
 <div class="form-group">
@@ -224,11 +248,16 @@ include("menu.php");
 <div class="form-group">
 <div class="form-group">
     <label for="formFileMultiple" class="form-label" onclick="" >Ajouter photos</label>
-    <input class="form-control"  type="file" id="formFileMultiple" multiple />
+    <input type="file" id="renseignement" name="image" />
 
 </div>
 
+<div id=map>
+      <?php
+            include("Map.php");
+      ?>
 
+</div>
 <div class="form-group m-0">
     <button type="submit" class="btn btn-primary btn-block" name="valider" onclick="localhost:81/Projet%20M1/inscription.php">
           Valider
