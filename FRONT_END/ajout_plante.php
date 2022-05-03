@@ -47,6 +47,167 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
 include("menu.php");
 ?>
 
+<?php
+    ini_set( 'display_errors', 'on' );
+    error_reporting( E_ALL );
+      if(isset($_POST['valider'])){
+        if(!empty($_POST)){
+
+          $errors = array();
+
+          if(empty($_POST['nomfr']) || !preg_match('/^[A-Za-z ]+$/', $_POST['nomfr'])){
+            $errors['nomfr']="Nom français non valide";
+          }
+
+          if(empty($_POST['nomlat']) || !preg_match('/^[A-Za-z ]+$/', $_POST['nomlat'])){
+            $errors['nomlat']="Nom latin non valide";
+          }
+
+          if(empty($_POST['region']) || !preg_match('/^[A-Za-z ]+$/', $_POST['region'])){
+            $errors['region']="Région non valide";
+          }
+
+          if(empty($_POST['taille']) || !preg_match('/^[0-9 ]+$/', $_POST['taille'])){
+            $errors['taille']="Taille non valide";
+          }
+
+          if($_POST['famille']==NULL){
+            $errors['famille']="Famille botanique non remplie";
+          }
+
+          if(empty($_POST['couleur'])){
+            $errors['couleur']="Couleur non remplie";
+          }
+
+          if($_POST['fleur'] =='oui'){
+
+            if(empty($_POST['couleurfleur'])){
+              $errors['couleurfleur']="Couleur des fleurs non remplie";
+            }
+            if(empty($_POST['periodefleur'])){
+              $errors['periodefleur']="Période de floraison non remplie";
+            }
+
+          }
+
+          if($_POST['fruit'] =='oui'){
+
+            if(empty($_POST['couleurfruit'])){
+              $errors['couleurfruit']="Couleur des fruits non remplie";
+            }
+            if(empty($_POST['periodefruit'])){
+              $errors['periodefruit']="Période de fructification non remplie";
+            }
+
+          }
+
+          if(empty($_POST['famille'])){
+            $errors['famille']="Famille botanique non remplie";
+          }
+          
+          if($_FILES['image']['error']==4){
+            $errors['image']="Vous n'avez pas choisi d'images";
+          }
+          else{
+            $img = $_FILES['image'];
+          }
+
+           //connexion bdd           
+          try{
+            $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+            $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+          }
+          catch(Exception $e){
+            echo 'Erreur :' . $e->getMessage();
+          }
+
+          #on vérifie si l'adresse mail est déjà dans la bdd  
+          $requetenom = $BDD->prepare('SELECT * FROM plantes WHERE Nom_fr ="'.ucfirst($_POST['nomfr']).'" OR Nom_latin ="'.ucfirst($_POST['nomlat']).'"');
+          $requetenom->execute();
+          $nb = $requetenom->rowCount();
+        
+          if($nb != 0)
+          {
+            $errors['nomexiste']="La plante est déjà dans la base de données";
+          }
+
+        }
+
+        if(empty($errors)){
+          
+          //récupération de toutes les valeurs
+          $nomfr = ucfirst($_POST['nomfr']);
+          $nomlat = ucfirst($_POST['nomlat']);
+          $famille = $_POST['famille'];
+          $region = $_POST['region'];
+          $taille = floatval($_POST['taille']);
+          $description = $_POST['description'];
+
+          $couleur=$_POST['couleur'];
+          
+          
+         if($_POST['fleur'] =='oui')
+          {
+            $fleur = 1;
+            $periodefleur = $_POST['periodefleur'];
+            $couleurfleur = $_POST['couleurfleur'];
+            
+          }
+          else
+          {
+            $fleur = 0;
+            $couleurfleur = NULL;
+            $periodefleur = NULL;
+          }
+
+          if($_POST['fruit'] =='oui')
+          {
+            $fruit = 1;
+            $couleurfruit = $_POST['couleurfruit'];
+            $periodefruit = $_POST['periodefruit'];;
+          }
+          else
+          {
+            $fruit = 0;
+            $couleurfruit = NULL;
+            $periodefruit = NULL;
+          }
+
+          //insertion
+         try{
+            $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+            $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+          }
+          catch(Exception $e){
+            echo 'Erreur :' . $e->getMessage();
+          }
+
+          $req = $BDD->query("SHOW TABLE STATUS FROM bdd LIKE 'plantes' ");
+          $donnees = $req->fetch();
+          $id = $donnees['Auto_increment'];
+
+          try{
+            $req = $BDD->prepare("INSERT INTO plantes (Id_utilisateur, Nom_latin, Nom_fr, Taille, Couleur, Fleur, Fruit, Couleur_fleur, Couleur_fruit, Régions, Details, Famille, Période_floraison, Période_fructification )  VALUES (:utilisateur, :nomlat, :nomfr, :taille, :couleur, :fleur, :fruit, :couleur_fleur, :couleur_fruit, :region, :details, :famille, :periode_floraison, :periode_fructification) ");
+            $exec = $req->execute(array(':utilisateur'=>$_SESSION['id'], ':nomlat'=> $nomlat, ':nomfr'=> $nomfr, ':taille'=> $taille, ':couleur'=> $couleur, ':fleur'=> $fleur, ':fruit'=> $fruit, ':couleur_fleur'=> $couleurfleur, ':couleur_fruit'=> $couleurfruit, ':region'=>$region, ':details'=> $description, ':famille'=> $famille, ':periode_floraison'=> $periodefleur, ':periode_fructification'=> $periodefruit));
+          }
+          catch(Exception $e){
+              echo "erreur".$e->getMessage();
+          }
+          try{
+            $req = $BDD->prepare("INSERT INTO photoplantes (Id_plante, Photo)  VALUES (:id, :fichier) ");
+            $exec = $req->execute(array(':id'=>$id, ':fichier'=>file_get_contents($img['tmp_name'])));
+          }
+          catch(Exception $e){
+              echo "erreur".$e->getMessage();
+          }
+
+          /*header('Location: repertoire_botanique.php?ajout=true');
+          exit();*/
+        }
+      }
+    ?>  
 
 <div class="container">
 <div class="row ">  
@@ -79,7 +240,7 @@ include("menu.php");
       </div>
       <?php } ?>
 
-<form method="post">
+<form method="post" action="" enctype="multipart/form-data">
  <!-- Nom Français -->  
  
 <div class="form-group">
@@ -272,7 +433,7 @@ include("menu.php");
 <!-- Ajout une photo -->    
 <div class="form-group">
     <label for="formFileMultiple" class="form-label">Ajouter photos</label>
-    <input class="form-control"  type="file" id="formFileMultiple" multiple />
+    <input type="file" id="renseignement" name="image" />
 
 </div>
 
@@ -296,21 +457,6 @@ include("menu.php");
   </div>
 
 </div>
-
-
- 
-                       
-
-                   
-
-
-                 
-        
-               
-
-                
-
-
 
 
 <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
