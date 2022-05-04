@@ -45,7 +45,7 @@ include("menu.php");
   
    
   
-<form action="profil_plante.php" method="POST">
+<form action="" method="POST">
             
             <!-- affichage ajout plante réussi -->
             <?php
@@ -267,7 +267,7 @@ include("menu.php");
 
                     else{
 
-                        $requete = $BDD->prepare('SELECT * FROM plantes ORDER BY Nom_fr');
+                        $requete = $BDD->prepare('SELECT * FROM plantes INNER JOIN photoplantes ON plantes.Id_plante = photoplantes.Id_plante ORDER BY Nom_fr');
                         $requete->execute();
                         /* on récupère le résultt de la requête sous forme d'un tableau */
                         $donnees = $requete->fetchAll();
@@ -406,15 +406,32 @@ include("menu.php");
                             }
                 ?>
                 <a href="profil_plante.php?id=<?php echo $plante['Id_plante']?> " id="lien_plante">
-                    <div class = "carre_plante">
-                            <div class="Plante">
+               
+                <div class="card-body">    
+                                 <div class="col">
+                            
                                 <img src=" data:image/jpg;base64,<?php echo base64_encode($plante['Photo']);?> " id="image_plante" >
+                        </div>    
+                                <div class="col-"> 
+                                
+
                                 <output name=nom_lat id=planteinfos> Nom français : <?php echo $plante['Nom_fr'];?></output></br>
                                 <output name=nom_fr id=planteinfos>  Nom latin : <?php echo $plante['Nom_latin'];?></output></br>
-                                <output name=region id=planteinfos>  Régions : <?php echo $plante['Régions'];?></output>    
-                            </div>
-                    </div>
+                                <output name=region id=planteinfos>  Régions : <?php echo $plante['Régions'];?></output>   
+                        </div>  
+                                
+                        </div> 
+                    
+                
+
+
+
+
+
+                        
+                         <hr>
                 </a>
+                       
                 <?php
                     }
                 }
