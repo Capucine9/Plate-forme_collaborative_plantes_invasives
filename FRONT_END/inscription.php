@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="utf-8" />
   <title> Inscription</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />  
 	<link rel="stylesheet" type="text/css" href="css/my-login.css"> 
   <link href ="css/bootstrap.css" rel="stylesheet" type="text/css"/>
@@ -193,13 +194,13 @@ if(isset($_POST['valider'])){
 <!--Entreprise-->
 <div class="form-group">
        <span class="label label-default" >Entreprise ? </span>  
-       <div class="form-check" id="togg1">
-           <div class="form-check form-check-inline"> 
-              <input class="form-check-input" type="radio" name="entreprise" id="radiox" value="oui">
+       <div class="form-check">
+           <div class="form-check form-check-inline resultbouton1"> 
+              <input class="form-check-input" type="radio" name="entreprise" id="radiox" value="oui" checked>
               <label class="form-check-label" for="inlineCheckbox1"> oui </label>
            </div>
-            <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="entreprise" id="radiox" value="non" checked>
+            <div class="form-check form-check-inline resultbouton2">
+            <input class="form-check-input" type="radio" name="entreprise" id="radiox" value="non">
             <label class="form-check-label" for="inlineCheckbox2"> non</label>
             </div>  
 		</div>
@@ -207,7 +208,7 @@ if(isset($_POST['valider'])){
 </div> 
                            
 <!--Url de L'entreprise -->    
-<div class="form-group" id="resultbouton1" >
+<div class="form-group entreprise" >
         <label for="titre">URL de l'entreprise</label>
         <input id="email" type="text" class="form-control" name="url" value="<?php if(isset($url)) { echo $url; }?> " required>
         <div class="invalid-feedback">

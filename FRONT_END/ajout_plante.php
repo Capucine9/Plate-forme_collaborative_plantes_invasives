@@ -15,7 +15,8 @@
       <link href ="css/bootstrap.css" rel="stylesheet" type="text/css"/>    
 
       <script src="https://kit.fontawesome.com/6b6c1dbe0e.js" crossorigin="anonymous"></script>    
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"   
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"   
 integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">  
 <link rel="stylesheet" href="pageaccueil.css">
   </head>
@@ -289,7 +290,6 @@ include("menu.php");
       <label class="input-group-text" for="inputGroupSelect01">Couleur </label>
     </div>
     <select class="custom-select" id="inputGroupSelect01" name="couleur">
-      <option selected>Choose...</option>
       <option value="rouge">Rouge </option>
       <option value="orange">Orange </option>
       <option value="jaune">Jaune </option>
@@ -318,24 +318,24 @@ include("menu.php");
      
       <div class="form-check">
                 
-        <div class="form-check form-check-inline"> 
+        <div class="form-check form-check-inline resultbouton1"> 
         <input class="form-check-input" type="radio" name="fleur" id="exampleRadios1" value="oui" checked>
         <label class="form-check-label" for="exampleRadios1"> oui </label>
         </div>
 
-      <div class="form-check form-check-inline">
+      <div class="form-check form-check-inline resultbouton2">
       <input class="form-check-input" type="radio" name="fleur" id="exampleRadios2" value="non">
       <label class="form-check-label" for="exampleRadios2"> non</label> 
 
        </div>
     </div>
+    <br/>
 <!-- Couleur Fleur -->
-<div class="input-group mb-3">
+<div class="input-group mb-3 fleur">
   <div class="input-group-prepend">
     <label class="input-group-text" for="inputGroupSelect01">Couleur </label>
   </div>
   <select class="custom-select" id="inputGroupSelect01" name="couleurfleur">
-    <option selected>Choose...</option>
     <option value="rouge" selected>Rouge </option>
         <option value="orange">Orange </option>
         <option value="jaune">Jaune </option>
@@ -348,14 +348,14 @@ include("menu.php");
         <option value="gris">Gris </option>
         <option value="noir">Noir </option>
   </select>
-</div>     
+</div> 
+ 
 <!--Période de floraison -->    
-<div class="input-group mb-3">
+<div class="input-group mb-3 fleur">
      <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">Période de floraison</label>
      </div>
      <select class="custom-select" id="inputGroupSelect01" name="periodefleur">
-             <option selected>Choose...</option>
              <option value="printemps" selected>Printemps </option>
              <option value="ete">Eté </option>
              <option value="automne">Automne </option>
@@ -366,32 +366,28 @@ include("menu.php");
 <!-- Posséde de fruit -->
 <div class="form-group">
                 
-      <span class="label label-default">Possède des fruits  ? </span>  
-      <div class="form-check">
+  <span class="label label-default">Possède des fruits ? </span>  
+    <div class="form-check">
       
-      <div class="form-check form-check-inline"> 
-      <input class="form-check-input" type="radio" name="fruit" id="exampleRadios1" value="oui" checked>
-      <label class="form-check-label" for="exampleRadios1"> oui </label>
+      <div class="form-check form-check-inline resultbouton3"> 
+        <input class="form-check-input" type="radio" name="fruit" id="exampleRadios1" value="oui" checked>
+        <label class="form-check-label" for="exampleRadios1"> oui </label>
       </div>
 
-    <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" name="fruit" id="exampleRadios2" value="non">
-    <label class="form-check-label" for="exampleRadios2"> non</label>
-     </div>
-        
-
-        
+      <div class="form-check form-check-inline resultbouton4">
+        <input class="form-check-input" type="radio" name="fruit" id="exampleRadios2" value="non">
+        <label class="form-check-label" for="exampleRadios2"> non</label>
+      </div>
 
 </div>
-         
+<br/>
 <!-- Couleur fruit -->
     
-<div class="input-group mb-3">
+<div class="input-group mb-3 fruit">
   <div class="input-group-prepend">
     <label class="input-group-text" for="inputGroupSelect01">Couleur fruit </label>
   </div>
   <select class="custom-select" id="inputGroupSelect01" name="couleurfruit">
-    <option selected>Choose...</option>
     <option value="rouge" selected>Rouge </option>
     <option value="orange">Orange </option>
     <option value="jaune">Jaune </option>
@@ -406,14 +402,12 @@ include("menu.php");
   </select>
 </div>       
    
-  <!--  Période de fructification-->
-
-<div class="input-group mb-3">
+<!--  Période de fructification-->
+<div class="input-group mb-3 fruit">
       <div class="input-group-prepend">
         <label class="input-group-text" for="inputGroupSelect01">Période de fructification</label>
       </div>
       <select class="custom-select" id="inputGroupSelect01" name="periodefruit">
-        <option selected>Choose...</option>
         <option value="printemps" selected>Printemps </option>
         <option value="ete">Eté </option>
         <option value="automne">Automne </option>
@@ -452,7 +446,7 @@ include("menu.php");
 </form>
 
 
-   <div class="footer">
+  <div class="footer">
     Copyright &copy; 2022 &mdash; Université de Limoges
   </div>
 
@@ -467,52 +461,12 @@ include("menu.php");
      </div>
     </div>
 
-
-    
 </main>
 
-   
-
-
-
-
-
-
- 
-
-  
-   
-        
-        
-          
-           
-            
-          
-
-       
-
-
-  
-
-
+  <script type="text/javascript" src="js/java.js"></script>
   <script src="js/jquery-3.6.0.min.js"></script>  
   <script src="js/popper.min.js"></script>  
   <script src="js/bootstrap.min.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>
