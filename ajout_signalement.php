@@ -171,9 +171,7 @@
     <button id="bouttongauche" onclick="localhost:81/Projet%20M1/inscription.php">Annuler</button>
     <button id="bouttondroite" type="submit" name="valider">Valider</button>
 
-    <footer>
-        <div id="baspage"> Contact</div>
-     </footer> 
+     
 
      
     <script type="text/javascript" src="js/java.js"></script>
