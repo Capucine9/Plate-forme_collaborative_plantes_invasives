@@ -174,7 +174,7 @@
                 <p class="mb-0"> Description détaillée</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0"> <output name="descrip"><?php echo $plante['Details']; ?></output> </p>
+                <p class="text-muted mb-0" align="justify"> <output name="descrip"><?php echo $plante['Details']; ?></output> </p>
               </div>
             
   </div>
