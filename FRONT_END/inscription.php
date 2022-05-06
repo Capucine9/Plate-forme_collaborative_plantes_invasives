@@ -134,7 +134,7 @@ if(isset($_POST['valider'])){
 <div class="card-wrapper">
 <!--#################################################################################################################-->          
 <div class="brand">
-						<img src="img/logo.png" alt="bootstrap 4 login page">
+						<img src="img/iconeplante.jpg" alt="bootstrap 4 login page">
 </div>
 <div class="card fat">
 <div class="card-body">
