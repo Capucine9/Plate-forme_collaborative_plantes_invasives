@@ -5,12 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">    
 	<link href="css/user_profil.css" rel="stylesheet">
+	<link rel="stylesheet" href="pageaccueil.css">
 </head>  
 <body>       
     
-    
+<header >
+                <div class="jumbotron   bg-image  text-Light    " >  
+                    <h1 style="color:white;text-align:center" >
+                        Plate-forme collaborative de lutte contre les plantes invasives
+                    </h1>    
+                    
+                </div>
+</header>
 
+  
 
+<?php
+    include("menu.php");
+?>
     <?php 
       
     ini_set( 'display_errors', 'on' );
@@ -59,6 +71,10 @@
 		  $errors['email']="Email non valide";
 		}
 
+		if(empty($_POST['URL']) ){
+			$errors['URL']="URL non valide";
+		  }
+
 		if(!empty($_POST['mdp']) && !password_verify($_POST['mdp'], $utilisateur['Mdp']) ){
             $errors['mdp']="Mot de passe non valide";
         }
@@ -68,9 +84,10 @@
         }
 
 
+
 		if(empty($errors)){
-			$requete=$BDD->prepare('UPDATE utilisateurs SET Pseudo =?, Email=? WHERE Id_utilisateur="'.$_SESSION['id'].'"');
-			$requete->execute([$_POST['pseudo'], $_POST['email'] ]);
+			$requete=$BDD->prepare('UPDATE utilisateurs SET Pseudo =?, Email=?, URL_entreprise=? WHERE Id_utilisateur="'.$_SESSION['id'].'"');
+			$requete->execute([$_POST['pseudo'], $_POST['email'],  $_POST['URL'] ]);
 
 			if(!empty($_POST['mdp'])){
 				$requete=$BDD->prepare('UPDATE utilisateurs SET Mdp=? WHERE Id_utilisateur="'.$_SESSION['id'].'"');
@@ -107,28 +124,37 @@
 						<div class="bg-secondary-soft px-4 py-5 rounded">
 							<div class="row g-3">
 								<h4 class="mb-4 mt-0">Coordonnées</h4>
-								<!-- First Name -->
+								<!-- Pseudo -->
 								<div class="col-md-6">
 									<label class="form-label">Pseudo </label>
 									<input type="text" class="form-control" name="pseudo" placeholder="" aria-label="First name" value=<?php echo($utilisateur['Pseudo']);?> >
                                     
 								</div>
-								<!-- Last name -->
+								<!-- Rang -->
 								<div class="col-md-6">
 									<label class="form-label">Rang</label>
-									<input type="text" class="form-control"  placeholder="" aria-label="Last name" value= <?php echo($rang);?> >
+									<input type="text" class="form-control"  placeholder="" aria-label="Last name" value= <?php echo($rang);?> readonly >
 								</div>
-								<!-- Mobile number -->
+								<!-- Nombre bon signalements -->
 								<div class="col-md-6">
 									<label class="form-label">Nombre de bons signalements </label>
-									<input type="text" class="form-control" placeholder="" aria-label="Phone number" value= <?php echo($utilisateur['Nb_bon_signalement']);?>     >
+									<input type="text" class="form-control" placeholder="" aria-label="Phone number" value= <?php echo($utilisateur['Nb_bon_signalement']);?> readonly     >
 								</div>
 								<!-- Email -->
 								<div class="col-md-6">
 									<label for="inputEmail4" class="form-label">Email </label>
 									<input type="email" class="form-control" name="email" id="inputEmail4" value= <?php echo($utilisateur['Email']);?> >
-								</div>  
+								</div> 
 								
+								<?php if ($utilisateur['Entreprise']==1)
+								{?>
+								<hr>
+								<div class="col-md-6">
+									<label class="form-label">URL de l'entreprise </label>
+									<input type="text" class="form-control" name="URL" id="URL" value= <?php echo($utilisateur['URL_entreprise']);?> >
+								</div>
+								<?php }?>
+																
 							</div> <!-- Row END --> 
                             
                             
@@ -141,17 +167,17 @@
                                     <h4 class="mb-4 mt-0">Changer mot de passe</h4>
                                     <!-- Old password -->
                                     <div class="col-md-6">
-                                        <label for="exampleInputPassword1" class="form-label">Ancien mot de passe *</label>
+                                        <label for="exampleInputPassword1" class="form-label">Ancien mot de passe </label>
                                         <input type="password" class="form-control" id="exampleInputPassword1" name="mdp">
                                     </div>
                                     <!-- New password -->
                                     <div class="col-md-6">
-                                        <label for="exampleInputPassword2" class="form-label">Nouveau mot de passe *</label>
+                                        <label for="exampleInputPassword2" class="form-label">Nouveau mot de passe </label>
                                         <input type="password" class="form-control" id="exampleInputPassword2" name="mdpnew">
                                     </div>
                                     <!-- Confirm password -->
                                     <div class="col-md-12">
-                                        <label for="exampleInputPassword3" class="form-label">Confirmer le mot de passe *</label>
+                                        <label for="exampleInputPassword3" class="form-label">Confirmer le mot de passe </label>
                                         <input type="password" class="form-control" id="exampleInputPassword3" name="mdpconf">
                                     </div>
                                 </div>
@@ -170,11 +196,11 @@
 									<!-- Modifier image -->
 									<div class="square position-relative display-2 mb-3">
 									<?php if($utilisateur['Photo']==NULL){?>
-										<img src="img\profil.jpg" width = 200 > 
+										<img src="img\profil.jpg" width = 250 height=250 > 
 									<?php }
 									else{ ?>
 									
-									<img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> "  width = 300 > 
+									<img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> " width = 250 height=250 > 
 									<?php }?>									
 									</div>
 									<!--  Modifier & Supprimer -->
