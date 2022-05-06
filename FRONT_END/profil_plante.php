@@ -30,18 +30,10 @@
 
 
 
-    <main>
-    <h2 class="card-title" style="text-align:center" > Profil plante    </h2>  
-    <hr>
-<?php
-    include("menu.php");
-?>
-
-<form>
 <?php
  
-            ini_set( 'display_errors', 'on' );
-            error_reporting( E_ALL );
+            //ini_set( 'display_errors', 'on' );
+            //error_reporting( E_ALL );
             try{
                 $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
                 $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -64,6 +56,33 @@
 
 
 
+<main>
+    <?php
+    include("menu.php");
+    ?>
+    <h2 class="card-title" style="text-align:center" > <?php echo $plante['Nom_fr']; ?>   </h2>  
+    <hr>
+
+    
+          <div class="card-body text-center">
+            <div class="image">
+              <?php if($plante['Photo']==NULL){?>
+                <img src="img\iconeplante.jpg  " width = 300 > 
+              <?php }
+							else{ ?>
+                <img src="data:image/jpg;base64,<?php echo base64_encode($plante['Photo']);?> " width = 300  > <!--mettre photo de la bdd et voir avec js pour faire des flèches pour faire défiler les images s'il y en a plusieurs-->
+              <?php }?>	
+            </div> 
+              
+             
+
+
+
+              
+            
+          </div>
+
+<form>
 
 <div class="container">
  <div class="row ">  
@@ -160,6 +179,8 @@
             
   </div>
 
+  
+
 
 
 </div>
@@ -167,38 +188,7 @@
 
 
                      
-<div class="card mb-4">
-            <div class="card-body text-center">
-            <h1 style="text-align:center"> <?php echo $plante['Nom_fr']; ?> </h1> <!-- récupéré dans bdd-->
-            <div class="image">
-                <img src="data:image/jpg;base64,<?php echo base64_encode($plante['Photo']);?> " width = 300  > <!--mettre photo de la bdd et voir avec js pour faire des flèches pour faire défiler les images s'il y en a plusieurs-->
-            </div> 
-              
-             
 
-
-
-              
-              <div class="d-flex justify-content-center mb-2">
-
-                <button type="button"id="boutonmodif" onclick="" class="btn btn-primary"> Modifier</button>
-                <hr>
-                <button type="button" id="boutonmodif"  onclick="" class="btn btn-outline-primary ms-1"> Ajouter un signalement</button>   
-
-             
-            
-               
-            </button>
-              </div>
-            </div>
-
-
-
-
-
-
-
-</div>
 </div>
 </div>
 
