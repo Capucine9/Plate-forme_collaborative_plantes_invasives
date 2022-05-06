@@ -60,10 +60,7 @@
 
           $errors = array();
 
-          if(empty($_POST['nomfr']) || !preg_match('/^[A-Za-z ]+$/', $_POST['nomfr'])){
-            $errors['nomfr']="Le nom de la plante n'est pas valide";
-          }
-         else{
+         
             //connexion bdd           
             try{
               $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
@@ -87,7 +84,7 @@
             else{
               $id_plante = $plante['Id_plante'];
             }
-          }
+          
 
           if(empty($_POST['ville']) || !preg_match('/^[A-Za-z ]+$/', $_POST['ville'])){
             $errors['region']="Ville non valide";
@@ -196,7 +193,7 @@ include("menu.php");
 <div class="col">  
 <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->                      
 <div class="brand">
-	<img src="img/logo.png" alt="bootstrap 4 login page">
+	<img src="img/logo.jpg" alt="bootstrap 4 login page">
 </div>
              
       
