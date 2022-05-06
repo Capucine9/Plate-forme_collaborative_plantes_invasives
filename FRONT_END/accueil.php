@@ -30,14 +30,14 @@
   </header>
 
 
+  <?php
+    include("menu.php");
+?>
 
 
     <main>
 
-    <hr>
-<?php
-    include("menu.php");
-?>
+    
 
 
         <div class="container">
@@ -183,12 +183,7 @@
                                        
                                     </ul>
                                 </div>
-                                <div class="col">
-                                    <ul class="list-unstyled">
-                                        <li><a href=""> Claire & Marouen & Capucine </a></li>
-                                       
-                                    </ul>
-                                </div>
+                                
                             </div>
                         </div>
 
