@@ -1,52 +1,108 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Liste signalement</title>
-        <meta charset="utf-8">
-        <link href="test.css" rel="stylesheet" type="text/css" media="all" />
-    </head>
-    <body>
-        <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
+<html lang="fr">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/6b6c1dbe0e.js" crossorigin="anonymous"></script>    
 
-        <!--menu déroulant-->
-        <?php include("menu.php"); ?>
-        
-        <form action="" method="POST">
-            <h1 style="text-align:center"> Liste des signalements </h1>
-            
-            <!-- affichage ajout signalement réussi -->
-            <?php
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"   
+
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">  
+
+    <link rel="stylesheet" href="pageaccueil.css">
+    <title>Liste des signalements </title>
+</head>
+
+<body>
+     
+    <header >
+    <div class="jumbotron   bg-image  text-Light    " >  
+                    <h1 style="color:white;text-align:center" >
+                        Plate-forme collaborative de lutte contre les plantes invasives
+                    </h1>    
+                    
+                </div>
+    </header>
+ 
+    <main>  
+    <hr>    
+
+<h2 class="card-title" style="text-align:center" >     Liste des signalements      </h2>
+<?php
+    include("menu.php");
+?> 
+<?php
                 if($_GET["ajout"]=="true"){
                     echo "<div class=inscription> Ajout du signalement réussi </div></br>";
                 }
             ?>
             <br/>
             
-            <input id="searchbar" type="text" placeholder="Rechercher une plante..." name="plante" value=<?php echo "\"".$_POST['plante']. "\""; ?>>
-            <button type="submit" name="searchbar">Rechercher</button>
 
-           Depuis :
-           <select name="liste" onchange="this.form.submit()"> 
+ <div class="container">
+ <div class="row ">  
+ <div class="col-sm">    
+            
+        <form action="" method="POST">   
+     <div class="card mb-3">
+     <div class="card-body">   
+
+     <div class="input-group">
+    <input type="search" class="form-control rounded" id="searchbar" name="plante" placeholder="Rechercher une plante..." aria-label="Search" aria-describedby="search-addon" />
+     <button type="submit" class="btn btn-outline-primary" name="searchbar">Rechercher</button>
+    </div>
+          
+    </div> 
+    </div> 
+
+      <div class="card mb-3">                    
+      <div class="card-body">    
+         <div class="row">
+<!-- Depuis -->             
+<div class="col">  
+                    
+         <label for=" Depuis" class="control-label">  Depuis :</label>    
+
+         <select class="form-control"  name="liste" onchange="this.form.submit()"> 
                 <option value="tout" <?php if($_POST['liste']=="tout"){echo "selected";}?>> le début du site</option> 
                 <option value="jour" <?php if($_POST['liste']=="jour"){echo "selected";}?>>un jour </option>
                 <option value="semaine" <?php if($_POST['liste']=="semaine"){echo "selected";}?>>une semaine </option>
                 <option value="mois" <?php if($_POST['liste']=="mois"){echo "selected";}?>>un mois  </option>
                 <option value="an" <?php if($_POST['liste']=="an"){echo "selected";}?>>un an </option>
-            </select>
-
-            Trier par :
-            <select name="tri" onchange="this.form.submit()"> 
+            </select>             
+                             
+</div>
+                   
+<!-- Trier par  -->                   
+ <div class="col">
+                   
+                       
+        <label for="Trier par " class="control-label"> Trier par :</label>  
+        <select class="form-control"  name="tri" onchange="this.form.submit()"> 
                 <option value="dateRec" <?php if($_POST['tri']=="dateRec"){echo "selected";}?>> Date du plus récent </option>
                 <option value="dateAnc" <?php if($_POST['tri']=="dateAnc"){echo "selected";}?>> Date du plus ancien </option>
                 <option value="plante" <?php if($_POST['tri']=="plante"){echo "selected";}?>> Ordre alphabétique plante</option> 
-            </select>
-
-            
-            
-            <div class= "carre">  
+            </select>        
+ </div>  
+                  
                     
-            <?php
+                    
+<hr>
+                                       
+</div>
+</div>      
+
+
+
+
+
+
+<div class="card mb-3">
+     <div class="card-body">
+        
+            
+     <?php
                     ini_set( 'display_errors', 'on' );
                     error_reporting( E_ALL );
 
@@ -265,12 +321,30 @@
                 
                 ?>
 
-            </div>
 
-        </form>
 
-        <footer>
-        <div id="baspage"> Contact</div>
-        </footer> 
-    </body>
+
+
+
+
+
+               
+                          
+ </form>
+
+</div>
+</div>   
+
+<div class="footer">
+    Copyright &copy; 2022 &mdash; Université de Limoges
+  </div>
+               
+  
+</main>  
+</div>
+</div>
+ </div>
+
+</body>
+
 </html>
