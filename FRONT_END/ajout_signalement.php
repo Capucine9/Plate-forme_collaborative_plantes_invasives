@@ -266,9 +266,10 @@ include("menu.php");
     <button type="submit" class="btn btn-primary btn-block" name="valider" onclick="localhost:81/Projet%20M1/inscription.php">
       Valider
     </button>
-    <button type="submit" class="btn btn-primary btn-block">
-      Annuler
-    </button>
+     <a href="listeSignalement.php" class="btn btn-primary btn-block">
+    Annuler
+    </a>
+   
     
 </div> 
 
@@ -292,26 +293,6 @@ include("menu.php");
 
     
 </main>
-
-   
-
-
-
-
-
-
- 
-
-  
-   
-        
-        
-          
-           
-            
-          
-
-       
 
 
   <script src="js/jquery-3.6.0.min.js"></script>  
