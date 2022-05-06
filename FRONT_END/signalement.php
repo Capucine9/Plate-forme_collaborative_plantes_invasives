@@ -9,13 +9,13 @@
     <body>
         <div id="header">Plate-forme collaborative de lutte contre les plantes invasives</div>
 
-        
     <?php
     include("menu.php");
     ?>
+    
         <form method="post" action="" enctype="multipart/form-data">
 
-         <?php
+        <?php
             $exec =false ;
             ini_set( 'display_errors', 'on' );
             error_reporting( E_ALL );
@@ -138,19 +138,16 @@
                 <output name="floraison"><?php echo $signalement['Ville']; ?></output> 
             </div>
 
-            
-
+            <!-- Carte -->   
             <div id=Map>
                 <?php
                     include 'map_signalement.php';
-                    
                 ?>
                 <script type="text/javascript">
                     
                     var marqueur = L.marker([<?php echo json_encode($lat); ?>,<?php echo json_encode($long); ?>]).addTo(macarte);
                 </script>
             </div>
-
 
             <div class="renseignement">
                 <div id="titre">
