@@ -48,19 +48,19 @@ include("menu.php");
 
           $errors = array();
 
-          if(empty($_POST['nomfr']) || !preg_match('/^[A-Za-z ]+$/', $_POST['nomfr'])){
+          if(empty($_POST['nomfr']) || !preg_match('/^[A-Za-z\'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ  ]+$/', $_POST['nomfr'])){
             $errors['nomfr']="Nom français non valide";
           }
 
-          if(empty($_POST['nomlat']) || !preg_match('/^[A-Za-z ]+$/', $_POST['nomlat'])){
+          if(empty($_POST['nomlat']) || !preg_match('/^[A-Za-z\'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ  ]+$/', $_POST['nomlat'])){
             $errors['nomlat']="Nom latin non valide";
           }
 
-          if(empty($_POST['region']) || !preg_match('/^[A-Za-z ]+$/', $_POST['region'])){
+          if(empty($_POST['region']) || !preg_match('/^[A-Za-z\'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ  ]+$/', $_POST['region'])){
             $errors['region']="Région non valide";
           }
 
-          if(empty($_POST['taille']) || !preg_match('/^[0-9 ]+$/', $_POST['taille'])){
+          if(empty($_POST['taille']) || !preg_match('/^[0-9, ]+$/', $_POST['taille'])){
             $errors['taille']="Taille non valide";
           }
 
