@@ -30,16 +30,11 @@
     <!-- Fichiers Javascript ////////////////////////////////////////////// -->
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
 	<script type="text/javascript">
-            // On initialise la latitude et la longitude de Paris (centre de la carte)
+            // On initialise la latitude et la longitude du signalement (centre de la carte)
             var lat = <?php echo json_encode($lat); ?>;
             var lon = <?php echo json_encode($long); ?>;
             var macarte = null;
             var marqueur = null;
-            //let ville = "";
-
-            // Permet de stocker les variables latitude et longitude retournées
-            var latitudes;
-            var longitudes;
 
             //// Initialisation de la carte
             function initMap() {
@@ -53,12 +48,10 @@
                 }).addTo(macarte);
 
                 var marqueur = L.marker([lat, lon]).addTo(macarte);
-                //ville = [lat, lon];
 
                 // Centralisation de la carte sur la position
                 macarte.panTo([lat, lon]);
             }
-
 
             window.onload = function(){
 		        // Fonction d'initialisation
