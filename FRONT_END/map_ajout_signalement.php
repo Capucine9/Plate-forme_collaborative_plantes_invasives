@@ -38,6 +38,7 @@
             <button type="invisible" onclick="search();" name="search">search</button>
             <p id="output"></p>-->
         </div>
+        <br/>
         
         <!-- Permet l'affichage de la carte -->
         <div id="map"></div>

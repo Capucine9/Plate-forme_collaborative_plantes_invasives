@@ -252,7 +252,7 @@ include("menu.php");
 <!-- Carte  -->   
 <div>
   <?php
-    include("map_signalement.php");
+    include("map_ajout_signalement.php");
   ?>
 </div>
 
