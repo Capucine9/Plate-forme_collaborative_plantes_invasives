@@ -20,30 +20,22 @@
 integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">  
 <link rel="stylesheet" href="pageaccueil.css">
   </head>
-
   <body class="my-login-page">
-
-
-
-
-        
-
- <header >
-                <div class="jumbotron   bg-image  text-Light    " >  
-                    <h1 style="color:white;text-align:center" >
-                        Plate-forme collaborative de lutte contre les plantes invasives
-                    </h1>    
+    <header >
+      <div class="jumbotron   bg-image  text-Light    " >  
+        <h1 style="color:white;text-align:center" >
+          Plate-forme collaborative de lutte contre les plantes invasives
+        </h1>    
                     
-                </div>
-  </header>
+      </div>
+    </header>
+
 <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
-
 <main>
-
- 
 
 <h2 class="card-title" style="text-align:center" >   Ajouter une plante     </h2>  
 <hr>
+
 <?php
 include("menu.php");
 ?>
@@ -132,11 +124,9 @@ include("menu.php");
           {
             $errors['nomexiste']="La plante est déjà dans la base de données";
           }
-
         }
 
         if(empty($errors)){
-          
           //récupération de toutes les valeurs
           $nomfr = ucfirst($_POST['nomfr']);
           $nomlat = ucfirst($_POST['nomlat']);
@@ -153,7 +143,6 @@ include("menu.php");
             $fleur = 1;
             $periodefleur = $_POST['periodefleur'];
             $couleurfleur = $_POST['couleurfleur'];
-            
           }
           else
           {
@@ -176,7 +165,7 @@ include("menu.php");
           }
 
           //insertion
-         try{
+          try{
             $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
             $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -212,20 +201,14 @@ include("menu.php");
 
 <div class="container">
 <div class="row ">  
-
-
-       
- <div class="col">  
-                
- 
+  
+<div class="col">  
 
 <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->                      
 <div class="brand">
 	<img src="img/logo.png" alt="bootstrap 4 login page">
 </div>
-             
-      
-
+          
       <?php
       	if(!empty($errors)){
       ?>
@@ -242,8 +225,8 @@ include("menu.php");
       <?php } ?>
 
 <form method="post" action="" enctype="multipart/form-data">
- <!-- Nom Français -->  
- 
+
+<!-- Nom Français -->  
 <div class="form-group">
 		<label for="email">Nom français : </label>
 		<input id="nom_fr" type="text" class="form-control" name="nomfr" required>
@@ -251,8 +234,8 @@ include("menu.php");
         		Le nom français n'est pas valide
 		</div>
 </div>
-<!-- Nom Latin -->    
 
+<!-- Nom Latin --> 
 <div class="form-group">
          <label for="email">Nom Latin: </label>
          <input id="nom_lt" type="text" class="form-control" name="nomlat" required>
@@ -260,7 +243,6 @@ include("menu.php");
          	Le nom latin n'est pas valide
          </div>  
  </div>
-    
 
 <!--Famille botanique--> 
   <div class="input-group mb-3">
@@ -274,15 +256,15 @@ include("menu.php");
         <option value="plante">Plante</option>
     </select>
   </div>
+
 <!-- Régions principales -->  
-      
-    <div class="form-group">
-      <label for="email">Régions principales : </label>
-      <input id="reg_p" type="text" class="form-control" name="region" required>
-      <div class="invalid-feedback">
-      Votre région  n'est pas valide
-      </div>
-     </div>
+  <div class="form-group">
+    <label for="email">Régions principales : </label>
+    <input id="reg_p" type="text" class="form-control" name="region" required>
+    <div class="invalid-feedback">
+    Votre région n'est pas valide
+    </div>
+  </div>
 
 <!-- Couleur -->
   <div class="input-group mb-3">
@@ -303,124 +285,123 @@ include("menu.php");
       <option value="noir">Noir </option>
     </select>
   </div>
-<!-- Taille en CM-->
-<div class="form-group">
-      <label for="email">Taille (en cm): </label>
-      <input id="taille" type="text" class="form-control" name="taille" required>
-      <div class="invalid-feedback">
+
+<!-- Taille en cm-->
+  <div class="form-group">
+    <label for="email">Taille (en cm): </label>
+    <input id="taille" type="text" class="form-control" name="taille" required>
+    <div class="invalid-feedback">
                           
-      </div>
+    </div>
   </div>
 
 <!-- Possède des fleurs  -->    
-   <div class="form-group">
-      <span class="label label-default">Possède des fleurs ?  </span>
+  <div class="form-group">
+    <span class="label label-default">Possède des fleurs ? </span>
      
-      <div class="form-check">
+    <div class="form-check">
                 
-        <div class="form-check form-check-inline resultbouton1"> 
+      <div class="form-check form-check-inline resultbouton1"> 
         <input class="form-check-input" type="radio" name="fleur" id="exampleRadios1" value="oui" checked>
         <label class="form-check-label" for="exampleRadios1"> oui </label>
-        </div>
+      </div>
 
       <div class="form-check form-check-inline resultbouton2">
-      <input class="form-check-input" type="radio" name="fleur" id="exampleRadios2" value="non">
-      <label class="form-check-label" for="exampleRadios2"> non</label> 
+        <input class="form-check-input" type="radio" name="fleur" id="exampleRadios2" value="non">
+        <label class="form-check-label" for="exampleRadios2"> non</label> 
 
-       </div>
-    </div>
-    <br/>
-<!-- Couleur Fleur -->
-<div class="input-group mb-3 fleur">
-  <div class="input-group-prepend">
-    <label class="input-group-text" for="inputGroupSelect01">Couleur </label>
+      </div>
   </div>
-  <select class="custom-select" id="inputGroupSelect01" name="couleurfleur">
-    <option value="rouge" selected>Rouge </option>
-        <option value="orange">Orange </option>
-        <option value="jaune">Jaune </option>
-        <option value="blanc">Blanc </option>
-        <option value="rose">Rose </option>
-        <option value="violet">Violet </option>
-        <option value="bleu">Bleu </option>
-        <option value="vert">Vert </option>
-        <option value="marron">Marron </option>
-        <option value="gris">Gris </option>
-        <option value="noir">Noir </option>
-  </select>
-</div> 
+  <br/>
+
+<!-- Couleur Fleur -->
+  <div class="input-group mb-3 fleur">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01">Couleur </label>
+    </div>
+    <select class="custom-select" id="inputGroupSelect01" name="couleurfleur">
+      <option value="rouge" selected>Rouge </option>
+          <option value="orange">Orange </option>
+          <option value="jaune">Jaune </option>
+          <option value="blanc">Blanc </option>
+          <option value="rose">Rose </option>
+          <option value="violet">Violet </option>
+          <option value="bleu">Bleu </option>
+          <option value="vert">Vert </option>
+          <option value="marron">Marron </option>
+          <option value="gris">Gris </option>
+          <option value="noir">Noir </option>
+    </select>
+  </div> 
  
 <!--Période de floraison -->    
-<div class="input-group mb-3 fleur">
-     <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">Période de floraison</label>
-     </div>
-     <select class="custom-select" id="inputGroupSelect01" name="periodefleur">
-             <option value="printemps" selected>Printemps </option>
-             <option value="ete">Eté </option>
-             <option value="automne">Automne </option>
-             <option value="hiver">Hiver </option>
+  <div class="input-group mb-3 fleur">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01">Période de floraison</label>
+    </div>
+    <select class="custom-select" id="inputGroupSelect01" name="periodefleur">
+      <option value="printemps" selected>Printemps </option>
+      <option value="ete">Eté </option>
+      <option value="automne">Automne </option>
+      <option value="hiver">Hiver </option>
     </select>
-</div>
+  </div>
 
 <!-- Posséde de fruit -->
-<div class="form-group">
-                
-  <span class="label label-default">Possède des fruits ? </span>  
-    <div class="form-check">
-      
-      <div class="form-check form-check-inline resultbouton3"> 
-        <input class="form-check-input" type="radio" name="fruit" id="exampleRadios1" value="oui" checked>
-        <label class="form-check-label" for="exampleRadios1"> oui </label>
-      </div>
-
-      <div class="form-check form-check-inline resultbouton4">
-        <input class="form-check-input" type="radio" name="fruit" id="exampleRadios2" value="non">
-        <label class="form-check-label" for="exampleRadios2"> non</label>
-      </div>
-
-</div>
-<br/>
-<!-- Couleur fruit -->
+  <div class="form-group">           
+    <span class="label label-default">Possède des fruits ? </span>  
+      <div class="form-check">
     
-<div class="input-group mb-3 fruit">
-  <div class="input-group-prepend">
-    <label class="input-group-text" for="inputGroupSelect01">Couleur fruit </label>
+        <div class="form-check form-check-inline resultbouton3"> 
+          <input class="form-check-input" type="radio" name="fruit" id="exampleRadios1" value="oui" checked>
+          <label class="form-check-label" for="exampleRadios1"> oui </label>
+        </div>
+
+        <div class="form-check form-check-inline resultbouton4">
+          <input class="form-check-input" type="radio" name="fruit" id="exampleRadios2" value="non">
+          <label class="form-check-label" for="exampleRadios2"> non</label>
+        </div>
   </div>
-  <select class="custom-select" id="inputGroupSelect01" name="couleurfruit">
-    <option value="rouge" selected>Rouge </option>
-    <option value="orange">Orange </option>
-    <option value="jaune">Jaune </option>
-    <option value="blanc">Blanc </option>
-    <option value="rose">Rose </option>
-    <option value="violet">Violet </option>
-    <option value="bleu">Bleu </option>
-    <option value="vert">Vert </option>
-    <option value="marron">Marron </option>
-    <option value="gris">Gris </option>
-    <option value="noir">Noir </option>
-  </select>
-</div>       
+  <br/>
+
+<!-- Couleur fruit -->
+  <div class="input-group mb-3 fruit">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01">Couleur fruit </label>
+    </div>
+    <select class="custom-select" id="inputGroupSelect01" name="couleurfruit">
+      <option value="rouge" selected>Rouge </option>
+      <option value="orange">Orange </option>
+      <option value="jaune">Jaune </option>
+      <option value="blanc">Blanc </option>
+      <option value="rose">Rose </option>
+      <option value="violet">Violet </option>
+      <option value="bleu">Bleu </option>
+      <option value="vert">Vert </option>
+      <option value="marron">Marron </option>
+      <option value="gris">Gris </option>
+      <option value="noir">Noir </option>
+    </select>
+  </div>       
    
 <!--  Période de fructification-->
-<div class="input-group mb-3 fruit">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="inputGroupSelect01">Période de fructification</label>
-      </div>
-      <select class="custom-select" id="inputGroupSelect01" name="periodefruit">
-        <option value="printemps" selected>Printemps </option>
-        <option value="ete">Eté </option>
-        <option value="automne">Automne </option>
-        <option value="hiver">Hiver </option>
+  <div class="input-group mb-3 fruit">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01">Période de fructification</label>
+    </div>
+    <select class="custom-select" id="inputGroupSelect01" name="periodefruit">
+      <option value="printemps" selected>Printemps </option>
+      <option value="ete">Eté </option>
+      <option value="automne">Automne </option>
+      <option value="hiver">Hiver </option>
     </select>
-</div>
+  </div>
 
 <!-- Decription -->   
   <div class="form-group">
       <label for="email">Description : </label>
       <input id="description" type="text" class="form-control" name="description" required>
-      <div class="invalid-feedback">
-                              
+      <div class="invalid-feedback">                    
       </div>
   </div>
 
@@ -428,9 +409,7 @@ include("menu.php");
 <div class="form-group">
     <label for="formFileMultiple" class="form-label">Ajouter photos</label>
     <input type="file" id="renseignement" name="image" />
-
 </div>
-
 
 <div class="form-group m-0">
     <button type="submit" class="btn btn-primary btn-block" name="valider">
@@ -439,12 +418,9 @@ include("menu.php");
     <a href="repertoire_botanique.php" class="btn btn-primary btn-block">
     Annuler
     </a>
-    
 </div> 
 
-
 </form>
-
 
   <div class="footer">
     Copyright &copy; 2022 &mdash; Université de Limoges
@@ -452,13 +428,12 @@ include("menu.php");
 
 </div>
 
-
 <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
-     </div>
-     </div>
+    </div>
+    </div>
               
     </div>
-     </div>
+    </div>
     </div>
 
 </main>
