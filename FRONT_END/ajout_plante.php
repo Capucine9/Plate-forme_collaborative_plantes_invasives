@@ -206,7 +206,7 @@ include("menu.php");
 
 <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->                      
 <div class="brand">
-	<img src="img/logo.png" alt="bootstrap 4 login page">
+	<img src="img/logo.jpg" alt="bootstrap 4 login page">
 </div>
           
       <?php
