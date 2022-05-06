@@ -8,16 +8,32 @@
 
     <meta charset="utf-8" />
       <title>
-          Ajout d'une plante
+          Ajout d'une signalement
       </title>
       <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />  
       <link rel="stylesheet" type="text/css" href="css/my-login.css"> 
       <link href ="css/bootstrap.css" rel="stylesheet" type="text/css"/>    
-
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" 
+      integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
       <script src="https://kit.fontawesome.com/6b6c1dbe0e.js" crossorigin="anonymous"></script>    
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"   
-integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">  
-<link rel="stylesheet" href="pageaccueil.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"   
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">  
+      <link rel="stylesheet" href="pageaccueil.css">
+      <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" 
+      integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+
+      <style type="text/css">
+            /* Map */
+            /* Indispensable pour faire apparaître la carte*/
+            #map{
+                height : auto;
+                width : auto; 
+                margin-left: 100px;
+                margin-right: 100px;
+                margin-bottom: 40px;
+            }
+        </style>
+
   </head>
 
   <body class="my-login-page">
@@ -212,19 +228,7 @@ include("menu.php");
 		<div class="invalid-feedback">
         		Le nom français n'est pas valide
 		</div>
-</div>
-<!-- Nom Latin -->    
-
-<div class="form-group">
-         <label for="email">Ville: </label>
-         <input id="nom_lt" type="text" class="form-control" name="ville"  required>
-         <div class="invalid-feedback">
-         	Ville n'est pas valide
-         </div>  
- </div>
-    
-
-
+</div>  
 
 <!-- Decription -->   
   <div class="form-group">
@@ -245,22 +249,35 @@ include("menu.php");
         
 </div>
 
-<div class="form-group">
+<!-- Carte  -->   
+<div>
+  <!-- Recherche d'une ville et affichage de la latitude et la longitude de la position -->
+  <div>
+      <label for="input_ville">Rechercher une ville sur la carte : </label>
+      <input type="text" id="input_ville" name="ville" class="form-control">
+  </div>
+  <div>
+    <!-- Récupération des latitudes et longitudes dans des input pour vérifier que le champ est bien rempli--> 
+    <input type="hidden" name="lat" id="lat" readonly>
+    <input type="hidden" name="lon" id="lon" readonly>
+
+    <!-- Bouton de recherche de ville à partir des coordonnées 
+    <button type="invisible" onclick="search();" name="search">search</button>
+    <p id="output"></p>-->
+  </div>
+  <!-- Permet l'affichage de la carte -->
+  <div id="map"></div> 
+</div>
+
+<!-- Photo  -->
 <div class="form-group">
     <label for="formFileMultiple" class="form-label" onclick="" >Ajouter photos</label>
     <input type="file" id="renseignement" name="image" />
-
 </div>
 
-<div id=map>
-      <?php
-            include("Map.php");
-      ?>
-
-</div>
 <div class="form-group m-0">
     <button type="submit" class="btn btn-primary btn-block" name="valider" onclick="localhost:81/Projet%20M1/inscription.php">
-          Valider
+      Valider
     </button>
     <button type="submit" class="btn btn-primary btn-block">
       Annuler
@@ -310,7 +327,7 @@ include("menu.php");
        
 
 
-  
+  <script src="js/map_signalement.js"></script>
   <script src="js/jquery-3.6.0.min.js"></script>  
   <script src="js/popper.min.js"></script>  
   <script src="js/bootstrap.min.js"></script>

@@ -227,9 +227,9 @@ input[type="radio"].connexion:checked + label {
 }
 
 /* Carte */ 
-#map{
-  height: 720px;
-  width: auto;
+#mapstyle{
+  height: 200px;
+  width: 600px;
   position:relative; 
   left: 0px;
   right: 0px;
@@ -248,7 +248,6 @@ input[type="radio"].connexion:checked + label {
   border-radius: 10px;
   text-align: center;
   width: 500px;
-
 }
 
 /*Page reperrtoire botanique et connexion */
@@ -263,5 +262,4 @@ input[type="radio"].connexion:checked + label {
   border-radius: 10px;
   text-align: center;
   width: 500px;
-
 }
