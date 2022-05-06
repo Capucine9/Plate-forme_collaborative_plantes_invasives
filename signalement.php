@@ -13,27 +13,34 @@
     <?php
     include("menu.php");
     ?>
-        <form method="post" action="">
+        <form method="post" action="" enctype="multipart/form-data">
 
          <?php
+            $exec =false ;
             ini_set( 'display_errors', 'on' );
             error_reporting( E_ALL );
             try{
                 $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
+                $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             }
             catch(Exception $e){
                 die('Erreur :' . $e->getMessage());
             }
-            $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement 
+            $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Commentaire, photosignalements.Photo
                                                     FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
                                                                       INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
-                                                                      WHERE Id_signalement="'.$_GET["id"].'"');
+                                                                      INNER JOIN photosignalements ON photosignalements.Id_signalement = signalements.Id_signalement 
+                                                                      WHERE signalements.Id_signalement="'.$_GET["id"].'"');
                     
             $requeteJointure->execute();
             $signalement = $requeteJointure->fetch(); 
 
+            $pos = strpos( $signalement['Coordonnees_GPS'], "-");
+            $lat = doubleval(substr ($signalement['Coordonnees_GPS'], 0, $pos));
+            $long = doubleval(substr ($signalement['Coordonnees_GPS'], $pos+1, strlen($signalement['Coordonnees_GPS'])));
+           
             if(isset($_POST['modif'])){
-                echo("...........................................");
                 try{
                     $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
                     $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -101,7 +108,9 @@
         ?>    
             
             <h1 style="text-align:center"> Signalement </h1> <!-- récupéré dans bdd-->
-            <img src  > <!--mettre photo de la bdd et voir avec js pour faire des flèches pour faire défiler les images s'il y en a plusieurs-->
+            <div class="image">
+                <img src="data:image/jpg;base64,<?php echo base64_encode($signalement['Photo']);?> " width = 300  > <!--mettre photo de la bdd et voir avec js pour faire des flèches pour faire défiler les images s'il y en a plusieurs-->
+            </div>  
             <br/>
             
             <div class="renseignement">
@@ -129,12 +138,18 @@
                 <output name="floraison"><?php echo $signalement['Ville']; ?></output> 
             </div>
 
+            
 
             <div id=Map>
                 <!--<iframe width="100%" height="100%" frameborder="0" src="Map.php"></iframe>-->
                 <?php
                     include 'map.php';
+                    
                 ?>
+                <script type="text/javascript">
+                    
+                    var marqueur = L.marker([<?php echo json_encode($lat); ?>,<?php echo json_encode($long); ?>]).addTo(macarte);
+                </script>
             </div>
 
 
