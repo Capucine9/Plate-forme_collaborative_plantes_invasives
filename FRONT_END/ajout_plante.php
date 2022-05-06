@@ -436,9 +436,9 @@ include("menu.php");
     <button type="submit" class="btn btn-primary btn-block" name="valider">
           Valider
     </button>
-    <button type="submit" class="btn btn-primary btn-block">
-      Annuler
-    </button>
+    <a href="repertoire_botanique.php" class="btn btn-primary btn-block">
+    Annuler
+    </a>
     
 </div> 
 
