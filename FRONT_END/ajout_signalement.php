@@ -86,7 +86,7 @@
             }
           
 
-          if(empty($_POST['ville']) || !preg_match('/^[A-Za-z ]+$/', $_POST['ville'])){
+          if(empty($_POST['ville']) || !preg_match('/^[A-Za-z\'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ  ]+$/', $_POST['ville'])){
             $errors['region']="Ville non valide";
           }
           
