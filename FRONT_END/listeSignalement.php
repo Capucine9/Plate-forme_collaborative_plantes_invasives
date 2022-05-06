@@ -300,16 +300,31 @@
                 ?>
                 
                 <a href="signalement.php?id=<?php echo $signalement['Id_signalement']?> " id="lien_plante">
-                    <div class = "carre_plante">
-                            <div class="Plante">
-                                <img src=" data:image/jpg;base64,<?php echo base64_encode($signalement['Photo']);?> " id="image_plante" > 
+                    
+
+                <div class="card-body"> 
+                <div class="col">
+
+        <img src=" data:image/jpg;base64,<?php echo base64_encode($signalement['Photo']);?> " id="image_plante" > 
+                        </div>
+
+                        <div class="col">
+
                                 <output name=nom_plante id=planteinfos> Nom de la plante : <?php echo $signalement['Nom_fr'];?></output></br>
                                 <output name=pseudo id=planteinfos>  Personne qui l'a signalée : <?php echo $signalement['Pseudo'];?></output></br>
                                 <output name=ville id=planteinfos>  Ville : <?php echo $signalement['Ville'];?></output> </br> 
                                 <output name=gps id=planteinfos>  Coordonnées GPS : <?php echo $signalement['Coordonnees_GPS'];?></output></br>  
                                 <output name=date id=planteinfos>  Date : <?php echo $signalement['Date_signalement'];?></output>  
-                            </div>
-                    </div>
+                         </div>
+
+
+
+
+
+                        </div>
+
+
+                <hr>
                 </a>
                 <?php
                         }
@@ -335,11 +350,8 @@
 </div>
 </div>   
 
-<div class="footer">
-    Copyright &copy; 2022 &mdash; Université de Limoges
-  </div>
-               
-  
+
+              
 </main>  
 </div>
 </div>
