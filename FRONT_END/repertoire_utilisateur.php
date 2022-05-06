@@ -202,28 +202,41 @@
     
     
     <a href="profil_utilisateur_autre.php?id=<?php echo $utilisateur['Id_utilisateur']?> " id="lien_plante">
-                    <div class = "carre_plante">
-                            <div class="Plante">
-                                <?php if($utilisateur['Photo']==NULL){?>
-                                        <img src="img\profil.jpg" id="image_plante"> 
-                                    <?php }
-                                    else{ ?>
-                                    <img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> " id="image_plante" > 
-                                    <?php } ?>
-                                
-                                <output name=pseudo id=planteinfos> Pseudo : <?php echo $utilisateur['Pseudo'];?></output></br>
-                                <output name=email id=planteinfos>  Email : <?php echo $utilisateur['Email'];?></output></br>
-                                <output name=rang id=planteinfos>  Rang : <?php echo $rang;?></output></br>    
-                                <output name=rang id=planteinfos>  Catégorie : <?php echo $type;?></output></br> 
-                                <?php
-                                    if($type==1)   
-                                        echo "<output name=rang id=planteinfos>  URL de l'entreprise :".$utilisateur['URL_entreprise']."</output>" ;
-                                
-                                ?>
+           
+    
+           <div class="card-body">  
+       
+           <div class="col">
+           
+                   <?php if($utilisateur['Photo']==NULL){?>
+                <img src="img\profil.jpg" id="image_plante"> 
+                                           <?php }
+                                           else{ ?>
+                                           <img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> " id="image_plante" > 
+                <?php } ?>   
+       
+           </div>
+           <div class="col-"> 
+       
+                                       <output name=pseudo id=planteinfos> Pseudo : <?php echo $utilisateur['Pseudo'];?></output></br>
+                                       <output name=email id=planteinfos>  Email : <?php echo $utilisateur['Email'];?></output></br>
+                                       <output name=rang id=planteinfos>  Rang : <?php echo $rang;?></output></br>    
+                                       <output name=rang id=planteinfos>  Catégorie : <?php echo $type;?></output></br> 
+                                       <?php
+                                           if($type==1)   
+                                               echo "<output name=rang id=planteinfos>  URL de l'entreprise :".$utilisateur['URL_entreprise']."</output>" ;
+                                       
+                                       ?>
+           </div> 
+       
+                                 
+           
+               </div>  
+               <hr>
+                       </a>
 
-                            </div>
-                    </div>
-                </a>
+
+
 
                 <?php
                         }
@@ -234,11 +247,7 @@
 </div>
 </div>   
 
-<div class="footer">
-    Copyright &copy; 2022 &mdash; Université de Limoges
-  </div>
-               
-  
+
 </main>  
 </div>
 </div>
