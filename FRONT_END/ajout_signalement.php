@@ -251,22 +251,9 @@ include("menu.php");
 
 <!-- Carte  -->   
 <div>
-  <!-- Recherche d'une ville et affichage de la latitude et la longitude de la position -->
-  <div>
-      <label for="input_ville">Rechercher une ville sur la carte : </label>
-      <input type="text" id="input_ville" name="ville" class="form-control">
-  </div>
-  <div>
-    <!-- Récupération des latitudes et longitudes dans des input pour vérifier que le champ est bien rempli--> 
-    <input type="hidden" name="lat" id="lat" readonly>
-    <input type="hidden" name="lon" id="lon" readonly>
-
-    <!-- Bouton de recherche de ville à partir des coordonnées 
-    <button type="invisible" onclick="search();" name="search">search</button>
-    <p id="output"></p>-->
-  </div>
-  <!-- Permet l'affichage de la carte -->
-  <div id="map"></div> 
+  <?php
+    include("map_signalement.php");
+  ?>
 </div>
 
 <!-- Photo  -->
@@ -327,7 +314,6 @@ include("menu.php");
        
 
 
-  <script src="js/map_signalement.js"></script>
   <script src="js/jquery-3.6.0.min.js"></script>  
   <script src="js/popper.min.js"></script>  
   <script src="js/bootstrap.min.js"></script>
