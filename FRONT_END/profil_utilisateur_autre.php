@@ -1,19 +1,40 @@
-<!doctype html>
-                        <html>
-                            <head>
-                                <meta charset='utf-8'>
-                                <meta name='viewport' content='width=device-width, initial-scale=1'>
-                                <title>Snippet - BBBootstrap</title>
-                                <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css' rel='stylesheet'>
-                                <link href='css/autre_utilisateur.css' rel='stylesheet'>
-                                <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-                                <link href="css/autre_utilisateur.css" rel="stylesheet" type="text/css" media="all" /> 
+<!DOCTYPE html>
+<html lang="en">
 
-                                </head>
-                                <body >
-                                <!-- Banner --> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/6b6c1dbe0e.js" crossorigin="anonymous"></script>    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"   
+
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">  
+
+    <link rel="stylesheet" href="pageaccueil.css">
+    <title>Profil de l'utilisateur</title>
+</head>
+
+<body>
+        
+
+     
+<header >
+                <div class="jumbotron   bg-image  text-Light    " >  
+                    <h1 style="color:white;text-align:center" >
+                        Plate-forme collaborative de lutte contre les plantes invasives
+                    </h1>    
+                    
+                </div>
+</header>
 
 
+
+<?php
+    include("menu.php");
+?>
+    <main>
+    <h2 class="card-title" style="text-align:center" > Profil de l'utilisateur  </h2>  
+    <hr>
 
 
 <!--Code Php -->  
@@ -43,41 +64,112 @@
             else
                     $type = "entreprise";
             
-        ?>   
+        ?> 
 
 
 
-        <section class="h-100">
-            <div class="container h-100">
-                <div class="row d-flex justify-content-center">
-            <!-- Component -->
-            <div class="card shadow">
-                <div class="card-body">
-                    <div class="d-flex justify-content-center"> 
-                        <a href="#" class="avatar avatar-xl rounded-circle"> 
-                       <!--Ici on affiche l'image de l'utilisateur -->     
-                      <img alt="..." src="photo_accueil/download.jpeg"> </a> </div>
-                    <div class="text-center my-6">
-                        <!-- ici on affiche Pseudo & Email & Catégorie -->
-                         <a href="#" class="d-block h5 mb-0"><?php echo $utilisateur['Pseudo']; ?></a> <!-- Subtitle --> 
-                        <span class="d-block text-sm text-muted"> <?php echo $utilisateur['Email']; ?>  </span> 
-                          <span class="d-block text-sm text-muted"><?php echo $type; ?></span>   
-                    </div> 
-                    <!-- Ici on affiche le rang & Nb_bon_signalement-->
-                    <div class="d-flex justify-content-around">
-                        <div class="col-4 text-center"> <a href="#" class="h4 font-bolder mb-0"> <?php echo $rang; ?>  </a> <span class="d-block text-sm"> Rang</span> </div>
-                       
-                        <div class="col-4 text-center"> <a href="#" class="h4 font-bolder mb-0"> <?php echo $utilisateur['Nb_bon_signalement']; ?> </a> <span class="d-block text-sm">Signalements</span> </div>
+
+<div class="container">
+ <div class="row ">  
+  <div class="col-sm">  
+           
+  <div class="card mb-3">
+ <div class="card-body">
+
+
+
  
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-                                <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js'></script>
-                                <script type='text/javascript' src=''></script>
-                                <script type='text/javascript' src=''></script>
-                                <script type='text/Javascript'></script>
-                                </body>
-                            </html>
+ <div class="card-body text-center" >                
+                  <?php if($utilisateur['Photo']==NULL){?>
+										<img src="img\profil.jpg  " width = "200" height="200" > 
+									<?php }
+									else{ ?>
+									
+									<img src="data:image/jpg;base64,<?php echo base64_encode($utilisateur['Photo']);?> "  width = 300 > 
+									<?php }?>	
+                  </br>
+</div>
+<div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"> Pseudo :</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><?php echo $utilisateur['Pseudo']; ?> </p>
+              </div>
+ </div>
+            <hr>
+
+
+ <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email :</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"> <?php echo $utilisateur['Email']; ?>  </p>
+              </div>
+</div>
+
+            <hr>
+<div class="row">
+              <div class="col-sm-3">
+
+                <p class="mb-0">Type: </p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">  <?php echo $type; ?>  </p>
+             </div>
+</div>
+
+<?php if ($utilisateur['Entreprise']==1)
+{?>
+<hr>
+<div class="row">
+              <div class="col-sm-3">
+
+                <p class="mb-0">URL de l'entreprise: </p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">  <?php echo $utilisateur['URL_entreprise']; ?> </p>
+             </div>
+</div>
+<?php }?>
+            <hr>
+
+            <div class="row">
+              <div class="col-sm-3">
+
+                <p class="mb-0">Rang: </p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"> <?php echo $rang; ?>  </p>
+             </div>
+</div>
+            <hr>
+        
+            <div class="row">
+              <div class="col-sm-3">
+
+                <p class="mb-0">Nb_bon_signalement: </p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"> <?php echo $utilisateur['Nb_bon_signalement']; ?>  </p>
+             </div>
+</div>
+            <hr>
+
+
+</div>
+</div>
+
+
+ 
+</div>
+</div>
+</div>
+
+
+        
+    </main>
+</body>
+
+</html>
