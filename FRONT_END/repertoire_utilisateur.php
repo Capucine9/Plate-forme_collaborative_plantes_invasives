@@ -42,7 +42,7 @@
      <div class="card-body">   
 
      <div class="input-group">
-    <input type="search" class="form-control rounded" id="searchbar" name="plante" placeholder="Rechercher un utilisateur..." aria-label="Search" aria-describedby="search-addon" />
+    <input type="search" class="form-control rounded" id="searchbar" name="utilisateur" placeholder="Rechercher un utilisateur..." aria-label="Search" aria-describedby="search-addon" />
      <button type="submit" class="btn btn-outline-primary" name="searchbar">Rechercher</button>
     </div>
           
