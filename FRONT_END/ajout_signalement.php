@@ -164,21 +164,6 @@
     ?>
  
 
-    <?php
-      if(!empty($errors)){
-    ?>
-
-    <div class ="erreur">
-      <p> Le formulaire est incorrect : </p>
-      <?php
-        foreach($errors as $error){
-          echo '<li>'.$error.'</li>';
-        }
-      ?>
-      </br>
-    </div>
-
-    <?php } ?>
 <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
 <main>
 
