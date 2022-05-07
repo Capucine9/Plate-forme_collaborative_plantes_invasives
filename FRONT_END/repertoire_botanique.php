@@ -248,12 +248,18 @@ include("menu.php");
                         die('Erreur :' . $e->getMessage());
                     }
 
+                    $requete = $BDD->prepare('SELECT * FROM plantes INNER JOIN photoplantes ON plantes.Id_plante = photoplantes.Id_plante  ORDER BY Nom_fr');
+                    $requete->execute();
+                    $donnees = $requete->fetchAll();
+
                     if(isset($_POST['plante']) and $_POST['plante']!="" )
                     {
-                        $requete = $BDD->prepare('SELECT * FROM plantes INNER JOIN photoplantes ON plantes.Id_plante = photoplantes.Id_plante  WHERE Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'" ORDER BY Nom_fr');
-                        $requete->execute();
-                        /* on récupère le résultt de la requête sous forme d'un tableau */
-                        $donnees = $requete->fetchAll();
+                        foreach ($donnees as $plante){
+                            if(strstr (strtolower($plante['Nom_fr']), strtolower($_POST['plante'])) or strstr (strtolower($plante['Nom_latin']), strtolower($_POST['plante']))){
+                                $result[]=$plante;
+                            }
+                        }
+                        $donnees=$result;
 
                         $_POST['type']="vide";
                         $_POST['couleurPlante']="vide";
@@ -265,14 +271,7 @@ include("menu.php");
 
                     }
 
-                    else{
-
-                        $requete = $BDD->prepare('SELECT * FROM plantes INNER JOIN photoplantes ON plantes.Id_plante = photoplantes.Id_plante ORDER BY Nom_fr');
-                        $requete->execute();
-                        /* on récupère le résultt de la requête sous forme d'un tableau */
-                        $donnees = $requete->fetchAll();
-
-                    }
+                    
 
                     if(isset($_POST['type']) and $_POST['type']!="vide" ){
                         
