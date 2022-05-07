@@ -36,13 +36,15 @@
     $requeteJointureSignalement = 'SELECT * FROM plantes INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=plantes.Id_utilisateur
                                               INNER JOIN photoplantes ON plantes.Id_plante = photoplantes.Id_plante 
                                               LEFT OUTER JOIN signalements ON signalements.Id_plante = plantes.Id_plante
-                                              WHERE plantes.Id_plante="'.$_GET["id"].'"';
+                                              WHERE signalements.Verifier=1 and plantes.Id_plante="'.$_GET["id"].'"';
     $requeteJointureSignalement = $BDD->prepare($requeteJointureSignalement);      
     $requeteJointureSignalement->execute();
     $plante = $requeteJointureSignalement->fetchAll();
 
-       
+     
   ?>       
+
+<!-- Carte -->
 
 
 <main>
@@ -175,21 +177,19 @@
     <p class="text-muted mb-0" align="justify"> <output name="descrip"><?php echo $plante[0]['Details']; ?></output> </p>
   </div>
 </div>
-    
-    <?php
-  if(count($plante)!=1){
+<hr>  
+<div>
+<?php
+  if( isset($plante[0]['Coordonnees_GPS']) ){
     echo "<div>" ;
     
       include("map_profil_plante.php");
     
     echo "</div>" ;
-        foreach($plante as $coordonnees ){
-          $pos = strpos( $coordonnees['Coordonnees_GPS'], "-");
-          $lat = doubleval(substr ($coordonnees['Coordonnees_GPS'], 0, $pos));
-          $long = doubleval(substr ($coordonnees['Coordonnees_GPS'], $pos+1, strlen($coordonnees['Coordonnees_GPS'])));
-        }
+        
       } 
 ?>
+</div>    
 </div>
 </div>
 </div>
