@@ -48,17 +48,16 @@
                 }).addTo(macarte);
 
                 <?php
-                    if(count($plante)!=1){
                         foreach($plante as $coordonnees){
                             $pos = strpos( $coordonnees['Coordonnees_GPS'], "-");
                             $lat = doubleval(substr ($coordonnees['Coordonnees_GPS'], 0, $pos));
                             $long = doubleval(substr ($coordonnees['Coordonnees_GPS'], $pos+1, strlen($coordonnees['Coordonnees_GPS'])));
 
                             ?>
-                            var marqueur = L.marker([<?php$lat?>, <?php$lon?>]).addTo(macarte);
+                            var marqueur = L.marker([<?php echo $lat;?>, <?php echo $long;?>]).addTo(macarte);
                             <?php
                         }
-                    }
+                    
                 ?>
                 // Centralisation de la carte au centre de la France
                 macarte.panTo([latcentre, loncentre]);
