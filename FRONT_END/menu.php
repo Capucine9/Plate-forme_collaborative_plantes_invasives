@@ -52,7 +52,7 @@
     </div>
 
     <?php
-    if($_GET['deco']==1){
+    if(isset($_GET['deco']) && $_GET['deco']==1){
         session_destroy();
         echo ("<p align=\"center\"> Vous avez été déconnecté </p>");
     }
