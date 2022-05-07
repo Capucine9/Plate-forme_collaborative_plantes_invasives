@@ -120,11 +120,11 @@
                         if(isset($_POST['plante']) and $_POST['plante']!="" )
                         {
                             if(isset($_POST['tri']) and ($_POST['tri']=="" or $_POST['tri']=="dateRec")){
-                                $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement, signalements.Verifier, photosignalements.Photo   
+                                $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, plantes.Nom_latin, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement, signalements.Verifier, photosignalements.Photo   
                                                                     FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
                                                                     INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
                                                                     INNER JOIN photosignalements ON photosignalements.Id_signalement = signalements.Id_signalement
-                                                                    WHERE (plantes.Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR plantes.Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'") AND signalements.Verifier=0
+                                                                    WHERE signalements.Verifier=0
                                                                     ORDER BY signalements.Date_signalement DESC');
                                                 
                                 $requeteJointure->execute();
@@ -133,11 +133,11 @@
                             
                             else{
                                 if($_POST['tri']=="dateAnc"){
-                                    $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement, signalements.Verifier, photosignalements.Photo    
+                                    $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, plantes.Nom_latin, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement, signalements.Verifier, photosignalements.Photo    
                                                                         FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
                                                                         INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
                                                                         INNER JOIN photosignalements ON photosignalements.Id_signalement = signalements.Id_signalement
-                                                                        WHERE (plantes.Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR plantes.Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'") AND signalements.Verifier=0
+                                                                        WHERE signalements.Verifier=0
                                                                         ORDER BY signalements.Date_signalement ASC');
                                         
                                     $requeteJointure->execute();
@@ -145,17 +145,24 @@
                                 }
 
                                 else{
-                                    $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement, signalements.Verifier, photosignalements.Photo    
+                                    $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, plantes.Nom_latin, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement, signalements.Verifier, photosignalements.Photo    
                                                                         FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
                                                                         INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
                                                                         INNER JOIN photosignalements ON photosignalements.Id_signalement = signalements.Id_signalement
-                                                                        WHERE (plantes.Nom_fr ="'.ucfirst(strtolower($_POST['plante'])).'" OR plantes.Nom_latin ="'.ucfirst(strtolower($_POST['plante'])).'") AND signalements.Verifier=0
+                                                                        WHERE signalements.Verifier=0
                                                                         ORDER BY plantes.Nom_fr ');
                 
                                     $requeteJointure->execute();
                                     $donnees = $requeteJointure->fetchAll();
                                 }
                             }
+
+                            foreach ($donnees as $plante){
+                                if(strstr (strtolower($plante['Nom_fr']), strtolower($_POST['plante'])) or strstr (strtolower($plante['Nom_latin']), strtolower($_POST['plante']))){
+                                    $result[]=$plante;
+                                }
+                            }
+                            $donnees=$result;
                         }
                         
                         else{
