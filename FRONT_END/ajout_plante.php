@@ -427,7 +427,7 @@ integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7
 
 <!-- Ajout une photo -->    
 <div class="form-group">
-    <label for="formFileMultiple" class="form-label">Ajouter photos</label>
+    <label for="formFileMultiple" class="form-label">Ajouter photo</label>
     <input type="file" id="renseignement" name="image" />
 
 </div>
