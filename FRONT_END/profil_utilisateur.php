@@ -72,7 +72,7 @@
 				$errors['email']="Email non valide";
 			}
 
-			if(empty($_POST['URL']) ){
+			if($utilisateur['Entreprise']==1 && empty($_POST['URL']) ){
 				$errors['URL']="URL non valide";
 				}
 
@@ -85,8 +85,14 @@
 			}
 
 			if(empty($errors)){
-				$requete=$BDD->prepare('UPDATE utilisateurs SET Pseudo =?, Email=?, URL_entreprise=? WHERE Id_utilisateur="'.$_SESSION['id'].'"');
-				$requete->execute([$_POST['pseudo'], $_POST['email'],  $_POST['URL'] ]);
+				if ($utilisateur['Entreprise']==1){
+					$requete=$BDD->prepare('UPDATE utilisateurs SET Pseudo =?, Email=?, URL_entreprise=? WHERE Id_utilisateur="'.$_SESSION['id'].'"');
+					$requete->execute([$_POST['pseudo'], $_POST['email'],  $_POST['URL'] ]);
+				}
+				else{
+					$requete=$BDD->prepare('UPDATE utilisateurs SET Pseudo =?, Email=? WHERE Id_utilisateur="'.$_SESSION['id'].'"');
+					$requete->execute([$_POST['pseudo'], $_POST['email'] ]);
+				}
 
 				if(!empty($_POST['mdp'])){
 					$requete=$BDD->prepare('UPDATE utilisateurs SET Mdp=? WHERE Id_utilisateur="'.$_SESSION['id'].'"');
