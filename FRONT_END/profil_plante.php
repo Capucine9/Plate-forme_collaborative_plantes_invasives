@@ -32,8 +32,8 @@
 
 <?php
  
-            //ini_set( 'display_errors', 'on' );
-            //error_reporting( E_ALL );
+            ini_set( 'display_errors', 'on' );
+            error_reporting( E_ALL );
             try{
                 $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
                 $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -42,24 +42,23 @@
             catch(Exception $e){
                 die('Erreur :' . $e->getMessage());
             }
-            //$requeteJointure = 'SELECT * FROM plantes INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=plantes.Id_utilisateur
-                                                   // INNER JOIN photoplantes ON plantes.Id_plante = photoplantes.Id_plante WHERE plantes.Id_plante="'.$_GET["id"].'"';
-            
-            $requeteJointure = 'SELECT * FROM plantes INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=plantes.Id_utilisateur
+            $requeteJointureSignalement = 'SELECT * FROM plantes INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=plantes.Id_utilisateur
                                                       INNER JOIN photoplantes ON plantes.Id_plante = photoplantes.Id_plante 
-                                                      INNER JOIN signalements ON signalements.Id_plante = plantes.Id_plante
+                                                      LEFT OUTER JOIN signalements ON signalements.Id_plante = plantes.Id_plante
                                                       WHERE plantes.Id_plante="'.$_GET["id"].'"';
-                                                
-            $requeteJointure = $BDD->prepare($requeteJointure);
-            $requeteJointure->execute();
-            $plante = $requeteJointure->fetchAll();
+            $requeteJointureSignalement = $BDD->prepare($requeteJointureSignalement);      
+            $requeteJointureSignalement->execute();
+            $plante = $requeteJointureSignalement->fetchAll();
 
-            foreach($plante as $coordonnees ){
-              $pos = strpos( $signalement['Coordonnees_GPS'], "-");
-              $lat = doubleval(substr ($signalement['Coordonnees_GPS'], 0, $pos));
-              $long = doubleval(substr ($signalement['Coordonnees_GPS'], $pos+1, strlen($signalement['Coordonnees_GPS'])));
-
-              //afficher marqueur
+            if(count($plante)!=1){
+              foreach($plante as $coordonnees ){
+                $pos = strpos( $coordonnees['Coordonnees_GPS'], "-");
+                $lat = doubleval(substr ($coordonnees['Coordonnees_GPS'], 0, $pos));
+                $long = doubleval(substr ($coordonnees['Coordonnees_GPS'], $pos+1, strlen($coordonnees['Coordonnees_GPS'])));
+                
+                //include carte
+                //afficher marqueur
+              }
             }
             
         ?>       
