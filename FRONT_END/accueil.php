@@ -53,8 +53,11 @@
                         <div class="card-body">
                             <h4 class="card-title">Qu'est ce qu'une plante envahissante ?</h4>
                             <p class="card-text" align="justify" style="text-indent:20px">
-                                Une plante envahissante est une espèce végétale qui a une capacité de reproduction élevée et qui a également un impact négatif sur la biodiversité, la santé humaine ou encore sur les activités économiques. Elles peuvent être de deux types différents, indigène ou exotique. Les plantes indigènes sont originaires du milieu où elles sont implantées; tandis que les plantes exotiques ont été importées et se sont adaptées à leur 
-                                nouveau milieu aux dépens des plantes indigènes. Elles sont également appelées plantes invasives.
+                                Une plante envahissante est une espèce végétale qui a une capacité de reproduction élevée et qui a également 
+                                un impact négatif sur la biodiversité, la santé humaine ou encore sur les activités économiques. 
+                                Elles peuvent être de deux types différents, indigène ou exotique. Les plantes indigènes sont originaires 
+                                du milieu où elles sont implantées; tandis que les plantes exotiques ont été importées et se sont adaptées 
+                                à leur nouveau milieu aux dépens des plantes indigènes. Elles sont également appelées plantes invasives.
                             </p>
                         </div>
                     </div>    
@@ -64,8 +67,8 @@
                         <div class="card-body">
                             <h4 class="card-title">Solutions existantes  </h4>
                             <p class="card-text" align="justify" style="text-indent:20px">
-                                Une fois ces plantes recensées avec l'aide de la plate-forme, 
-                                il existe différentes solutions pour les supprimer. Pour cela il existe trois méthodes qui sont les suivantes :
+                                Une fois ces plantes recensées avec l'aide de la plate-forme, il existe différentes solutions pour les
+                                supprimer. Pour cela il existe trois méthodes qui sont les suivantes :
                             </p>    
                         </div>    
                     <ul>
@@ -77,11 +80,13 @@
                             <p class="card-text" align="justify" style="text-indent:20px">
                                 La méthode manuelle est surtout utilisée sur de jeunes plantes qui sont plus simples à déraciner. 
                                 Pour les plantes ayant des racines plus importantes, il est plus pratique d'utiliser des outils. 
-                                Il existe différents outils qui sont utilisés pour arracher ou couper ces nuisibles. La pioche, la tronçonneuse ou encore la débroussailleuse sont fréquemment utilisées. Mais cela dépend des régions, par exemple, à la Réunion l'outil le plus répandu est le sabre. Ces instruments permettent de tailler les plantes avant la floraison, ainsi elles ne pourront pas disperser leur pollen et donc se reproduire. 
+                                Il existe différents outils qui sont utilisés pour arracher ou couper ces nuisibles. La pioche, 
+                                la tronçonneuse ou encore la débroussailleuse sont fréquemment utilisées. Mais cela dépend des régions, 
+                                par exemple, à la Réunion l'outil le plus répandu est le sabre. Ces instruments permettent de tailler 
+                                les plantes avant la floraison, ainsi elles ne pourront pas disperser leur pollen et donc se reproduire. 
                                 Mais ils permettent aussi de les déraciner ou encore de les tuer.
                             </p>      
                             <img src="photo_accueil/arrachage.jpg" class="img-thumbnail card-img-top" alt="">   
-
                         </div>   
                     </li>    
 
@@ -91,16 +96,15 @@
                             <h4 class="card-title">Méthode mécanisée </h4>
                             <p class="card-text" align="justify" style="text-indent:20px">
                                 Cette méthode consiste à déraciner les plantes les plus coriaces à l'aide de différents véhicules motorisés.
-                                    Le tractopelle et la pelle mécanique 
-                                sont les plus couramment utilisés. C'est la technique la moins exploitée car elle tasse le sol et
-                                    doit donc être pratiquée sur des milieux peu sensibles où il y a une densité assez importante de plantes 
-                                    envahissantes.
+                                Le tractopelle et la pelle mécanique sont les plus couramment utilisés. C'est la technique la moins exploitée
+                                car elle tasse le sol et doit donc être pratiquée sur des milieux peu sensibles où il y a une densité assez
+                                importante de plantes envahissantes.
                             </p>      
                             <img src="photo_accueil/tractopelle.jpg" class="img-thumbnail card-img-top" alt="">
                         </div> 
                     </li>     
 
-<!-- Méthode chimique   -->
+<!-- Méthode chimique -->
                         <li>
                             <div class="card-body">
                                 <h4 class="card-title">Méthode chimique </h4>
