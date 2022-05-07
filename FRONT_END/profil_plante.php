@@ -41,21 +41,9 @@
     $requeteJointureSignalement->execute();
     $plante = $requeteJointureSignalement->fetchAll();
 
-    if(count($plante)!=1){
-      foreach($plante as $coordonnees ){
-        $pos = strpos( $coordonnees['Coordonnees_GPS'], "-");
-        $lat = doubleval(substr ($coordonnees['Coordonnees_GPS'], 0, $pos));
-        $long = doubleval(substr ($coordonnees['Coordonnees_GPS'], $pos+1, strlen($coordonnees['Coordonnees_GPS'])));
-      }
-    }        
+       
   ?>       
 
-<!-- Carte -->
-<div>
-  <?php
-    include("map_profil_plante.php");
-  ?>
-</div>
 
 <main>
   <?php
@@ -187,6 +175,21 @@
     <p class="text-muted mb-0" align="justify"> <output name="descrip"><?php echo $plante[0]['Details']; ?></output> </p>
   </div>
 </div>
+    
+    <?php
+  if(count($plante)!=1){
+    echo "<div>" ;
+    
+      include("map_profil_plante.php");
+    
+    echo "</div>" ;
+        foreach($plante as $coordonnees ){
+          $pos = strpos( $coordonnees['Coordonnees_GPS'], "-");
+          $lat = doubleval(substr ($coordonnees['Coordonnees_GPS'], 0, $pos));
+          $long = doubleval(substr ($coordonnees['Coordonnees_GPS'], $pos+1, strlen($coordonnees['Coordonnees_GPS'])));
+        }
+      } 
+?>
 </div>
 </div>
 </div>
