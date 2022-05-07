@@ -46,12 +46,16 @@
         $pos = strpos( $coordonnees['Coordonnees_GPS'], "-");
         $lat = doubleval(substr ($coordonnees['Coordonnees_GPS'], 0, $pos));
         $long = doubleval(substr ($coordonnees['Coordonnees_GPS'], $pos+1, strlen($coordonnees['Coordonnees_GPS'])));
-        
-        //include carte
-        //afficher marqueur
       }
     }        
   ?>       
+
+<!-- Carte -->
+<div>
+  <?php
+    include("map_profil_plante.php");
+  ?>
+</div>
 
 <main>
   <?php

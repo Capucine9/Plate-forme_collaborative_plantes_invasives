@@ -31,14 +31,14 @@
         <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
         <script type="text/javascript">
             // On initialise la latitude et la longitude du signalement (centre de la carte)
-            var lat = <?php echo json_encode($lat); ?>;
-            var lon = <?php echo json_encode($long); ?>;
+            var latcentre = 46.8347;
+            var loncentre = 1.70529;
             var macarte = null;
             var marqueur = null;
 
             //// Initialisation de la carte
             function initMap() {
-                macarte = L.map('map').setView([lat, lon], 9);
+                macarte = L.map('map').setView([latcentre, loncentre], 6);
                 // Récupération des cartes sur openstreetmap.fr par Leaflet
                 L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
                     // Lien vers la source des données
@@ -47,12 +47,19 @@
                     maxZoom: 20
                 }).addTo(macarte);
 
-                var marqueur = L.marker([lat, lon]).addTo(macarte);
+                if(count($plante)!=1){
+                    //foreach($plante as $coordonnees ){
+                    $coordonnees.forEach($plante){
+                        $pos = strpos( $coordonnees['Coordonnees_GPS'], "-");
+                        $lat = doubleval(substr ($coordonnees['Coordonnees_GPS'], 0, $pos));
+                        $long = doubleval(substr ($coordonnees['Coordonnees_GPS'], $pos+1, strlen($coordonnees['Coordonnees_GPS'])));
 
-                // Centralisation de la carte sur la position
-                macarte.panTo([lat, lon]);
+                        var marqueur = L.marker([$lat, $lon]).addTo(macarte);
+                    }
+                }
+                // Centralisation de la carte au centre de la France
+                macarte.panTo([latcentre, loncentre]);
             }
-
             window.onload = function(){
 		        // Fonction d'initialisation
 		        initMap(); 
