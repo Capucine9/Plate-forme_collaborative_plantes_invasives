@@ -89,8 +89,14 @@
 			echo 'Erreur :' . $e->getMessage();
 		}
 		try{
-			$req = $BDD->prepare("INSERT INTO utilisateurs (Pseudo, Email, Mdp, Entreprise, URL_entreprise)  VALUES (:pseudo, :email, :mdp, :ent, :url_ent) ");
-			$exec = $req->execute(array(':pseudo'=>$pseudo,':email'=>$email,':mdp'=>$mdp,':ent'=>$entreprise, ':url_ent'=>$url));
+			if($entreprise==0){
+				$req = $BDD->prepare("INSERT INTO utilisateurs (Pseudo, Email, Mdp, Entreprise, URL_entreprise)  VALUES (:pseudo, :email, :mdp, :ent, :url_ent) ");
+				$exec = $req->execute(array(':pseudo'=>$pseudo,':email'=>$email,':mdp'=>$mdp,':ent'=>$entreprise, ':url_ent'=>$url));
+			}
+			else{
+				$req = $BDD->prepare("INSERT INTO utilisateurs (Pseudo, Email, Mdp, Entreprise, URL_entreprise, Rang)  VALUES (:pseudo, :email, :mdp, :ent, :url_ent, :rang) ");
+				$exec = $req->execute(array(':pseudo'=>$pseudo,':email'=>$email,':mdp'=>$mdp,':ent'=>$entreprise, ':url_ent'=>$url, ':rang'=>3));
+			}
 		}
 		catch(Exception $e){
 			echo "erreur".$e->getMessage();
