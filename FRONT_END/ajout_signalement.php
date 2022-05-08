@@ -89,7 +89,7 @@
       }
       
       if($_FILES['image']['error']==4){
-        $errors['image']="Vous n'avez pas choisi d'images";
+        $errors['image']="Vous n'avez pas choisi d'image";
       }
       else{
         $img = $_FILES['image'];
