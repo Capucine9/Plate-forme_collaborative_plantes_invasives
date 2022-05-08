@@ -44,12 +44,12 @@
   </header>
 
 <main>
-
-<h2 class="card-title" style="text-align:center" >  Signalement  </h2>  
-<hr>
 <?php
 include("menu.php");
-?>  
+?> 
+<h2 class="card-title" style="text-align:center" >  Signalement  </h2>  
+<hr>
+ 
 
 <?php
   $exec =false ;
