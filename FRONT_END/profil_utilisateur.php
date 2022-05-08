@@ -19,13 +19,14 @@
   
     <main> 
     <h2 class="card-title" style="text-align:center" >   Mon profil    </h2>  
+	<?php
+    		include("menu.php");
+	?>
+
 	<hr>   
 	  
 	  
-    <?php
-    	include("menu.php");
-	?>
-
+    
 	<?php     
 		ini_set( 'display_errors', 'on' );
 		error_reporting( E_ALL );
