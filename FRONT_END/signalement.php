@@ -60,7 +60,7 @@ include("menu.php");
     ini_set( 'display_errors', 'on' );
     error_reporting( E_ALL );
     try{
-        $BDD = new PDO('mysql:host=localhost;port=3306;dbname=bdd;charset=utf8', 'root', 'root');
+        $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
         $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $BDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
@@ -145,15 +145,14 @@ include("menu.php");
     } 
 ?>   
 <form method="post" action="" enctype="multipart/form-data">
-<h2 class="card-title" style="text-align:center" > <?php echo $plante[0]['Nom_fr']; ?>   </h2>  
-    <hr>
+
 <div class="card-body text-center">
         <div class="image">
-              <?php if($plante[0]['Photo']==NULL){?>
+              <?php if($signalement['Photo']==NULL){?>
                 <img src="img\iconeplante.jpg  " width = "300" height="300" > 
               <?php }
 				else{ ?>
-                <img src="data:image/jpg;base64,<?php echo base64_encode($plante[0]['Photo']);?> " width = 300  > <!--mettre photo de la bdd et voir avec js pour faire des flèches pour faire défiler les images s'il y en a plusieurs-->
+                <img src="data:image/jpg;base64,<?php echo base64_encode($signalement['Photo']);?> " width = 300  > <!--mettre photo de la bdd et voir avec js pour faire des flèches pour faire défiler les images s'il y en a plusieurs-->
               <?php }?>	
         </div> 
 </div>
@@ -230,19 +229,26 @@ include("menu.php");
 </div>
 
 
+<div class="card mb-3">
+ <div class="card-body"> 
 
 <?php
            
-           if($_SESSION['rang']==2 or $_SESSION['rang']==3){
-               echo("<button id=\"boutonmodif\" type=\"submit\" name=\"modif\">
+           if(!empty($_SESSION['rang']) && ($_SESSION['rang']==2 or $_SESSION['rang']==3)){
+               echo(" <div class=\"form-group m-0\"> <button  type=\"submit\" name=\"modif\" class=\"btn btn-primary btn-block\">
                Valider le signalement
            </button>
-           <button id=\"boutonmodif\" type=\"submit\" name=\"supprimer\">
+           <button  type=\"submit\" name=\"supprimer\" class=\"btn btn-primary btn-block\">
                Supprimer le signalement
-           </button>");
+           </button> </div>");
            }
          
-       ?>
+       ?>   
+
+
+</div>
+</div>
+
 
 </form>
 
