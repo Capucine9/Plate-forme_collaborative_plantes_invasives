@@ -21,12 +21,12 @@
     </header>
     <main>  
     <hr>    
-
-<h2 class="card-title" style="text-align:center" >     Liste des signalements      </h2>
-
 <?php
     include("menu.php");
 ?> 
+<h2 class="card-title" style="text-align:center" >     Liste des signalements      </h2>
+
+
 
 <?php
     if($_GET["ajout"]=="true"){
