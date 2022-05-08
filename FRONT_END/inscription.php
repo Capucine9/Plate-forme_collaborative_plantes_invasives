@@ -7,7 +7,6 @@
 	<meta charset="utf-8" />
 	<title> Inscription</title>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />  
 	<link rel="stylesheet" type="text/css" href="css/my-login.css"> 
 	<link href ="css/bootstrap.css" rel="stylesheet" type="text/css"/>
 	</head>
