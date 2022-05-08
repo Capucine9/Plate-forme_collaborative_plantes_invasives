@@ -41,11 +41,7 @@
     $requeteJointureSignalement->execute();
     $plante = $requeteJointureSignalement->fetchAll();
 
-     
   ?>       
-
-<!-- Carte -->
-
 
 <main>
   <?php
@@ -177,7 +173,9 @@
     <p class="text-muted mb-0" align="justify"> <output name="descrip"><?php echo $plante[0]['Details']; ?></output> </p>
   </div>
 </div>
-<hr>  
+<hr> 
+
+<!-- Carte -->
 <div>
 <?php
   if( isset($plante[0]['Coordonnees_GPS']) ){

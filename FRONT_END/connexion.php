@@ -80,7 +80,6 @@
     </div>
     <?php } ?>
 
-
 <form method="post" >     
 <!-- Entrer Email-->				
 <div class="form-group">

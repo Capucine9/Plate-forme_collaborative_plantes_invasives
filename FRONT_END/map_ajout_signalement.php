@@ -43,8 +43,6 @@
         <!-- Permet l'affichage de la carte -->
         <div id="map"></div>
 
-
-    <!-- Fichiers Javascript ////////////////////////////////////////////// -->
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
 	<script type="text/javascript">
             // On initialise la latitude et la longitude de Paris (centre de la carte)
@@ -140,7 +138,6 @@
                 })
             })
 
-
             //// Placer un marqueur "au clic"
             function mapClickListen(e) {
                 // Récupèration des coordonnées du clic et ajout d'un marqueur
@@ -179,14 +176,12 @@
                 marqueur.addTo(macarte);
             }
 
-
             window.onload = function(){
 		        // Fonction d'initialisation
 		        initMap(); 
                 geoloc();
                 macarte.on('click', mapClickListen);
             };
-
             
             //Récupération d'une ville à partir de coordonnées
             var rue;
@@ -217,7 +212,6 @@
                             search();
 
                             i+=Math.PI/n;
-
                         }
                         if ( json.address.city != undefined) {break}
                     }

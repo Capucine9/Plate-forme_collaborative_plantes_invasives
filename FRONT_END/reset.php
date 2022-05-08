@@ -19,18 +19,21 @@
 					<div class="card fat">
 						<div class="card-body">
 							<h4 class="card-title">Réinitialiser le mot de passe</h4>
-	<form method="POST" >
+
+<form method="POST" >
 <div class="form-group">
+
 <!-- Entrez un nouveau mot de passe -->
-									<label for="new-password">Nouveau mot de passe</label>
-									<input id="new-password" type="password" class="form-control" name="password" required autofocus data-eye>
-									<div class="invalid-feedback">
-									Le mot de passe est requis
-									</div>
-									<div class="form-text text-muted">
-									Assurez-vous que votre mot de passe est fort et facile à remplacer
-									</div>
-								</div>
+	<label for="new-password">Nouveau mot de passe</label>
+	<input id="new-password" type="password" class="form-control" name="password" required autofocus data-eye>
+	<div class="invalid-feedback">
+		Le mot de passe est requis
+	</div>
+	<div class="form-text text-muted">
+		Assurez-vous que votre mot de passe est fort et facile à remplacer
+	</div>
+</div>
+
 <!-- Valider avec un bouton -->
 <div class="form-group m-0">
 	<button type="submit" class="btn btn-primary btn-block">
@@ -41,7 +44,6 @@
 </form>	
 </div>
 </div>
-
 					<div class="footer">
 						Copyright &copy; 2022 &mdash; Université de Limoges
 					</div>

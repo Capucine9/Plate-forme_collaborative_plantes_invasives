@@ -27,7 +27,6 @@
         <!-- Permet l'affichage de la carte -->
         <div id="map"></div>
 
-        <!-- Fichiers Javascript ////////////////////////////////////////////// -->
         <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
         <script type="text/javascript">
             // On initialise la latitude et la longitude du signalement (centre de la carte)
@@ -57,7 +56,6 @@
                             var marqueur = L.marker([<?php echo $lat;?>, <?php echo $long;?>]).addTo(macarte);
                             <?php
                         }
-                    
                 ?>
                 // Centralisation de la carte au centre de la France
                 macarte.panTo([latcentre, loncentre]);

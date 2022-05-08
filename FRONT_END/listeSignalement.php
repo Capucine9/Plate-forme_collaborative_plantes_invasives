@@ -27,6 +27,7 @@
 <?php
     include("menu.php");
 ?> 
+
 <?php
     if($_GET["ajout"]=="true"){
         echo "<div class=inscription> Ajout du signalement réussi </div></br>";
@@ -79,7 +80,6 @@
 
 <div class="card mb-3">
     <div class="card-body">
-        
             
     <?php
         ini_set( 'display_errors', 'on' );
@@ -93,8 +93,6 @@
         catch(Exception $e){
             die('Erreur :' . $e->getMessage());
         }
-
-        
 
             if(isset($_POST['plante']) and $_POST['plante']!="" )
             {
@@ -183,8 +181,6 @@
                         $donnees = $requeteJointure->fetchAll();
                     }
                 }
-
-
             }
 
             if(isset($_POST['liste'])){
@@ -202,7 +198,6 @@
                                 $resultat[]=$signalement;
                             }
                     }
-                    
                         
                 }
                 elseif($date == "semaine"){
@@ -222,7 +217,6 @@
                                 $resultat[]=$signalement;
                             }
                     }
-
                 }
                 elseif($date == "an"){
 
@@ -240,9 +234,8 @@
 
             }
             else{
-                
                 $rechercheDate=FALSE;
-            
+
                 try{
                     $BDD = new PDO('mysql:host=localhost;port=3308;dbname=bdd;charset=utf8', 'root', 'root');
                     $BDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -251,8 +244,6 @@
                 catch(Exception $e){
                     die('Erreur :' . $e->getMessage());
                 }
-
-
                     $requeteJointure = $BDD->prepare('SELECT plantes.Nom_fr, utilisateurs.Pseudo, signalements.Ville, signalements.Coordonnees_GPS, signalements.Date_signalement, signalements.Id_signalement, signalements.Verifier, photosignalements.Photo  
                                                     FROM signalements INNER JOIN plantes ON plantes.Id_plante=signalements.Id_plante
                                                                     INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=signalements.Id_utilisateur
@@ -263,7 +254,6 @@
                     $requeteJointure->execute();
                     $donnees = $requeteJointure->fetchAll(); 
             }
-        
     
         if($rechercheDate==FALSE){
 
@@ -280,9 +270,7 @@
         } 
         else{
 
-            foreach ($tableau as $signalement){
-
-            
+            foreach ($tableau as $signalement){  
     ?>
                 
     <a href="signalement.php?id=<?php echo $signalement['Id_signalement']?> " id="lien_plante">
