@@ -1,6 +1,3 @@
-<?php
-    session_start();
-?>
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -39,10 +36,6 @@
   <body class="my-login-page">
 
   <header >
-    <div class="jumbotron   bg-image  text-Light    " >  
-      <div class="jumbotron   bg-image  text-Light    " >  
-    <div class="jumbotron   bg-image  text-Light    " >  
-      <div class="jumbotron   bg-image  text-Light    " >  
     <div class="jumbotron   bg-image  text-Light    " >  
       <h1 style="color:white;text-align:center" >
         Plate-forme collaborative de lutte contre les plantes invasives
@@ -184,10 +177,6 @@ include("menu.php");
   ?>
   </br>
 </div>
-<?php } ?>   
-    <?php } ?>   
-<?php } ?>   
-    <?php } ?>   
 <?php } ?>   
 
 <form method="post" enctype="multipart/form-data">
