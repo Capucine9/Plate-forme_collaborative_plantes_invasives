@@ -20,7 +20,7 @@
 
 		$errors = array();
 
-		if(empty($_POST['pseudo']) || !preg_match('/^[A-Za-z0-9_]+$/', $_POST['pseudo'])){
+		if(empty($_POST['pseudo']) || !preg_match('/^[A-Za-z0-9_\'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+$/', $_POST['pseudo'])){
 			$errors['pseudo']="Pseudo non valide";
 		}
 
