@@ -36,7 +36,7 @@
     $requeteJointureSignalement = 'SELECT * FROM plantes INNER JOIN utilisateurs ON utilisateurs.Id_utilisateur=plantes.Id_utilisateur
                                               INNER JOIN photoplantes ON plantes.Id_plante = photoplantes.Id_plante 
                                               LEFT OUTER JOIN signalements ON signalements.Id_plante = plantes.Id_plante
-                                              WHERE signalements.Verifier=1 and plantes.Id_plante="'.$_GET["id"].'"';
+                                              WHERE plantes.Id_plante="'.$_GET["id"].'"';
     $requeteJointureSignalement = $BDD->prepare($requeteJointureSignalement);      
     $requeteJointureSignalement->execute();
     $plante = $requeteJointureSignalement->fetchAll();
