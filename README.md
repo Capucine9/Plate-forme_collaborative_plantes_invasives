@@ -1,6 +1,4 @@
-# Projet-M1
-
-Plate forme collaborative de recensement des plantes invasives en France.
+# Plate forme collaborative de recensement des plantes invasives en France.
 
 Manuel d’instruction :
 
